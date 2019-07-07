@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="bg">
+<html class='bg'>
 <head>
 	<title>French</title>
 	<style>
@@ -9,74 +9,174 @@
 	</style>
 </head>
 <body>
-	<h2 style="text-align:center;"><u>Numbers and Weekdays</u></h2>
+	<select onChange="changing(this.value)">
+  		<option value="nothing">---</option>
+  		<option value="Numbers" style="background-color:#2cdef9">Numbers</option>
+  		<option value="Weekdays" style="background-color:#fff028">Weekdays</option>
+  		<option value="Both" style="background-color:#2bf94a">Both</option>
+	</select>
 
 	<br>
 	<br>
-
-	<div id="englishWord"></div>
-
-	<br>
-
-	<input type="text" id="myInput" onkeydown = "if (event.keyCode == 13)document.getElementById('testButton').click()">
-
-	<br>
-
-	<button id="checkButton" style="border-radius: 25px">CHECK!</button>
-
-	<br>
-
-	<div id="resultsLabel"></div>
 
 	<script>
+		function changing (option){
+			if(option == 'Numbers'){
+				window.location.href = "num.html"
+			}			
+			if(option == 'Weekdays'){
+				window.location.href = "week.html"
+			}			
+			if(option == 'Both'){
+				window.location.href = "both.html"
+			}
+			if(option == 'nothing'){
+				window.location.href = "frenchNumbersAndWeekdays.html"
+			}
+		}
+	</script>
+	<h2 style='text-align:center;'><u>Numbers and Weekdays</u></h2>
+
+	<br>
+	<br>
+	<h3 id='scoreCount'>Score: 0</h3>
+	<br>
+
+	<div id='englishWord'></div>
+
+	<br>
+
+	<input type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
+
+	<br>
+
+	<button id='checkButton' style='border-radius:25px'>CHECK</button>
+	<button id='giveUpButton' style='border-radius:25px'>GIVE UP</button>
+	<button id='nextButton' style='border-radius:25px;display:none'>NEXT</button>
+
+	<br>
+
+	<div id='resultsLabel'></div>
+
+	<script>
+		var score = 0
 		var englishWord
 		var frenchAnswer
 		var translateMe = document.getElementById('englishWord') 
-		var both = {'one':'un', 'two':'deux', 'three':'trois', 'monday':'lundi','tuesday':'mardi', 'wednesday':'mercredi'}
+		var both = {'monday':'lundi','tuesday':'mardi','wednesday':'mercredi','thursday':'jeudi','friday':'vendredi','saturday':'samedi','sunday':'dimanche','one':'un', 'two':'deux', 'three':'trois','four':'quatre','five':'cinq','six':'six','seven':'sept','eight':'huit','nine':'neuf','ten':'dix'}
 		document.getElementById('checkButton').addEventListener('click', check)
+		document.getElementById('nextButton').addEventListener('click', next)
+		document.getElementById('giveUpButton').addEventListener('click', giveUp)
+		document.getElementById('myInput').focus()
 
 		start()
 		
 		function start(){
-			var randomNumber = Math.floor((Math.random() * 6) + 1)
-
+			document.getElementById('nextButton').style.display = 'none'
+			var randomNumber = Math.floor((Math.random() * 17) + 1)
 			if (randomNumber == 1){
-				var frenchAnswer = both.one
-				localStorage.setItem('frenchAnswer',frenchAnswer)					
+				var frenchAnswer = numbers.one
+				localStorage.setItem('frenchAnswer',frenchAnswer)
             	var englishWord = 'one'
             	englishOutput(englishWord)}
 
 			if (randomNumber == 2){
-				var frenchAnswer = both.two
+				var frenchAnswer = numbers.two
 				localStorage.setItem('frenchAnswer',frenchAnswer)
             	var englishWord = 'two'
             	englishOutput(englishWord)
 			}
 			if (randomNumber == 3){
-				var frenchAnswer = both.three
+				var frenchAnswer = numbers.three
 				localStorage.setItem('frenchAnswer',frenchAnswer)
             	var englishWord = 'three'
             	englishOutput(englishWord)
 			}
 			if (randomNumber == 4){
+				var frenchAnswer = numbers.four
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'four'
+            	englishOutput(englishWord)
+			}
+			if (randomNumber == 5){
+				var frenchAnswer = numbers.five
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'five'
+            	englishOutput(englishWord)
+			}
+			if (randomNumber == 6){
+				var frenchAnswer = numbers.six
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'six'
+            	englishOutput(englishWord)
+			}
+			if (randomNumber == 7){
+				var frenchAnswer = numbers.seven
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'seven'
+            	englishOutput(englishWord)
+			}
+			if (randomNumber == 8){
+				var frenchAnswer = numbers.eight
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'eight'
+            	englishOutput(englishWord)
+			}
+			if (randomNumber == 9){
+				var frenchAnswer = numbers.neuf
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'neuf'
+            	englishOutput(englishWord)
+			}
+			if (randomNumber == 10){
+				var frenchAnswer = numbers.ten
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'ten'
+            	englishOutput(englishWord)
+            }
+			if (randomNumber == 11){
 				var frenchAnswer = both.monday
 				localStorage.setItem('frenchAnswer',frenchAnswer)
             	var englishWord = 'monday'
-            	englishOutput(englishWord)}
+            	englishOutput(englishWord)
+            }
 
-			if (randomNumber == 5){
+			if (randomNumber == 12){
 				var frenchAnswer = both.tuesday
 				localStorage.setItem('frenchAnswer',frenchAnswer)
             	var englishWord = 'tuesday'
             	englishOutput(englishWord)
 			}
-			if (randomNumber == 6){
+			if (randomNumber == 13){
 				var frenchAnswer = both.wednesday
 				localStorage.setItem('frenchAnswer',frenchAnswer)
             	var englishWord = 'wednesday'
             	englishOutput(englishWord)
+			}
+			if (randomNumber == 14){
+				var frenchAnswer = both.thursday
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'thursday'
+            	englishOutput(englishWord)
+			}
+			if (randomNumber == 15){
+				var frenchAnswer = both.friday
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'friday'
+            	englishOutput(englishWord)
+			}
+			if (randomNumber == 16){
+				var frenchAnswer = both.saturday
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'saturday'
+            	englishOutput(englishWord)
+			}
+			if (randomNumber == 17){
+				var frenchAnswer = both.sunday
+				localStorage.setItem('frenchAnswer',frenchAnswer)
+            	var englishWord = 'sunday'
+            	englishOutput(englishWord)
 			}}
-			
 			
 		function englishOutput(myOutput){
 			translateMe.innerHTML = myOutput
@@ -84,17 +184,37 @@
 
 		function check(){
             var temp = document.getElementById('myInput')
-            other(temp.value)
+            check2(temp.value)
 		}
-		function other(myAns){
+		function check2(myAns){
 			var correctAnswer = localStorage.getItem('frenchAnswer')
 			var myOutput = document.getElementById('resultsLabel')
 			if (myAns == correctAnswer){
-				myOutput.innerHTML = 'YOU ARE CORRECT!'}
+				myOutput.innerHTML = 'YOU ARE CORRECT!'
+				myOutput.style.color = 'green'
+				document.getElementById('nextButton').style.display = 'block'
+				score = score + 1
+			}
 				else{
-				myOutput.innerHTML = 'TRY AGAIN'}
+				myOutput.innerHTML = 'TRY AGAIN'
+				myOutput.style.color = 'red'
+				score = score - 1}
+			document.getElementById('scoreCount').innerHTML = 'Score: ' + score 
 		}
-		document.getElementById('myInput').focus()
+
+		function next (){
+  			document.getElementById('myInput').value = ''
+  			document.getElementById('resultsLabel').innerHTML = ''
+  			start()
+  		}
+  		function giveUp (){
+  			document.getElementById('nextButton').style.display = 'block'
+  			document.getElementById('resultsLabel').style.color = 'black'
+  			document.getElementById('resultsLabel').innerHTML = 'The correct answer is: ' + localStorage.getItem('frenchAnswer')
+  			score = score - 2
+  			document.getElementById('scoreCount').innerHTML = 'Score: ' + score 
+  		}
+	
 	</script>
 </body>
 </html>

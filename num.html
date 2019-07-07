@@ -13,6 +13,32 @@ To do:
 	</style>
 </head>
 <body>
+	<select onChange="changing(this.value)">
+  		<option value="nothing">---</option>
+  		<option value="Numbers" style="background-color:#2cdef9">Numbers</option>
+  		<option value="Weekdays" style="background-color:#fff028">Weekdays</option>
+  		<option value="Both" style="background-color:#2bf94a">Both</option>
+	</select>
+
+	<br>
+	<br>
+
+	<script>
+		function changing (option){
+			if(option == 'Numbers'){
+				window.location.href = "num.html"
+			}			
+			if(option == 'Weekdays'){
+				window.location.href = "week.html"
+			}			
+			if(option == 'Both'){
+				window.location.href = "both.html"
+			}
+			if(option == 'nothing'){
+				window.location.href = "frenchNumbersAndWeekdays.html"
+			}
+		}
+	</script>
 	<h2 style='text-align:center;'><u>Numbers</u></h2>
 
 	<br>

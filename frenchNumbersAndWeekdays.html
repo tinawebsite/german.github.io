@@ -20,36 +20,21 @@
 	<br>
 	<br>
 
-	<iframe src = "num.html" style="display:none" width="500" height="500" id="Num"></iframe>
-	<iframe src = "week.html" style="display:none" width="500" height="500" id="Week"></iframe>
-	<iframe src = "both.html" style="display:none" width="500" height="500" id="Both"></iframe>
-
-
 	<script>
 		function changing (option){
 			if(option == 'Numbers'){
-				document.getElementById("Num").className = "yes"
-				document.getElementById("Week").className = "no"
-				document.getElementById("Both").className = "no"
+				window.location.href = "num.html"
 			}			
 			if(option == 'Weekdays'){
-				document.getElementById("Num").className = "no"
-				document.getElementById("Week").className = "yes"
-				document.getElementById("Both").className = "no"
+				window.location.href = "week.html"
 			}			
 			if(option == 'Both'){
-				document.getElementById("Num").className = "no"
-				document.getElementById("Week").className = "no"
-				document.getElementById("Both").className = "yes"
+				window.location.href = "both.html"
 			}
 			if(option == 'nothing'){
-				document.getElementById("Num").className = "no"
-				document.getElementById("Week").className = "no"
-				document.getElementById("Both").className = "no"				
+				window.location.href = "frenchNumbersAndWeekdays.html"
 			}
 		}
-
-		
 	</script>
 </body>
 </html>
