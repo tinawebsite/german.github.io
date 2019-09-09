@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html class="bg">
+<head>
+	<title>French</title>
+</head>
+<body onload="load()">
+
+	<form>			
+		<section>
+	  		<input type="checkbox" id="firstCheck" onchange="firstClass()" > First Class
+		</section>
+		
+		<br>
+
+		<section>
+	  		<input type="checkbox" onchange="lastClass()" id="lastCheck"> Last Class
+		</section>
+
+		<br>
+
+		<section>
+	  		<input type="checkbox" onchange="all()" id="allCheck"> All Classes
+		</section>
+	</form>
+	<h1 id="textHere">Test</h1>
+	<script src="deutsche001.json">
+
+		function Lesson(num, teacher, json) {
+ 			this.num = num
+  			this.teacher = teacher  			
+  			this.json = json
+		}
+
+		var json001 = deutsche001
+		var deutsche1 = new Lesson(1, 'Frau Sheikh', json001)
+		document.getElementById("textHere").innerHTML = (deutsche1.json).stringify()
+
+		var deutsche2 = new Lesson(2, 'Frau Sheikh')
+	</script>
+	
+	<script>
+		//document.getElementById("numSection").style.display = 'none'
+		function load(){
+
+		}
+
+		function firstClass(){
+
+		}
+
+		function lastClass(){
+
+		}
+
+		function all(){
+
+		}
+	</script>
+</body>
+</html>
