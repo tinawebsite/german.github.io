@@ -23,20 +23,22 @@
 		</section>
 	</form>
 	<h1 id="textHere">Test</h1>
-
-
 	<script>
-  		var xhr = new XMLHttpRequest();
-  		xhr.open("GET", "deutsche001.json");
-  		xhr.addEventListener('load', processJSON);
-  		xhr.send();
 
-  		function processJSON(event) {
-    		var json = this.responseText;
-    		var obj = JSON.parse(json);
-    		console.log(obj)
-  		}
-</script>
+		function Lesson(num, teacher, json) {
+ 			this.num = num
+  			this.teacher = teacher  			
+  			this.json = json
+		}
+
+		var deutsche1 = new Lesson(1, 'Frau Sheikh', "https://api.myjson.com/bins/xwwid")
+		fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById("textHere").innerHTML= JSON.stringify(myJson)})
+
+		var deutsche2 = new Lesson(2, 'Frau Sheikh',)
+		fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById("textHere").innerHTML= JSON.stringify(myJson)})
+
+	</script>
+
 	
 	<script>
 		//document.getElementById("numSection").style.display = 'none'
