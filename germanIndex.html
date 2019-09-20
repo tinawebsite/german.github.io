@@ -19,24 +19,31 @@
 		<br>
 
 		<section>
-	  		<input type="checkbox" onchange="all()" id="allCheck"> All Classes
+	  		<input type="checkbox" onchage="all()" id="allCheck"> All Classes
 		</section>
 	</form>
-	<h1 id="textHere">Test</h1>
-	<script>
 
-		function Lesson(num, teacher, json) {
+	<h1 id="textHere">Test</h1>
+
+	<script>
+		var numOfLessons = 0
+
+		function Lesson(num, teacher, json, title) {
  			this.num = num
   			this.teacher = teacher  			
   			this.json = json
+  			this.title = title
 		}
 
-		var deutsche1 = new Lesson(1, 'Frau Sheikh', "https://api.myjson.com/bins/xwwid")
-		fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById("textHere").innerHTML= JSON.stringify(myJson)})
+		var deutsche1 = new Lesson(1, 'Frau Sheikh', "https://api.myjson.com/bins/xwwid", "Numbers 1-19")
+		var numOfLessons = numOfLessons + 1
+		fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
 
-		var deutsche2 = new Lesson(2, 'Frau Sheikh',)
-		fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById("textHere").innerHTML= JSON.stringify(myJson)})
+		var deutsche2 = new Lesson(2, 'Frau Sheikh', "https://api.myjson.com/bins/a9v5x", "Greetings")
+		var numOfLessons = numOfLessons + 1
+		fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
 
+		window.localStorage.setItem('numOfLessons',  numOfLessons)
 	</script>
 
 	
@@ -54,9 +61,15 @@
 
 		}
 
-		function all(){
-
-		}
+		document.getElementById("allCheck").addEventListener( 'change', function() {
+	    	if(this.checked) {
+	        	console.log("is checked")
+	        	console.log("At the moment there are " + window.localStorage.getItem('numOfLessons') + " lessons.")
+	        	
+	    	} else {
+	        	console.log("is not checked")
+	    	}
+		})
 	</script>
 </body>
 </html>
