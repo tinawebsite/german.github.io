@@ -35,20 +35,30 @@
   			this.title = title
 		}
 
-		var deutsche1 = new Lesson(1, 'Frau Sheikh', "https://api.myjson.com/bins/xwwid", "Numbers 1-19")
-		var numOfLessons = numOfLessons + 1
+		var deutsche1 = new Lesson(1, "Frau Sheikh", "https://api.myjson.com/bins/houcp", "Numbers 0-19") ; var numOfLessons = numOfLessons + 1
 		fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
 
-		var deutsche2 = new Lesson(2, 'Frau Sheikh', "https://api.myjson.com/bins/a9v5x", "Greetings")
-		var numOfLessons = numOfLessons + 1
+		var deutsche2 = new Lesson(2, "Frau Sheikh", "https://api.myjson.com/bins/a9v5x", "Greetings") ; var numOfLessons = numOfLessons + 1
 		fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
 
-		window.localStorage.setItem('numOfLessons',  numOfLessons)
+		var deutsche3 = new Lesson(3, "Frau King", "https://api.myjson.com/bins/luvl5", "Numbers 20-100") ; var numOfLessons = numOfLessons + 1
+		fetch(deutsche3.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
+
+		var deutsche4 = new Lesson(4, "Frau Sheikh", "https://api.myjson.com/bins/1dwe6h", "Months") ; var numOfLessons = numOfLessons + 1
+		fetch(deutsche4.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})		
+
+		var deutsche5 = new Lesson(5, "Frau Sheikh", "https://api.myjson.com/bins/lz5wp", "Dates") ; var numOfLessons = numOfLessons + 1
+		fetch(deutsche5.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})		
+
+		var deutsche6 = new Lesson(6, "Frau Sheikh", "https://api.myjson.com/bins/6hw6h", "The Verb 'Sein'") ; var numOfLessons = numOfLessons + 1
+		fetch(deutsche6.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
+
+		window.localStorage.setItem("numOfLessons",  numOfLessons)
 	</script>
 
 	
 	<script>
-		//document.getElementById("numSection").style.display = 'none'
+		//document.getElementById("numSection").style.display = "none"
 		function load(){
 
 		}
@@ -61,10 +71,10 @@
 
 		}
 
-		document.getElementById("allCheck").addEventListener( 'change', function() {
+		document.getElementById("allCheck").addEventListener( "change", function() {
 	    	if(this.checked) {
 	        	console.log("is checked")
-	        	console.log("At the moment there are " + window.localStorage.getItem('numOfLessons') + " lessons.")
+	        	console.log("At the moment there are " + window.localStorage.getItem("numOfLessons") + " lessons.")
 	        	
 	    	} else {
 	        	console.log("is not checked")
