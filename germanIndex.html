@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html class="bg">
+<html style="background-color:#b3ffd7">
 <head>
 	<title>French</title>
 </head>
 <body onload="load()">
 
-	<form>			
+	<form style="background-color:#b3fcff"> 			
 		<section>
 	  		<input type="checkbox" id="firstCheck" onchange="firstClass()" > First Class
 		</section>
@@ -23,8 +23,6 @@
 		</section>
 	</form>
 
-	<h1 id="textHere">Test</h1>
-
 	<script>
 		var numOfLessons = 0
 
@@ -34,24 +32,25 @@
   			this.json = json
   			this.title = title
 		}
+		
+			var deutsche1 = new Lesson(1, "Frau Sheikh", "https://api.myjson.com/bins/houcp", "Numbers 0-19") ; var numOfLessons = numOfLessons + 1
+			//fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
 
-		var deutsche1 = new Lesson(1, "Frau Sheikh", "https://api.myjson.com/bins/houcp", "Numbers 0-19") ; var numOfLessons = numOfLessons + 1
-		fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
+			var deutsche2 = new Lesson(2, "Frau Sheikh", "https://api.myjson.com/bins/a9v5x", "Greetings") ; var numOfLessons = numOfLessons + 1
+			//fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
 
-		var deutsche2 = new Lesson(2, "Frau Sheikh", "https://api.myjson.com/bins/a9v5x", "Greetings") ; var numOfLessons = numOfLessons + 1
-		fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
+			var deutsche3 = new Lesson(3, "Frau King", "https://api.myjson.com/bins/luvl5", "Numbers 20-100") ; var numOfLessons = numOfLessons + 1
+			//fetch(deutsche3.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
 
-		var deutsche3 = new Lesson(3, "Frau King", "https://api.myjson.com/bins/luvl5", "Numbers 20-100") ; var numOfLessons = numOfLessons + 1
-		fetch(deutsche3.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
+			var deutsche4 = new Lesson(4, "Frau Sheikh", "https://api.myjson.com/bins/1dwe6h", "Months") ; var numOfLessons = numOfLessons + 1
+			//fetch(deutsche4.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})		
 
-		var deutsche4 = new Lesson(4, "Frau Sheikh", "https://api.myjson.com/bins/1dwe6h", "Months") ; var numOfLessons = numOfLessons + 1
-		fetch(deutsche4.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})		
+			var deutsche5 = new Lesson(5, "Frau Sheikh", "https://api.myjson.com/bins/lz5wp", "Dates") ; var numOfLessons = numOfLessons + 1
+			//fetch(deutsche5.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})		
 
-		var deutsche5 = new Lesson(5, "Frau Sheikh", "https://api.myjson.com/bins/lz5wp", "Dates") ; var numOfLessons = numOfLessons + 1
-		fetch(deutsche5.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})		
-
-		var deutsche6 = new Lesson(6, "Frau Sheikh", "https://api.myjson.com/bins/6hw6h", "The Verb 'Sein'") ; var numOfLessons = numOfLessons + 1
-		fetch(deutsche6.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
+			var deutsche6 = new Lesson(6, "Frau Sheikh", "https://api.myjson.com/bins/6hw6h", "The Verb 'Sein'") ; var numOfLessons = numOfLessons + 1
+			//fetch(deutsche6.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
+		
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 	</script>
@@ -64,11 +63,16 @@
 		}
 
 		function firstClass(){
-
+			fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
 		}
 
 		function lastClass(){
-
+			//console.log((Lesson.title).stringify())
+			//for(i in )
+			commonLesson = 'deutsche'
+			str = commonLesson+' = ' + numOfLessons
+			eval(str)
+			alert(deutsche)
 		}
 
 		document.getElementById("allCheck").addEventListener( "change", function() {
