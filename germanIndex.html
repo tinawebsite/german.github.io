@@ -3,25 +3,26 @@
 <head>
 	<title>French</title>
 </head>
-<body onload="load()">
+<body>
 
 	<form style="background-color:#b3fcff"> 			
 		<section>
-	  		<input type="checkbox" id="firstCheck" onchange="firstClass()" > First Class
+	  		<input type="checkbox" id="firstCheck" > First Class
 		</section>
 		
 		<br>
 
 		<section>
-	  		<input type="checkbox" onchange="lastClass()" id="lastCheck"> Last Class
+	  		<input type="checkbox" id="lastCheck"> Last Class
 		</section>
 
 		<br>
 
 		<section>
-	  		<input type="checkbox" onchage="all()" id="allCheck"> All Classes
+	  		<input type="checkbox" id="allCheck"> All Classes
 		</section>
 	</form>
+	<h4 id="testText">It did not work</h4>
 
 	<script>
 		var numOfLessons = 0
@@ -34,48 +35,29 @@
 		}
 		
 			var deutsche1 = new Lesson(1, "Frau Sheikh", "https://api.myjson.com/bins/houcp", "Numbers 0-19") ; var numOfLessons = numOfLessons + 1
-			//fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
-
 			var deutsche2 = new Lesson(2, "Frau Sheikh", "https://api.myjson.com/bins/a9v5x", "Greetings") ; var numOfLessons = numOfLessons + 1
-			//fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
-
 			var deutsche3 = new Lesson(3, "Frau King", "https://api.myjson.com/bins/luvl5", "Numbers 20-100") ; var numOfLessons = numOfLessons + 1
-			//fetch(deutsche3.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
-
-			var deutsche4 = new Lesson(4, "Frau Sheikh", "https://api.myjson.com/bins/1dwe6h", "Months") ; var numOfLessons = numOfLessons + 1
-			//fetch(deutsche4.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})		
-
-			var deutsche5 = new Lesson(5, "Frau Sheikh", "https://api.myjson.com/bins/lz5wp", "Dates") ; var numOfLessons = numOfLessons + 1
-			//fetch(deutsche5.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})		
-
-			var deutsche6 = new Lesson(6, "Frau Sheikh", "https://api.myjson.com/bins/6hw6h", "The Verb 'Sein'") ; var numOfLessons = numOfLessons + 1
-			//fetch(deutsche6.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
-		
+			var deutsche4 = new Lesson(4, "Frau Sheikh", "https://api.myjson.com/bins/1dwe6h", "Months") ; var numOfLessons = numOfLessons + 1	
+			var deutsche5 = new Lesson(5, "Frau Sheikh", "https://api.myjson.com/bins/lz5wp", "Dates") ; var numOfLessons = numOfLessons + 1	
+			var deutsche6 = new Lesson(6, "Frau Sheikh", "https://api.myjson.com/bins/6hw6h", "The Verb 'Sein'") ; var numOfLessons = numOfLessons + 1		
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 	</script>
 
 	
 	<script>
-		//document.getElementById("numSection").style.display = "none"
-		function load(){
-
-		}
-
-		function firstClass(){
+		document.getElementById("firstCheck").addEventListener( "change", function(){
 			fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){console.log(myJson)})
-		}
+		})
 
-		function lastClass(){
-			//console.log((Lesson.title).stringify())
-			//for(i in )
+		document.getElementById("lastCheck").addEventListener( "change", function(){
 			commonLesson = 'deutsche'
-			str = commonLesson+' = ' + numOfLessons
-			eval(str)
-			alert(deutsche)
-		}
+			str = commonLesson+' = ' + 'deutsche' + numOfLessons
+			var lastResult = eval(str)
+			fetch(lastResult.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById('testText').innerHTML = JSON.stringify(myJson)})
+		})
 
-		document.getElementById("allCheck").addEventListener( "change", function() {
+		document.getElementById("allCheck").addEventListener( "change", function(){
 	    	if(this.checked) {
 	        	console.log("is checked")
 	        	console.log("At the moment there are " + window.localStorage.getItem("numOfLessons") + " lessons.")
