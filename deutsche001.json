@@ -1,12 +1,14 @@
 {
-	"haben":"to have",
-	"ich haben":"I have",
-	"du hast":"you have",
-	"er hat":"he has",
-	"sie hat":"she has",
-	"es hat":"it has",
-	"wir haben":"we have",
-	"ihr habt":"you have",
-	"sie haben":"they have",
-	"Sie haben":"you have"
+	"England":"England",
+	"Wales":"Wales",
+	"Schottland":"Scotland",
+	"Irland":"Ireland",
+	"Frankreich":"France",
+	"Deutschland":"Germany",
+	"Österreich":"Austria",
+	"Italien":"Italy",
+	"Spanien":"Spain",
+	"die Schweiz":"Switzerland",
+	"Wo wohnst du?":"Where do you live?",
+	"Ich wohne in...":"I live in..."
 }
