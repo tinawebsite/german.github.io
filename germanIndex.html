@@ -21,6 +21,7 @@
 	<h3 id = "deutsche6"></h3>
 	<h3 id = "deutsche7"></h3>
 	<h3 id = "deutsche8"></h3>
+	<h3 id = "deutsche9"></h3>
 
 	<script>
 		var numOfLessons = 0
@@ -32,26 +33,58 @@
   			this.title = title
 		}
 		
-			var deutsche1 = new Lesson(1, "Frau Sheikh", "https://api.myjson.com/bins/houcp", "Numbers 0-19") ; var numOfLessons = numOfLessons + 1
-			var deutsche2 = new Lesson(2, "Frau King", "https://api.myjson.com/bins/a9v5x", "Greetings") ; var numOfLessons = numOfLessons + 1
-			var deutsche3 = new Lesson(3, "Frau King", "https://api.myjson.com/bins/luvl5", "Numbers 20-100") ; var numOfLessons = numOfLessons + 1
-			var deutsche4 = new Lesson(4, "Frau Sheikh", "https://api.myjson.com/bins/1dwe6h", "Months") ; var numOfLessons = numOfLessons + 1	
-			var deutsche5 = new Lesson(5, "Frau Sheikh", "https://api.myjson.com/bins/6hw6h", "The Verb 'Sein'") ; var numOfLessons = numOfLessons + 1		
-			var deutsche6 = new Lesson(6, "Frau Sheikh", "https://api.myjson.com/bins/lz5wp", "Dates") ; var numOfLessons = numOfLessons + 1	
-			var deutsche7 = new Lesson(7, "Frau King", "https://api.myjson.com/bins/18eab9", "The Verb 'Haben'") ; var numOfLessons = numOfLessons + 1	
-			var deutsche8 = new Lesson(8, "Frau Sheikh", "https://api.myjson.com/bins/pkfm1", "Countries") ; var numOfLessons = numOfLessons + 1	
+		var deutsche1 = new Lesson(1, "Frau Sheikh", "https://api.myjson.com/bins/houcp", "Numbers 0-19") ; numOfLessons++ 
+		var deutsche2 = new Lesson(2, "Frau King", "https://api.myjson.com/bins/a9v5x", "Greetings") ; numOfLessons++ 
+		var deutsche3 = new Lesson(3, "Frau King", "https://api.myjson.com/bins/luvl5", "Numbers 20-100") ; numOfLessons++ 
+		var deutsche4 = new Lesson(4, "Frau Sheikh", "https://api.myjson.com/bins/1dwe6h", "Months") ; numOfLessons++ 	
+		var deutsche5 = new Lesson(5, "Frau Sheikh", "https://api.myjson.com/bins/6hw6h", "The Verb 'Sein'") ; numOfLessons++ 		
+		var deutsche6 = new Lesson(6, "Frau Sheikh", "https://api.myjson.com/bins/lz5wp", "Dates") ; numOfLessons++ 	
+		var deutsche7 = new Lesson(7, "Frau King", "https://api.myjson.com/bins/18eab9", "The Verb 'Haben'") ; numOfLessons++ 	
+		var deutsche8 = new Lesson(8, "Frau Sheikh", "https://api.myjson.com/bins/pkfm1", "Countries") ; numOfLessons++ 		
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 	</script>
 
 	
 	<script>
+		var deutsche1Dictionary = {} ; fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche1Dictionary[key] = myJson[key]})})
+
+	    var deutsche2Dictionary = {} ; fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche2Dictionary[key] = myJson[key]})})	    
+
+	    var deutsche3Dictionary = {} ; fetch(deutsche3.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche3Dictionary[key] = myJson[key]})})
+
+	   	var deutsche4Dictionary = {} ; fetch(deutsche4.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche4Dictionary[key] = myJson[key]})})
+
+	   	var deutsche5Dictionary = {} ; fetch(deutsche5.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche5Dictionary[key] = myJson[key]})})
+
+	   	var deutsche6Dictionary = {} ; fetch(deutsche6.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche6Dictionary[key] = myJson[key]})})
+
+	   	var deutsche7Dictionary = {} ; fetch(deutsche7.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche7Dictionary[key] = myJson[key]})})
+
+	   	var deutsche8Dictionary = {} ; fetch(deutsche8.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche8Dictionary[key] = myJson[key]})})
+
+		var numOfLessons = window.localStorage.getItem("numOfLessons")
+
 		document.getElementById("firstCheck").addEventListener( "change", function(){
-			if(this.checked) {
-				fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById("deutsche1").innerHTML = JSON.stringify(myJson)})
+			if(this.checked) {				
+				 document.getElementById("deutsche1").innerHTML = JSON.stringify(deutsche1Dictionary)
 			}else{
 				fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById("deutsche1").innerHTML = ""})
 				}
+		})
+
+		document.getElementById("allCheck").addEventListener( "change", function(){
+	    	if(this.checked) {
+	       		for (let step = 1; step < numOfLessons + 1; step++) {
+					str = "deutsche" +' = ' + 'deutsche' + step ; var allResult = eval(str) ; strD = "deutscheD" + ' = ' + 'deutsche' + step + "Dictionary"; var allResultDictionary = eval(strD)
+				 	document.getElementById("allResult").innerHTML = JSON.stringify(allResultDictionary)
+				}
+	    	} else {
+	       		for (let step = 1; step < numOfLessons + 1; step++) {
+					commonLesson = 'deutsche' ; str = commonLesson+' = ' + 'deutsche' + step ; var allResult = eval(str)
+					fetch(allResult.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById("deutsche" + step).innerHTML = ""})
+				}
+	    	}
 		})
 
 		document.getElementById("lastCheck").addEventListener( "change", function(){
@@ -64,22 +97,6 @@
 			}
 	    })
 
-		document.getElementById("allCheck").addEventListener( "change", function(){
-	    	if(this.checked) {
-	        	console.log("is checked")
-	        	console.log("At the moment there are " + window.localStorage.getItem("numOfLessons") + " lessons.")
-	        	commonLesson = 'deutsche' 
-	       		for (let step = 1; step < window.localStorage.getItem("numOfLessons"); step++) {
-					str = commonLesson+' = ' + 'deutsche' + step ; var allResult = eval(str)
-					fetch(allResult.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById("deutsche" + step).innerHTML = JSON.stringify(myJson)})
-				}
-	    	} else {
-	       		for (let step = 1; step < window.localStorage.getItem("numOfLessons"); step++) {
-					commonLesson = 'deutsche' ; str = commonLesson+' = ' + 'deutsche' + step ; var allResult = eval(str)
-					fetch(allResult.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById("deutsche" + step).innerHTML = ""})
-				}
-	    	}
-		})
 	</script>
 </body>
 </html>
