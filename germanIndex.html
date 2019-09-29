@@ -63,37 +63,35 @@
 
 	   	var deutsche8Dictionary = {} ; fetch(deutsche8.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche8Dictionary[key] = myJson[key]})})
 
+	   	console.log(deutsche6Dictionary)
+
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 
 		document.getElementById("firstCheck").addEventListener( "change", function(){
 			if(this.checked) {				
-				 document.getElementById("deutsche1").innerHTML = JSON.stringify(deutsche1Dictionary)
+				document.getElementById("deutsche1").innerHTML = JSON.stringify(deutsche1Dictionary)
 			}else{
-				fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById("deutsche1").innerHTML = ""})
+				document.getElementById("deutsche1").innerHTML = ""
 				}
 		})
 
 		document.getElementById("allCheck").addEventListener( "change", function(){
 	    	if(this.checked) {
 	       		for (let step = 1; step < numOfLessons + 1; step++) {
-					str = "deutsche" +' = ' + 'deutsche' + step ; var allResult = eval(str) ; strD = "deutscheD" + ' = ' + 'deutsche' + step + "Dictionary"; var allResultDictionary = eval(strD)
-				 	document.getElementById("allResult").innerHTML = JSON.stringify(allResultDictionary)
+				 	document.getElementById("deutsche" + step).innerHTML = JSON.stringify(eval("deutsche" + step + "Dictionary"))
 				}
 	    	} else {
 	       		for (let step = 1; step < numOfLessons + 1; step++) {
-					commonLesson = 'deutsche' ; str = commonLesson+' = ' + 'deutsche' + step ; var allResult = eval(str)
-					fetch(allResult.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById("deutsche" + step).innerHTML = ""})
+				 	document.getElementById("deutsche" + step).innerHTML = ""
 				}
 	    	}
 		})
 
 		document.getElementById("lastCheck").addEventListener( "change", function(){
 			if(this.checked) {
-			commonLesson = 'deutsche' ; str = commonLesson+' = ' + 'deutsche' + numOfLessons ; var lastResult = eval(str)
-			fetch(lastResult.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById("deutsche" + numOfLessons).innerHTML = JSON.stringify(myJson)})
+				document.getElementById("deutsche" + numOfLessons).innerHTML = JSON.stringify(deutsche8Dictionary) 
 			}else{
-				commonLesson = 'deutsche' ; str = commonLesson+' = ' + 'deutsche' + numOfLessons ; var lastResult = eval(str)
-					fetch(lastResult.json).then(function(response){return response.json()}).then(function(myJson){document.getElementById("deutsche" + numOfLessons).innerHTML = ""})
+				document.getElementById("deutsche" + numOfLessons).innerHTML = ""
 			}
 	    })
 
