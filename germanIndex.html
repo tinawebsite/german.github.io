@@ -13,65 +13,65 @@
 		<section><input type="checkbox" id="allCheck"> All Classes</section>
 	</form>
 
-	<section id="deutsche1Section" style="background-color:#87f1fa;display:none">
+	<section id="deutsche1Section" style="display:none">
 		<h3><u>Numbers 0-19</u></h3>
-		<div id='englishWord'></div>
+		<div id='englishWord1'></div>
 		<input type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
 		<button id='checkButton' style='border-radius:25px'>CHECK</button>
 		<button id='nextButton' style='border-radius:25px;display:none'>NEXT</button>
 		<div id='resultsLabel'></div>
 	</section>	
-	<section id="deutsche2Section" style="background-color:#f786f4;display:none">
+	<section id="deutsche2Section" style="display:none">
 		<h3><u>Greetings</u></h3>
-		<div id='englishWord'></div>
+		<div id='englishWord2'></div>
 		<input type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
 		<button id='checkButton' style='border-radius:25px'>CHECK</button>
 		<button id='nextButton' style='border-radius:25px;display:none'>NEXT</button>
 		<div id='resultsLabel'></div>
 	</section>
-	<section id="deutsche3Section" style="background-color:#f79786;display:none">
+	<section id="deutsche3Section" style="display:none">
 		<h3><u>Numbers 20-100</u></h3>
-		<div id='englishWord'></div>
+		<div id='englishWord3'></div>
 		<input type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
 		<button id='checkButton' style='border-radius:25px'>CHECK</button>
 		<button id='nextButton' style='border-radius:25px;display:none'>NEXT</button>
 		<div id='resultsLabel'></div>
 	</section>	
-	<section id="deutsche4Section" style="background-color:#f7c686;display:none">
+	<section id="deutsche4Section" style="display:none">
 		<h3><u>Months</u></h3>
-		<div id='englishWord'></div>
+		<div id='englishWord4'></div>
 		<input type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
 		<button id='checkButton' style='border-radius:25px'>CHECK</button>
 		<button id='nextButton' style='border-radius:25px;display:none'>NEXT</button>
 		<div id='resultsLabel'></div>
 	</section>
-	<section id="deutsche5Section" style="background-color:#f7f786;display:none">
+	<section id="deutsche5Section" style="display:none">
 		<h3><u>The Verb 'Sein'</u></h3>
-		<div id='englishWord'></div>
+		<div id='englishWord5'></div>
 		<input type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
 		<button id='checkButton' style='border-radius:25px'>CHECK</button>
 		<button id='nextButton' style='border-radius:25px;display:none'>NEXT</button>
 		<div id='resultsLabel'></div>
 	</section>	
-	<section id="deutsche6Section" style="background-color:#bff786;display:none">
+	<section id="deutsche6Section" style="display:none">
 		<h3><u>Dates</u></h3>
-		<div id='englishWord'></div>
+		<div id='englishWord6'></div>
 		<input type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
 		<button id='checkButton' style='border-radius:25px'>CHECK</button>
 		<button id='nextButton' style='border-radius:25px;display:none'>NEXT</button>
 		<div id='resultsLabel'></div>
 	</section>
-	<section id="deutsche7Section" style="background-color:#86c2f7;display:none">
+	<section id="deutsche7Section" style="display:none">
 		<h3><u>The Verb 'Haben'</u></h3>
-		<div id='englishWord'></div>
+		<div id='englishWord7'></div>
 		<input type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
 		<button id='checkButton' style='border-radius:25px'>CHECK</button>
 		<button id='nextButton' style='border-radius:25px;display:none'>NEXT</button>
 		<div id='resultsLabel'></div>
 	</section>	
-	<section id="deutsche8Section" style="background-color:#f786ae;display:none">
+	<section id="deutsche8Section" style="display:none">
 		<h3><u>Countries</u></h3>
-		<div id='englishWord'></div>
+		<div id='englishWord8'></div>
 		<input type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
 		<button id='checkButton' style='border-radius:25px'>CHECK</button>
 		<button id='nextButton' style='border-radius:25px;display:none'>NEXT</button>
@@ -118,13 +118,16 @@
 
 	   	var deutsche8Dictionary = {} ; fetch(deutsche8.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche8Dictionary[key] = myJson[key]})})
 
-	   	console.log(deutsche6Dictionary)
-
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 
 		document.getElementById("firstCheck").addEventListener( "change", function(){
+
 			if(this.checked) {				
+ 				var numOfKeys = (Object.keys(deutsche1Dictionary)).length
+ 				var randomNumber = Math.floor((Math.random() * numOfKeys) + 1)
 				document.getElementById("deutsche1Section").style = "display:block"
+				document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[randomNumber]
+
 			}else{
 				document.getElementById("deutsche1Section").style = "display:none"
 				}
@@ -144,9 +147,9 @@
 
 		document.getElementById("lastCheck").addEventListener( "change", function(){
 			if(this.checked) {
-				document.getElementById("deutsche" + numOfLessons).innerHTML = JSON.stringify(deutsche8Dictionary) 
+				document.getElementById("deutsche" + numOfLessons + "Section").style = "display:block"
 			}else{
-				document.getElementById("deutsche" + numOfLessons).innerHTML = ""
+				document.getElementById("deutsche" + numOfLessons + "Section").style = "display:none"
 			}
 	    })
 
