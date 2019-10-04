@@ -122,11 +122,12 @@
 
 		document.getElementById("firstCheck").addEventListener( "change", function(){
 			if(this.checked) {				
- 				var numOfKeys = (Object.keys(deutsche1Dictionary)).length
- 				var randomNumber = Math.floor((Math.random() * numOfKeys) + 1)
-				document.getElementById("deutsche1Section").style = "display:block"
-				document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[randomNumber]
-				window.localStorage.setItem("randomNumber",  randomNumber)
+ 				//var numOfKeys = (Object.keys(deutsche1Dictionary)).length
+ 				//var randomNumber = Math.floor((Math.random() * numOfKeys) + 1)
+				//document.getElementById("deutsche1Section").style = "display:block"
+				//document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[randomNumber]
+				//window.localStorage.setItem("randomNumber",  randomNumber)
+				firstCheckInter()
 
 			}else{
 				document.getElementById("deutsche1Section").style = "display:none"
@@ -139,10 +140,15 @@
 			document.getElementById("nextButton1").style = "display:none"
 
 			var numOfKeys = (Object.keys(deutsche1Dictionary)).length
- 			var randomNumber = Math.floor((Math.random() * numOfKeys) + 1)
+			var listOfVals = []
+			for (var key in deutsche1Dictionary) {
+			    if (deutsche1Dictionary.hasOwnProperty(key)) {
+			        listOfVals.push( [key] );
+			    }
+			}
+			var randomNumber = Math.floor((Math.random() * numOfKeys) + 1)
 			document.getElementById("deutsche1Section").style = "display:block"
-			document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[randomNumber]
-			window.localStorage.setItem("randomNumber",  randomNumber)
+			document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[listOfVals[randomNumber]]
 		}
 
 		document.getElementById("allCheck").addEventListener( "change", function(){
@@ -167,9 +173,11 @@
 
 		function check1(){
 			var randomNumber = window.localStorage.getItem("randomNumber")
-			var inputVal1 = randomNumber
+			var correctAns = document.getElementById("englishWord1").innerHTML 
+			var correctAnsTrue = deutsche1Dictionary[correctAns]
+			console.log(correctAnsTrue) // <-------------- Work here now
 			var userInput1 = document.getElementById("myInput1").value
-			if(inputVal1 == userInput1){
+			if(correctAnsTrue == userInput1){
 				document.getElementById("resultsLabel1").innerHTML = "Well Done"
 				document.getElementById("resultsLabel1").style = "color:green"
 				document.getElementById("nextButton1").style = "display:block"
