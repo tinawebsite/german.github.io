@@ -14,7 +14,7 @@
 	</form>
 
 	<section id="deutsche1Section" style="display:none">
-		<h3><u>Numbers 0-19</u></h3>
+		<h3><u>First Lesson</u></h3>
 		<div id='englishWord1'></div>
 		<input type='text' id='myInput1' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton1').click()">
 		<button id='checkButton1' style='border-radius:25px' onclick="check1()">CHECK</button>
@@ -22,7 +22,7 @@
 		<div id='resultsLabel1'></div>
 	</section>	
 	<section id="deutsche2Section" style="display:none">
-		<h3><u>Greetings</u></h3>
+		<h3><u>Last Lesson</u></h3>
 		<div id='englishWord2'></div>
 		<input type='text' id='myInput2' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton2').click()">
 		<button id='checkButton2' style='border-radius:25px'>CHECK</button>
@@ -30,52 +30,12 @@
 		<div id='resultsLabel2'></div>
 	</section>
 	<section id="deutsche3Section" style="display:none">
-		<h3><u>Numbers 20-100</u></h3>
+		<h3><u>All Lessons</u></h3>
 		<div id='englishWord3'></div>
 		<input type='text' id='myInput3' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton3').click()">
 		<button id='checkButton3' style='border-radius:25px'>CHECK</button>
 		<button id='nextButton3' style='border-radius:25px;display:none'>NEXT</button>
 		<div id='resultsLabel3'></div>
-	</section>	
-	<section id="deutsche4Section" style="display:none">
-		<h3><u>Months</u></h3>
-		<div id='englishWord4'></div>
-		<input type='text' id='myInput4' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton4').click()">
-		<button id='checkButton4' style='border-radius:25px'>CHECK</button>
-		<button id='nextButton4' style='border-radius:25px;display:none'>NEXT</button>
-		<div id='resultsLabel4'></div>
-	</section>
-	<section id="deutsche5Section" style="display:none">
-		<h3><u>The Verb 'Sein'</u></h3>
-		<div id='englishWord5'></div>
-		<input type='text' id='myInput5' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton5').click()">
-		<button id='checkButton5' style='border-radius:25px'>CHECK</button>
-		<button id='nextButton5' style='border-radius:25px;display:none'>NEXT</button>
-		<div id='resultsLabel5'></div>
-	</section>	
-	<section id="deutsche6Section" style="display:none">
-		<h3><u>Dates</u></h3>
-		<div id='englishWord6'></div>
-		<input type='text' id='myInput6' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton6').click()">
-		<button id='checkButton6' style='border-radius:25px'>CHECK</button>
-		<button id='nextButton6' style='border-radius:25px;display:none'>NEXT</button>
-		<div id='resultsLabel6'></div>
-	</section>
-	<section id="deutsche7Section" style="display:none">
-		<h3><u>The Verb 'Haben'</u></h3>
-		<div id='englishWord7'></div>
-		<input type='text' id='myInput7' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton7').click()">
-		<button id='checkButton7' style='border-radius:25px'>CHECK</button>
-		<button id='nextButton7' style='border-radius:25px;display:none'>NEXT</button>
-		<div id='resultsLabel7'></div>
-	</section>	
-	<section id="deutsche8Section" style="display:none">
-		<h3><u>Countries</u></h3>
-		<div id='englishWord8'></div>
-		<input type='text' id='myInput8' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton8').click()">
-		<button id='checkButton8' style='border-radius:25px'>CHECK</button>
-		<button id='nextButton8' style='border-radius:25px;display:none'>NEXT</button>
-		<div id='resultsLabel8'></div>
 	</section>
 
 	<script>
@@ -122,60 +82,31 @@
 
 		document.getElementById("firstCheck").addEventListener( "change", function(){
 			if(this.checked) {				
- 				//var numOfKeys = (Object.keys(deutsche1Dictionary)).length
- 				//var randomNumber = Math.floor((Math.random() * numOfKeys) + 1)
-				//document.getElementById("deutsche1Section").style = "display:block"
-				//document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[randomNumber]
-				//window.localStorage.setItem("randomNumber",  randomNumber)
 				firstCheckInter()
 
 			}else{
 				document.getElementById("deutsche1Section").style = "display:none"
 				}
 		})
-
 		function firstCheckInter(){
 			document.getElementById("myInput1").value = ""
 			document.getElementById("resultsLabel1").innerHTML = ""
 			document.getElementById("nextButton1").style = "display:none"
 
-			var numOfKeys = (Object.keys(deutsche1Dictionary)).length
-			var listOfVals = []
+			var listOfValsFirst = []
 			for (var key in deutsche1Dictionary) {
 			    if (deutsche1Dictionary.hasOwnProperty(key)) {
-			        listOfVals.push( [key] );
+			        listOfValsFirst.push([key])
 			    }
 			}
+			var numOfKeys = (Object.keys(listOfValsFirst)).length
 			var randomNumber = Math.floor((Math.random() * numOfKeys) + 1)
 			document.getElementById("deutsche1Section").style = "display:block"
-			document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[listOfVals[randomNumber]]
+			document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[listOfValsFirst[randomNumber]]
 		}
-
-		document.getElementById("allCheck").addEventListener( "change", function(){
-	    	if(this.checked) {
-	       		for (let step = 1; step < numOfLessons + 1; step++) {
-				 	document.getElementById("deutsche" + step + "Section").style = "display:block"
-				}
-	    	} else {
-	       		for (let step = 1; step < numOfLessons + 1; step++) {
-				 	document.getElementById("deutsche" + step + "Section").style = "display:none"
-				}
-	    	}
-		})
-
-		document.getElementById("lastCheck").addEventListener( "change", function(){
-			if(this.checked) {
-				document.getElementById("deutsche" + numOfLessons + "Section").style = "display:block"
-			}else{
-				document.getElementById("deutsche" + numOfLessons + "Section").style = "display:none"
-			}
-	    })
-
 		function check1(){
-			var randomNumber = window.localStorage.getItem("randomNumber")
 			var correctAns = document.getElementById("englishWord1").innerHTML 
 			var correctAnsTrue = deutsche1Dictionary[correctAns]
-			console.log(correctAnsTrue) // <-------------- Work here now
 			var userInput1 = document.getElementById("myInput1").value
 			if(correctAnsTrue == userInput1){
 				document.getElementById("resultsLabel1").innerHTML = "Well Done"
@@ -188,6 +119,57 @@
 		}
 
 
+		document.getElementById("lastCheck").addEventListener( "change", function(){
+			if(this.checked) {				
+				lastCheckInter()
+			}else{
+				document.getElementById("deutsche2Section").style = "display:none"
+				}
+		})
+		function lastCheckInter(){
+			document.getElementById("myInput2").value = ""
+			document.getElementById("resultsLabel2").innerHTML = ""
+			document.getElementById("nextButton2").style = "display:none"
+			var lastDictionary =  eval("deutsche" + numOfLessons + "Dictionary")
+
+			var listOfValsLast = []
+			for (var key in lastDictionary) {
+			    if (lastDictionary.hasOwnProperty(key)) {
+			        listOfValsLast.push([key])
+			    }
+			}
+
+			var numOfKeys = (Object.keys(listOfValsLast)).length
+			var randomNumber = Math.floor((Math.random() * numOfKeys) + 1)
+			document.getElementById("deutsche2Section").style = "display:block"
+			document.getElementById("englishWord2").innerHTML = lastDictionary[listOfValsLast[randomNumber]]
+		}
+		function check2(){
+			var correctAns = document.getElementById("englishWord2").innerHTML 
+			var correctAnsTrue = deutsche2Dictionary[correctAns]
+			var userInput2 = document.getElementById("myInput2").value
+			if(correctAnsTrue == userInput2){
+			document.getElementById("resultsLabel2").innerHTML = "Well Done"
+			document.getElementById("resultsLabel2").style = "color:green"
+			document.getElementById("nextButton2").style = "display:block"
+			}else{
+				document.getElementById("resultsLabel2").innerHTML = "Try Again"
+				document.getElementById("resultsLabel2").style = "color:red"
+			}
+		}
+
+
+		document.getElementById("allCheck").addEventListener("change", function(){
+			if(this.checked) {				
+				allCheckInter()
+
+			}else{
+				document.getElementById("deutsche3Section").style = "display:none"
+				}
+		})
+		function allCheckInter(){
+
+		}
 	</script>
 </body>
 </html>
