@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html style="background-color:#b3ffd7">
 <head>
-	<title>French</title>
+	<title> g e r m a n</title>
 </head>
 <body>
-
+	<h1 style="text-align:center;"><u>𝔾 𝕖 𝕣 𝕞 𝕒 𝕟 </u></h1>
 	<form style="background-color:#e5d4fa"> 			
 		<section><input type="checkbox" id="firstCheck" > First Class</section>
 		<br>
@@ -25,16 +25,16 @@
 		<h3><u>Last Lesson</u></h3>
 		<div id='englishWord2'></div>
 		<input type='text' id='myInput2' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton2').click()">
-		<button id='checkButton2' style='border-radius:25px'>CHECK</button>
-		<button id='nextButton2' style='border-radius:25px;display:none'>NEXT</button>
+		<button id='checkButton2' style='border-radius:25px'  onclick="check2()">CHECK</button>
+		<button id='nextButton2' style='border-radius:25px;display:none' onclick="lastCheckInter()">NEXT</button>
 		<div id='resultsLabel2'></div>
 	</section>
 	<section id="deutsche3Section" style="display:none">
 		<h3><u>All Lessons</u></h3>
 		<div id='englishWord3'></div>
 		<input type='text' id='myInput3' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton3').click()">
-		<button id='checkButton3' style='border-radius:25px'>CHECK</button>
-		<button id='nextButton3' style='border-radius:25px;display:none'>NEXT</button>
+		<button id='checkButton3' style='border-radius:25px' onclick="check3()">CHECK</button>
+		<button id='nextButton3' style='border-radius:25px;display:none' onclick="allCheckInter()">NEXT</button>
 		<div id='resultsLabel3'></div>
 	</section>
 
@@ -83,7 +83,6 @@
 		document.getElementById("firstCheck").addEventListener( "change", function(){
 			if(this.checked) {				
 				firstCheckInter()
-
 			}else{
 				document.getElementById("deutsche1Section").style = "display:none"
 				}
@@ -92,6 +91,7 @@
 			document.getElementById("myInput1").value = ""
 			document.getElementById("resultsLabel1").innerHTML = ""
 			document.getElementById("nextButton1").style = "display:none"
+			var listOfValsFirst = ""
 
 			var listOfValsFirst = []
 			for (var key in deutsche1Dictionary) {
@@ -99,16 +99,16 @@
 			        listOfValsFirst.push([key])
 			    }
 			}
+	
 			var numOfKeys = (Object.keys(listOfValsFirst)).length
-			var randomNumber = Math.floor((Math.random() * numOfKeys) + 1)
+			var randomNumber1 = Math.floor((Math.random() * numOfKeys))
 			document.getElementById("deutsche1Section").style = "display:block"
-			document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[listOfValsFirst[randomNumber]]
+			document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[listOfValsFirst[randomNumber1]]
+			var correctAns1 = listOfValsFirst[randomNumber1]
+			window.localStorage.setItem("correctAns1",  correctAns1)
 		}
 		function check1(){
-			var correctAns = document.getElementById("englishWord1").innerHTML 
-			var correctAnsTrue = deutsche1Dictionary[correctAns]
-			var userInput1 = document.getElementById("myInput1").value
-			if(correctAnsTrue == userInput1){
+			if(window.localStorage.getItem("correctAns1") == document.getElementById("myInput1").value){
 				document.getElementById("resultsLabel1").innerHTML = "Well Done"
 				document.getElementById("resultsLabel1").style = "color:green"
 				document.getElementById("nextButton1").style = "display:block"
@@ -130,28 +130,28 @@
 			document.getElementById("myInput2").value = ""
 			document.getElementById("resultsLabel2").innerHTML = ""
 			document.getElementById("nextButton2").style = "display:none"
-			var lastDictionary =  eval("deutsche" + numOfLessons + "Dictionary")
+			var listOfValsLast = ""
 
+			var lastLessonDictionary = eval("deutsche" + numOfLessons + "Dictionary")
 			var listOfValsLast = []
-			for (var key in lastDictionary) {
-			    if (lastDictionary.hasOwnProperty(key)) {
+			for (var key in lastLessonDictionary) {
+			    if (lastLessonDictionary.hasOwnProperty(key)) {
 			        listOfValsLast.push([key])
 			    }
 			}
-
+	
 			var numOfKeys = (Object.keys(listOfValsLast)).length
-			var randomNumber = Math.floor((Math.random() * numOfKeys) + 1)
+			var randomNumber2 = Math.floor((Math.random() * numOfKeys))
 			document.getElementById("deutsche2Section").style = "display:block"
-			document.getElementById("englishWord2").innerHTML = lastDictionary[listOfValsLast[randomNumber]]
+			document.getElementById("englishWord2").innerHTML = lastLessonDictionary[listOfValsLast[randomNumber2]]
+			var correctAns2 = listOfValsLast[randomNumber2]
+			window.localStorage.setItem("correctAns2",  correctAns2)
 		}
 		function check2(){
-			var correctAns = document.getElementById("englishWord2").innerHTML 
-			var correctAnsTrue = deutsche2Dictionary[correctAns]
-			var userInput2 = document.getElementById("myInput2").value
-			if(correctAnsTrue == userInput2){
-			document.getElementById("resultsLabel2").innerHTML = "Well Done"
-			document.getElementById("resultsLabel2").style = "color:green"
-			document.getElementById("nextButton2").style = "display:block"
+			if(window.localStorage.getItem("correctAns2") == document.getElementById("myInput2").value){
+				document.getElementById("resultsLabel2").innerHTML = "Well Done"
+				document.getElementById("resultsLabel2").style = "color:green"
+				document.getElementById("nextButton2").style = "display:block"
 			}else{
 				document.getElementById("resultsLabel2").innerHTML = "Try Again"
 				document.getElementById("resultsLabel2").style = "color:red"
@@ -159,16 +159,45 @@
 		}
 
 
-		document.getElementById("allCheck").addEventListener("change", function(){
+		document.getElementById("allCheck").addEventListener( "change", function(){
 			if(this.checked) {				
 				allCheckInter()
-
 			}else{
 				document.getElementById("deutsche3Section").style = "display:none"
 				}
 		})
 		function allCheckInter(){
+			document.getElementById("myInput3").value = ""
+			document.getElementById("resultsLabel3").innerHTML = ""
+			document.getElementById("nextButton3").style = "display:none"
+			var listOfValsAll = ""
 
+			var allLessonDictionary = { ...deutsche1Dictionary, ...deutsche2Dictionary, ...deutsche3Dictionary, ...deutsche4Dictionary, ...deutsche5Dictionary, ...deutsche6Dictionary, ...deutsche7Dictionary, ...deutsche8Dictionary} 
+
+			var listOfValsAll = []
+
+			for (var key in allLessonDictionary) {
+			    if (allLessonDictionary.hasOwnProperty(key)) {
+			        listOfValsAll.push([key])
+			    }
+			}
+	
+			var numOfKeys = (Object.keys(listOfValsAll)).length
+			var randomNumber3 = Math.floor((Math.random() * numOfKeys))
+			document.getElementById("deutsche3Section").style = "display:block"
+			document.getElementById("englishWord3").innerHTML = allLessonDictionary[listOfValsAll[randomNumber3]]
+			var correctAns3 = listOfValsAll[randomNumber3]
+			window.localStorage.setItem("correctAns3",  correctAns3)
+		}
+		function check3(){
+			if(window.localStorage.getItem("correctAns3") == document.getElementById("myInput3").value){
+				document.getElementById("resultsLabel3").innerHTML = "Well Done"
+				document.getElementById("resultsLabel3").style = "color:green"
+				document.getElementById("nextButton3").style = "display:block"
+			}else{
+				document.getElementById("resultsLabel3").innerHTML = "Try Again"
+				document.getElementById("resultsLabel3").style = "color:red"
+			}
 		}
 	</script>
 </body>
