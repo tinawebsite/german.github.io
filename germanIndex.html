@@ -4,7 +4,7 @@
 	<title> g e r m a n</title>
 </head>
 <body>
-	<h1 style="text-align:center;"><u>𝔾 𝕖 𝕣 𝕞 𝕒 𝕟 </u></h1>
+	<h1 style="text-align:center;"><u>German</u></h1>
 	<form style="background-color:#e5d4fa"> 			
 		<section><input type="checkbox" id="firstCheck" > First Class</section>
 		<br>
@@ -16,25 +16,34 @@
 	<section id="deutsche1Section" style="display:none">
 		<h3><u>First Lesson</u></h3>
 		<div id='englishWord1'></div>
+		<div id='counter1'>Score: 0</div>
 		<input type='text' id='myInput1' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton1').click()">
 		<button id='checkButton1' style='border-radius:25px' onclick="check1()">CHECK</button>
-		<button id='nextButton1' style='border-radius:25px;display:none' onclick="firstCheckInter()">NEXT</button>
+		<button id='giveUpButton1' style='border-radius:25px' onclick="firstGiveUp()">GIVE UP</button>
+		<button id='skipButton1' style='border-radius:25px' onclick="firstSkip()">SKIP</button>
+		<button id='nextButton1' style='border-radius:25px' onclick="firstCheckInter()">NEXT</button>
 		<div id='resultsLabel1'></div>
 	</section>	
 	<section id="deutsche2Section" style="display:none">
 		<h3><u>Last Lesson</u></h3>
 		<div id='englishWord2'></div>
+		<div id='counter2'>Score: 0</div>
 		<input type='text' id='myInput2' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton2').click()">
 		<button id='checkButton2' style='border-radius:25px'  onclick="check2()">CHECK</button>
-		<button id='nextButton2' style='border-radius:25px;display:none' onclick="lastCheckInter()">NEXT</button>
+		<button id='giveUpButton2' style='border-radius:25px' onclick="lastGiveUp()">GIVE UP</button>
+		<button id='skipButton2' style='border-radius:25px' onclick="lastSkip()">SKIP</button>
+		<button id='nextButton2' style='border-radius:25px' onclick="lastCheckInter()">NEXT</button>
 		<div id='resultsLabel2'></div>
 	</section>
 	<section id="deutsche3Section" style="display:none">
 		<h3><u>All Lessons</u></h3>
 		<div id='englishWord3'></div>
+		<div id='counter3'>Score: 0</div>
 		<input type='text' id='myInput3' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton3').click()">
 		<button id='checkButton3' style='border-radius:25px' onclick="check3()">CHECK</button>
-		<button id='nextButton3' style='border-radius:25px;display:none' onclick="allCheckInter()">NEXT</button>
+		<button id='giveUpButton3' style='border-radius:25px' onclick="allGiveUp()">GIVE UP</button>
+		<button id='skipButton3' style='border-radius:25px' onclick="allSkip()">SKIP</button>
+		<button id='nextButton3' style='border-radius:25px' onclick="allCheckInter()">NEXT</button>
 		<div id='resultsLabel3'></div>
 	</section>
 
@@ -90,7 +99,7 @@
 		function firstCheckInter(){
 			document.getElementById("myInput1").value = ""
 			document.getElementById("resultsLabel1").innerHTML = ""
-			document.getElementById("nextButton1").style = "display:none"
+			document.getElementById("nextButton1").style.display = "none"
 			var listOfValsFirst = ""
 
 			var listOfValsFirst = []
@@ -111,11 +120,17 @@
 			if(window.localStorage.getItem("correctAns1") == document.getElementById("myInput1").value){
 				document.getElementById("resultsLabel1").innerHTML = "Well Done"
 				document.getElementById("resultsLabel1").style = "color:green"
-				document.getElementById("nextButton1").style = "display:block"
+				document.getElementById("nextButton1").style.display = "block"
 			}else{
 				document.getElementById("resultsLabel1").innerHTML = "Try Again"
 				document.getElementById("resultsLabel1").style = "color:red"
 			}
+		}
+		function firstGiveUp(){
+			firstCheckInter()
+		}
+		function firstSkip(){
+			firstCheckInter()
 		}
 
 
@@ -129,7 +144,7 @@
 		function lastCheckInter(){
 			document.getElementById("myInput2").value = ""
 			document.getElementById("resultsLabel2").innerHTML = ""
-			document.getElementById("nextButton2").style = "display:none"
+			document.getElementById("nextButton2").style.display = "none"
 			var listOfValsLast = ""
 
 			var lastLessonDictionary = eval("deutsche" + numOfLessons + "Dictionary")
@@ -151,25 +166,32 @@
 			if(window.localStorage.getItem("correctAns2") == document.getElementById("myInput2").value){
 				document.getElementById("resultsLabel2").innerHTML = "Well Done"
 				document.getElementById("resultsLabel2").style = "color:green"
-				document.getElementById("nextButton2").style = "display:block"
+				document.getElementById("nextButton2").style.display = "block"
 			}else{
 				document.getElementById("resultsLabel2").innerHTML = "Try Again"
 				document.getElementById("resultsLabel2").style = "color:red"
 			}
 		}
+		function lastGiveUp(){
+			lastCheckInter()
+		}
+		function lastSkip(){
+			lastCheckInter()
+		}
+
 
 
 		document.getElementById("allCheck").addEventListener( "change", function(){
 			if(this.checked) {				
 				allCheckInter()
 			}else{
-				document.getElementById("deutsche3Section").style = "display:none"
+				document.getElementById("deutsche3Section").style.display = "none"
 				}
 		})
 		function allCheckInter(){
 			document.getElementById("myInput3").value = ""
 			document.getElementById("resultsLabel3").innerHTML = ""
-			document.getElementById("nextButton3").style = "display:none"
+			document.getElementById("nextButton3").style.display = "none"
 			var listOfValsAll = ""
 
 			var allLessonDictionary = { ...deutsche1Dictionary, ...deutsche2Dictionary, ...deutsche3Dictionary, ...deutsche4Dictionary, ...deutsche5Dictionary, ...deutsche6Dictionary, ...deutsche7Dictionary, ...deutsche8Dictionary} 
@@ -193,12 +215,19 @@
 			if(window.localStorage.getItem("correctAns3") == document.getElementById("myInput3").value){
 				document.getElementById("resultsLabel3").innerHTML = "Well Done"
 				document.getElementById("resultsLabel3").style = "color:green"
-				document.getElementById("nextButton3").style = "display:block"
+				document.getElementById("nextButton3").style.display = "block"
 			}else{
 				document.getElementById("resultsLabel3").innerHTML = "Try Again"
 				document.getElementById("resultsLabel3").style = "color:red"
 			}
 		}
+		function allGiveUp(){
+			AllCheckInter()
+		}
+		function allSkip(){
+			AllCheckInter()
+		}
+
 	</script>
 </body>
 </html>
