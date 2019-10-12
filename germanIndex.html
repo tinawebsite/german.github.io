@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html style="background-color:#b3ffd7">
+<html style="background-color:#fffb8c">
 <head>
 	<title>German</title>
 </head>
 <body>
 	<h1 style="text-align:center;"><u>German</u></h1>
-	<form style="background-color:#e5d4fa"> 			
+	<form style="background-color:#fcce03"> 			
 		<section><input type="checkbox" id="firstCheck" > First Class</section>
 		<br>
 		<section><input type="checkbox" id="lastCheck"> Last Class</section>
@@ -14,8 +14,9 @@
 	</form>
 
 	<section id="deutsche1Section" style="display:none">
-		<h3><u>First Lesson</u></h3>
-		<div id='counter1'>Score: 0</div>
+		<h3><u>First Lesson</u></h3><div><i>Type in the answer as a number</i></div>
+		<br>
+		<div id='counter1'><b>Score: 0</b></div>
 		<br>
 		<div id='englishWord1'></div>
 		<input type='text' id='myInput1' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton1').click()">
@@ -28,8 +29,11 @@
 
 	<section id="deutsche2Section" style="display:none">
 		<h3><u>Last Lesson</u></h3>
+		<div><i>Remember to correctly capitalise your answer.</i></div>
+		<br>
+		<div id='counter2'><b>Score: 0</b></div>
+		<br>
 		<div id='englishWord2'></div>
-		<div id='counter2'>Score: 0</div>
 		<br>
 		<input type='text' id='myInput2' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton2').click()">
 		<button id='checkButton2' style='border-radius:25px'  onclick="check2()">CHECK</button>
@@ -41,10 +45,11 @@
 
 	<section id="deutsche3Section" style="display:none">
 		<h3><u>All Lessons</u></h3>
-		<div id='counter3'>Score: 0</div>
+		<div><i>Remember to correctly capitalise your answer, type numbers as numbers and not words and write dates like '1st' and '16th' with the letters at the end.</i></div>
+		<br>
+		<div id='counter3'><b>Score: 0</b></div>
 		<br>
 		<div id='englishWord3'></div>
-		<div id='counter3'>Score: 0</div>
 		<input type='text' id='myInput3' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton3').click()">
 		<button id='checkButton3' style='border-radius:25px' onclick="check3()">CHECK</button>
 		<button id='giveUpButton3' style='border-radius:25px' onclick="allGiveUp()">GIVE UP</button>
@@ -96,6 +101,9 @@
 
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var counter1 = 0 
+		var counter2 = 0 
+		var counter3 = 0 
+
 
 		document.getElementById("firstCheck").addEventListener( "change", function(){
 			if(this.checked) {				
@@ -108,6 +116,9 @@
 			document.getElementById("myInput1").value = ""
 			document.getElementById("resultsLabel1").innerHTML = ""
 			document.getElementById("nextButton1").style.display = "none"
+			document.getElementById("skipButton1").style.display = "inline"
+			document.getElementById("checkButton1").style.display = "inline"
+			document.getElementById("giveUpButton1").style.display = "inline"
 			var listOfValsFirst = ""
 
 			var listOfValsFirst = []
@@ -119,7 +130,7 @@
 	
 			var numOfKeys = (Object.keys(listOfValsFirst)).length
 			var randomNumber1 = Math.floor((Math.random() * numOfKeys))
-			document.getElementById("deutsche1Section").style = "display:block"
+			document.getElementById("deutsche1Section").style = "display:inline"
 			document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[listOfValsFirst[randomNumber1]]
 			var correctAns1 = listOfValsFirst[randomNumber1]
 			window.localStorage.setItem("correctAns1",  correctAns1)
@@ -128,9 +139,12 @@
 			if(window.localStorage.getItem("correctAns1") == document.getElementById("myInput1").value){
 				document.getElementById("resultsLabel1").innerHTML = "Well Done"
 				document.getElementById("resultsLabel1").style = "color:green"
-				document.getElementById("nextButton1").style.display = "block"
+				document.getElementById("nextButton1").style.display = "inline"
 				counter1 = counter1 + 1 
 				document.getElementById("counter1").innerHTML = "Score: " + counter1 
+				document.getElementById("skipButton1").style.display = "none"
+				document.getElementById("checkButton1").style.display = "none"
+				document.getElementById("giveUpButton1").style.display = "none"
 			}else{
 				document.getElementById("resultsLabel1").innerHTML = "Try Again"
 				document.getElementById("resultsLabel1").style = "color:red"
@@ -139,9 +153,15 @@
 			}
 		}
 		function firstGiveUp(){
-			firstCheckInter()
+			document.getElementById("resultsLabel1").innerHTML = "The correct answer is: " + window.localStorage.getItem("correctAns1")
+			document.getElementById("resultsLabel1").style = "color:red"
 			counter1 = counter1 - 3
 			document.getElementById("counter1").innerHTML = "Score: " + counter1 
+			document.getElementById("skipButton1").style.display = "none"
+			document.getElementById("checkButton1").style.display = "none"
+			document.getElementById("giveUpButton1").style.display = "none"
+			document.getElementById("nextButton1").style.display = "inline"
+
 		}
 		function firstSkip(){
 			firstCheckInter()
@@ -159,6 +179,9 @@
 			document.getElementById("myInput2").value = ""
 			document.getElementById("resultsLabel2").innerHTML = ""
 			document.getElementById("nextButton2").style.display = "none"
+			document.getElementById("skipButton2").style.display = "inline"
+			document.getElementById("checkButton2").style.display = "inline"
+			document.getElementById("giveUpButton2").style.display = "inline"
 			var listOfValsLast = ""
 
 			var lastLessonDictionary = eval("deutsche" + numOfLessons + "Dictionary")
@@ -171,7 +194,7 @@
 	
 			var numOfKeys = (Object.keys(listOfValsLast)).length
 			var randomNumber2 = Math.floor((Math.random() * numOfKeys))
-			document.getElementById("deutsche2Section").style = "display:block"
+			document.getElementById("deutsche2Section").style = "display:inline"
 			document.getElementById("englishWord2").innerHTML = lastLessonDictionary[listOfValsLast[randomNumber2]]
 			var correctAns2 = listOfValsLast[randomNumber2]
 			window.localStorage.setItem("correctAns2",  correctAns2)
@@ -180,14 +203,29 @@
 			if(window.localStorage.getItem("correctAns2") == document.getElementById("myInput2").value){
 				document.getElementById("resultsLabel2").innerHTML = "Well Done"
 				document.getElementById("resultsLabel2").style = "color:green"
-				document.getElementById("nextButton2").style.display = "block"
+				document.getElementById("nextButton2").style.display = "inline"
+				counter2 = counter2 + 1
+				document.getElementById("counter2").innerHTML = "Score: " + counter2
+				document.getElementById("skipButton2").style.display = "none"
+				document.getElementById("checkButton2").style.display = "none"
+				document.getElementById("giveUpButton2").style.display = "none"
+
 			}else{
 				document.getElementById("resultsLabel2").innerHTML = "Try Again"
 				document.getElementById("resultsLabel2").style = "color:red"
+				counter2 = counter2 - 1
+				document.getElementById("counter2").innerHTML = "Score: " + counter2
 			}
 		}
 		function lastGiveUp(){
-			lastCheckInter()
+			document.getElementById("resultsLabel2").innerHTML = "The correct answer is: " + window.localStorage.getItem("correctAns2")
+			document.getElementById("resultsLabel2").style = "color:red"
+			counter2 = counter2 - 3
+			document.getElementById("counter2").innerHTML = "Score: " + counter2
+			document.getElementById("skipButton2").style.display = "none"
+			document.getElementById("checkButton2").style.display = "none"
+			document.getElementById("giveUpButton2").style.display = "none"
+			document.getElementById("nextButton2").style.display = "inline"
 		}
 		function lastSkip(){
 			lastCheckInter()
@@ -206,6 +244,9 @@
 			document.getElementById("myInput3").value = ""
 			document.getElementById("resultsLabel3").innerHTML = ""
 			document.getElementById("nextButton3").style.display = "none"
+			document.getElementById("skipButton3").style.display = "inline"
+			document.getElementById("checkButton3").style.display = "inline"
+			document.getElementById("giveUpButton3").style.display = "inline"
 			var listOfValsAll = ""
 
 			var allLessonDictionary = { ...deutsche1Dictionary, ...deutsche2Dictionary, ...deutsche3Dictionary, ...deutsche4Dictionary, ...deutsche5Dictionary, ...deutsche6Dictionary, ...deutsche7Dictionary, ...deutsche8Dictionary} 
@@ -220,7 +261,7 @@
 	
 			var numOfKeys = (Object.keys(listOfValsAll)).length
 			var randomNumber3 = Math.floor((Math.random() * numOfKeys))
-			document.getElementById("deutsche3Section").style = "display:block"
+			document.getElementById("deutsche3Section").style = "display:inline"
 			document.getElementById("englishWord3").innerHTML = allLessonDictionary[listOfValsAll[randomNumber3]]
 			var correctAns3 = listOfValsAll[randomNumber3]
 			window.localStorage.setItem("correctAns3",  correctAns3)
@@ -229,14 +270,28 @@
 			if(window.localStorage.getItem("correctAns3") == document.getElementById("myInput3").value){
 				document.getElementById("resultsLabel3").innerHTML = "Well Done"
 				document.getElementById("resultsLabel3").style = "color:green"
-				document.getElementById("nextButton3").style.display = "block"
+				document.getElementById("nextButton3").style.display = "inline"
+				counter3 = counter3 + 1
+				document.getElementById("counter3").innerHTML = "Score: " + counter3
+				document.getElementById("skipButton3").style.display = "none"
+				document.getElementById("checkButton3").style.display = "none"
+				document.getElementById("giveUpButton3").style.display = "none"
 			}else{
 				document.getElementById("resultsLabel3").innerHTML = "Try Again"
 				document.getElementById("resultsLabel3").style = "color:red"
+				counter3 = counter3 - 1
+				document.getElementById("counter3").innerHTML = "Score: " + counter3
 			}
 		}
 		function allGiveUp(){
-			AllCheckInter()
+			document.getElementById("resultsLabel3").innerHTML = "The correct answer is: " + window.localStorage.getItem("correctAns3")
+			document.getElementById("resultsLabel3").style = "color:red"
+			counter3 = counter3 - 3
+			document.getElementById("counter3").innerHTML = "Score: " + counter3
+			document.getElementById("skipButton3").style.display = "none"
+			document.getElementById("checkButton3").style.display = "none"
+			document.getElementById("giveUpButton3").style.display = "none"
+			document.getElementById("nextButton3").style.display = "inline"
 		}
 		function allSkip(){
 			AllCheckInter()
