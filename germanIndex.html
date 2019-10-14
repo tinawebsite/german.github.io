@@ -14,7 +14,7 @@
 	</form>
 
 	<section id="deutsche1Section" style="display:none">
-		<h3><u>First Lesson</u></h3><div><i>Type in the answer as a number</i></div>
+		<h3><u>First Lesson</u></h3><div><i>Type in the answer as a number, not a word</i></div>
 		<br>
 		<div id='counter1'><b>Score: 0</b></div>
 		<br>
@@ -102,7 +102,16 @@
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var counter1 = 0 
 		var counter2 = 0 
-		var counter3 = 0 
+		var counter3 = 0
+		var endCounter1 = 0 
+		var endCounter2 = 0 
+		var endCounter3 = 0 
+		var isWrong1 = false 
+		var isWrong2 = false 
+		var isWrong3 = false 
+		var deletingDictionary1 = deutsche1Dictionary
+		var deletingDictionary2 = eval("deutsche" + numOfLessons + "Dictionary")
+		var deletingDictionary3 = deutsche1Dictionary
 
 
 		document.getElementById("firstCheck").addEventListener( "change", function(){
@@ -113,41 +122,69 @@
 				}
 		})
 		function firstCheckInter(){
+			isWrong1 = false
+			var listOfValsFirstUnchanged = []
+			for (var key in deutsche1Dictionary) {
+		    	if (deutsche1Dictionary.hasOwnProperty(key)) {
+		        	listOfValsFirstUnchanged.push([key])
+		    	}
+			}
+			var numOfKeysUnchanged1 = (Object.keys(listOfValsFirstUnchanged)).length
+
+			if (endCounter1 == 0){
+				window.localStorage.setItem("originalLength1",  numOfKeysUnchanged1)
+			}
+
+
+			document.getElementById("deutsche1Section").style = "display:inline"
 			document.getElementById("myInput1").value = ""
 			document.getElementById("resultsLabel1").innerHTML = ""
 			document.getElementById("nextButton1").style.display = "none"
 			document.getElementById("skipButton1").style.display = "inline"
 			document.getElementById("checkButton1").style.display = "inline"
 			document.getElementById("giveUpButton1").style.display = "inline"
-			var listOfValsFirst = ""
 
 			var listOfValsFirst = []
-			for (var key in deutsche1Dictionary) {
-			    if (deutsche1Dictionary.hasOwnProperty(key)) {
+			for (var key in deletingDictionary1) {
+			    if (deletingDictionary1.hasOwnProperty(key)) {
 			        listOfValsFirst.push([key])
 			    }
 			}
-	
-			var numOfKeys = (Object.keys(listOfValsFirst)).length
-			var randomNumber1 = Math.floor((Math.random() * numOfKeys))
-			document.getElementById("deutsche1Section").style = "display:inline"
-			document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[listOfValsFirst[randomNumber1]]
-			var correctAns1 = listOfValsFirst[randomNumber1]
-			window.localStorage.setItem("correctAns1",  correctAns1)
+
+			var numOfKeysUnchanged1 = window.localStorage.getItem("originalLength1")
+			var numOfKeys1 = (Object.keys(listOfValsFirst)).length
+			var randomNumber1 = Math.floor((Math.random() * numOfKeys1))
+
+			if(endCounter1 == numOfKeysUnchanged1){
+				document.getElementById("resultsLabel1").innerHTML = "You have finished all the words, your score is " + counter1 + "/" + numOfKeysUnchanged1 
+				document.getElementById("resultsLabel1").style.color = "black"
+				document.getElementById("englishWord1").innerHTML = ""
+				}else {					
+				document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[listOfValsFirst[randomNumber1]]
+				var correctAns1 = listOfValsFirst[randomNumber1]
+				window.localStorage.setItem("correctAns1",  correctAns1)
+				delete deletingDictionary1[listOfValsFirst[randomNumber1]]
+			}		
+
+			endCounter1 = endCounter1 + 1
 		}
 		function check1(){
 			if(window.localStorage.getItem("correctAns1") == document.getElementById("myInput1").value){
 				document.getElementById("resultsLabel1").innerHTML = "Well Done"
 				document.getElementById("resultsLabel1").style = "color:green"
 				document.getElementById("nextButton1").style.display = "inline"
-				counter1 = counter1 + 1 
+				if(isWrong1 == false){
+					counter1 = counter1 + 1 
+				}
 				document.getElementById("counter1").innerHTML = "Score: " + counter1 
 				document.getElementById("skipButton1").style.display = "none"
 				document.getElementById("checkButton1").style.display = "none"
 				document.getElementById("giveUpButton1").style.display = "none"
+				isWrong1 = true
 			}else{
 				document.getElementById("resultsLabel1").innerHTML = "Try Again"
 				document.getElementById("resultsLabel1").style = "color:red"
+				isWrong1 = true
 				counter1 = counter1 - 1 
 				document.getElementById("counter1").innerHTML = "Score: " + counter1 
 			}
@@ -161,7 +198,7 @@
 			document.getElementById("checkButton1").style.display = "none"
 			document.getElementById("giveUpButton1").style.display = "none"
 			document.getElementById("nextButton1").style.display = "inline"
-
+			isWrong1 = true
 		}
 		function firstSkip(){
 			firstCheckInter()
@@ -176,45 +213,69 @@
 				}
 		})
 		function lastCheckInter(){
+			var lastLessonDictionary = deletingDictionary2
+			isWrong2 = false
+
+			var listOfValsLastUnchanged = []
+			var ogDictionary = eval("deutsche" + numOfLessons + "Dictionary")
+			for (var key in ogDictionary) {
+			    if (ogDictionary.hasOwnProperty(key)) {
+			        listOfValsLast.push([key])
+			    }
+			}
+			var numOfKeysUnchanged2 = (Object.keys(listOfValsLastUnchanged)).length
+
+			if(endCounter2 == 0){
+				window.localStorage.setItem("originalLength2", numOfKeysUnchanged2)
+			}
+
 			document.getElementById("myInput2").value = ""
 			document.getElementById("resultsLabel2").innerHTML = ""
 			document.getElementById("nextButton2").style.display = "none"
 			document.getElementById("skipButton2").style.display = "inline"
 			document.getElementById("checkButton2").style.display = "inline"
 			document.getElementById("giveUpButton2").style.display = "inline"
-			var listOfValsLast = ""
 
-			var lastLessonDictionary = eval("deutsche" + numOfLessons + "Dictionary")
 			var listOfValsLast = []
-			for (var key in lastLessonDictionary) {
-			    if (lastLessonDictionary.hasOwnProperty(key)) {
+			for (var key in deletingDictionary2) {
+			    if (deletingDictionary2.hasOwnProperty(key)) {
 			        listOfValsLast.push([key])
 			    }
 			}
-	
-			var numOfKeys = (Object.keys(listOfValsLast)).length
-			var randomNumber2 = Math.floor((Math.random() * numOfKeys))
-			document.getElementById("deutsche2Section").style = "display:inline"
-			document.getElementById("englishWord2").innerHTML = lastLessonDictionary[listOfValsLast[randomNumber2]]
-			var correctAns2 = listOfValsLast[randomNumber2]
-			window.localStorage.setItem("correctAns2",  correctAns2)
+
+			if(endCounter1 == numOfKeysUnchanged1){
+				document.getElementById("resultsLabel2").innerHTML = "You have finished all the words, your score is " + counter2 + "/" + numOfKeysUnchanged2 
+				document.getElementById("resultsLabel2").style.color = "black"
+				document.getElementById("englishWord2").innerHTML = ""
+				}else {					
+				document.getElementById("englishWord2").innerHTML = deletingDictionary2[listOfValsLast[randomNumber2]]
+				var correctAns2 = listOfValsLast[randomNumber2]
+				window.localStorage.setItem("correctAns2",  correctAns2)
+				delete deletingDictionary2[listOfValsLast[randomNumber2]]
+			}		
+
+			endCounter2 = endCounter2 + 1
 		}
 		function check2(){
 			if(window.localStorage.getItem("correctAns2") == document.getElementById("myInput2").value){
 				document.getElementById("resultsLabel2").innerHTML = "Well Done"
 				document.getElementById("resultsLabel2").style = "color:green"
 				document.getElementById("nextButton2").style.display = "inline"
-				counter2 = counter2 + 1
+				if(isWrong2 == false){
+					counter2 = counter2 + 1
+				}
 				document.getElementById("counter2").innerHTML = "Score: " + counter2
 				document.getElementById("skipButton2").style.display = "none"
 				document.getElementById("checkButton2").style.display = "none"
 				document.getElementById("giveUpButton2").style.display = "none"
+				isWrong2 = true
 
 			}else{
 				document.getElementById("resultsLabel2").innerHTML = "Try Again"
 				document.getElementById("resultsLabel2").style = "color:red"
 				counter2 = counter2 - 1
 				document.getElementById("counter2").innerHTML = "Score: " + counter2
+				isWrong2 = true
 			}
 		}
 		function lastGiveUp(){
@@ -226,6 +287,7 @@
 			document.getElementById("checkButton2").style.display = "none"
 			document.getElementById("giveUpButton2").style.display = "none"
 			document.getElementById("nextButton2").style.display = "inline"
+			isWrong2 = true
 		}
 		function lastSkip(){
 			lastCheckInter()
@@ -241,6 +303,7 @@
 				}
 		})
 		function allCheckInter(){
+			isWrong3 = false
 			document.getElementById("myInput3").value = ""
 			document.getElementById("resultsLabel3").innerHTML = ""
 			document.getElementById("nextButton3").style.display = "none"
@@ -271,16 +334,20 @@
 				document.getElementById("resultsLabel3").innerHTML = "Well Done"
 				document.getElementById("resultsLabel3").style = "color:green"
 				document.getElementById("nextButton3").style.display = "inline"
-				counter3 = counter3 + 1
+				if(isWrong3 == false){
+					counter3 = counter3 + 1
+				}
 				document.getElementById("counter3").innerHTML = "Score: " + counter3
 				document.getElementById("skipButton3").style.display = "none"
 				document.getElementById("checkButton3").style.display = "none"
 				document.getElementById("giveUpButton3").style.display = "none"
+				isWrong3 = true
 			}else{
 				document.getElementById("resultsLabel3").innerHTML = "Try Again"
 				document.getElementById("resultsLabel3").style = "color:red"
 				counter3 = counter3 - 1
 				document.getElementById("counter3").innerHTML = "Score: " + counter3
+				isWrong3 = true
 			}
 		}
 		function allGiveUp(){
@@ -292,9 +359,10 @@
 			document.getElementById("checkButton3").style.display = "none"
 			document.getElementById("giveUpButton3").style.display = "none"
 			document.getElementById("nextButton3").style.display = "inline"
+			isWrong3 = true
 		}
 		function allSkip(){
-			AllCheckInter()
+			allCheckInter()
 		}
 
 	</script>
