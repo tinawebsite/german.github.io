@@ -302,18 +302,20 @@
 			document.getElementById("myInput3").value = ""
 			document.getElementById("resultsLabel3").innerHTML = ""
 			document.getElementById("nextButton3").style.display = "none"
-			document.getElementById("deutsche3Section").style.display = "inline"
 			document.getElementById("skipButton3").style.display = "inline"
 			document.getElementById("checkButton3").style.display = "inline"
 			document.getElementById("giveUpButton3").style.display = "inline"
 
 			var ogDictionary = { ...deutsche1Dictionary, ...deutsche2Dictionary, ...deutsche3Dictionary, ...deutsche4Dictionary, ...deutsche5Dictionary, ...deutsche6Dictionary, ...deutsche7Dictionary, ...deutsche8Dictionary} 
+
 			var listOfValsAllUnchanged = []
 			for (var key in ogDictionary) {
 			    if (ogDictionary.hasOwnProperty(key)) {
 			        listOfValsAllUnchanged.push([key])
 			    }
 			}
+
+			document.getElementById("deutsche3Section").style.display = "inline"
 
 			var numOfKeysUnchanged3 = (Object.keys(listOfValsAllUnchanged)).length
 
@@ -328,9 +330,6 @@
 	
 			var numOfKeys3 = (Object.keys(listOfValsAll)).length
 			var randomNumber3 = Math.floor((Math.random() * numOfKeys3))
-			document.getElementById("englishWord3").innerHTML = deletingDictionary3[listOfValsAll[randomNumber3]]
-			var correctAns3 = listOfValsAll[randomNumber3]
-			window.localStorage.setItem("correctAns3",  correctAns3)
 
 			if(endCounter3 == numOfKeysUnchanged3){
 				document.getElementById("resultsLabel3").innerHTML = "You have finished all the words, your score is " + counter3 + "/" + numOfKeysUnchanged3 + ". You can practise one of the other sections or restart the page and start again."
