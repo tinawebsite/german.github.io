@@ -111,7 +111,7 @@
 		var isWrong3 = false 
 		var deletingDictionary1 = deutsche1Dictionary
 		var deletingDictionary2 = eval("deutsche" + numOfLessons + "Dictionary")
-		var deletingDictionary3 = deutsche1Dictionary
+		var deletingDictionary3 = { ...deutsche1Dictionary, ...deutsche2Dictionary, ...deutsche3Dictionary, ...deutsche4Dictionary, ...deutsche5Dictionary, ...deutsche6Dictionary, ...deutsche7Dictionary, ...deutsche8Dictionary} 
 
 
 		document.getElementById("firstCheck").addEventListener( "change", function(){
@@ -130,10 +130,6 @@
 		    	}
 			}
 			var numOfKeysUnchanged1 = (Object.keys(listOfValsFirstUnchanged)).length
-
-			if (endCounter1 == 0){
-				window.localStorage.setItem("originalLength1",  numOfKeysUnchanged1)
-			}
 
 
 			document.getElementById("deutsche1Section").style = "display:inline"
@@ -156,7 +152,7 @@
 			var randomNumber1 = Math.floor((Math.random() * numOfKeys1))
 
 			if(endCounter1 == numOfKeysUnchanged1){
-				document.getElementById("resultsLabel1").innerHTML = "You have finished all the words, your score is " + counter1 + "/" + numOfKeysUnchanged1 
+				document.getElementById("resultsLabel1").innerHTML = "You have finished all the words, your score is " + counter1 + "/" + numOfKeysUnchanged1 + ". You can practise one of the other sections or restart the page and start again."
 				document.getElementById("resultsLabel1").style.color = "black"
 				document.getElementById("englishWord1").innerHTML = ""
 				}else {					
@@ -213,25 +209,21 @@
 				}
 		})
 		function lastCheckInter(){
-			var lastLessonDictionary = deletingDictionary2
 			isWrong2 = false
 
 			var listOfValsLastUnchanged = []
 			var ogDictionary = eval("deutsche" + numOfLessons + "Dictionary")
 			for (var key in ogDictionary) {
 			    if (ogDictionary.hasOwnProperty(key)) {
-			        listOfValsLast.push([key])
+			        listOfValsLastUnchanged.push([key])
 			    }
 			}
 			var numOfKeysUnchanged2 = (Object.keys(listOfValsLastUnchanged)).length
 
-			if(endCounter2 == 0){
-				window.localStorage.setItem("originalLength2", numOfKeysUnchanged2)
-			}
-
 			document.getElementById("myInput2").value = ""
 			document.getElementById("resultsLabel2").innerHTML = ""
 			document.getElementById("nextButton2").style.display = "none"
+			document.getElementById("deutsche2Section").style.display = "inline"
 			document.getElementById("skipButton2").style.display = "inline"
 			document.getElementById("checkButton2").style.display = "inline"
 			document.getElementById("giveUpButton2").style.display = "inline"
@@ -242,9 +234,12 @@
 			        listOfValsLast.push([key])
 			    }
 			}
+			var numOfKeys2 = (Object.keys(listOfValsLast)).length
 
-			if(endCounter1 == numOfKeysUnchanged1){
-				document.getElementById("resultsLabel2").innerHTML = "You have finished all the words, your score is " + counter2 + "/" + numOfKeysUnchanged2 
+			var randomNumber2 = Math.floor((Math.random() * numOfKeys2))
+
+			if(endCounter2 == numOfKeysUnchanged2){
+				document.getElementById("resultsLabel2").innerHTML = "You have finished all the words, your score is " + counter2 + "/" + numOfKeysUnchanged2 + ". You can practise one of the other sections or restart the page and start again."
 				document.getElementById("resultsLabel2").style.color = "black"
 				document.getElementById("englishWord2").innerHTML = ""
 				}else {					
@@ -307,27 +302,47 @@
 			document.getElementById("myInput3").value = ""
 			document.getElementById("resultsLabel3").innerHTML = ""
 			document.getElementById("nextButton3").style.display = "none"
+			document.getElementById("deutsche3Section").style.display = "inline"
 			document.getElementById("skipButton3").style.display = "inline"
 			document.getElementById("checkButton3").style.display = "inline"
 			document.getElementById("giveUpButton3").style.display = "inline"
-			var listOfValsAll = ""
 
-			var allLessonDictionary = { ...deutsche1Dictionary, ...deutsche2Dictionary, ...deutsche3Dictionary, ...deutsche4Dictionary, ...deutsche5Dictionary, ...deutsche6Dictionary, ...deutsche7Dictionary, ...deutsche8Dictionary} 
+			var ogDictionary = { ...deutsche1Dictionary, ...deutsche2Dictionary, ...deutsche3Dictionary, ...deutsche4Dictionary, ...deutsche5Dictionary, ...deutsche6Dictionary, ...deutsche7Dictionary, ...deutsche8Dictionary} 
+			var listOfValsAllUnchanged = []
+			for (var key in ogDictionary) {
+			    if (ogDictionary.hasOwnProperty(key)) {
+			        listOfValsAllUnchanged.push([key])
+			    }
+			}
+
+			var numOfKeysUnchanged3 = (Object.keys(listOfValsAllUnchanged)).length
+
 
 			var listOfValsAll = []
 
-			for (var key in allLessonDictionary) {
-			    if (allLessonDictionary.hasOwnProperty(key)) {
+			for (var key in deletingDictionary3) {
+			    if (deletingDictionary3.hasOwnProperty(key)) {
 			        listOfValsAll.push([key])
 			    }
 			}
 	
-			var numOfKeys = (Object.keys(listOfValsAll)).length
-			var randomNumber3 = Math.floor((Math.random() * numOfKeys))
-			document.getElementById("deutsche3Section").style = "display:inline"
-			document.getElementById("englishWord3").innerHTML = allLessonDictionary[listOfValsAll[randomNumber3]]
+			var numOfKeys3 = (Object.keys(listOfValsAll)).length
+			var randomNumber3 = Math.floor((Math.random() * numOfKeys3))
+			document.getElementById("englishWord3").innerHTML = deletingDictionary3[listOfValsAll[randomNumber3]]
 			var correctAns3 = listOfValsAll[randomNumber3]
 			window.localStorage.setItem("correctAns3",  correctAns3)
+
+			if(endCounter3 == numOfKeysUnchanged3){
+				document.getElementById("resultsLabel3").innerHTML = "You have finished all the words, your score is " + counter3 + "/" + numOfKeysUnchanged3 + ". You can practise one of the other sections or restart the page and start again."
+				document.getElementById("resultsLabel3").style.color = "black"
+				document.getElementById("englishWord3").innerHTML = ""
+				}else {					
+					document.getElementById("englishWord3").innerHTML = deletingDictionary3[listOfValsAll[randomNumber3]]
+					var correctAns3 = listOfValsAll[randomNumber3]
+					window.localStorage.setItem("correctAns3",  correctAns3)
+					delete deletingDictionary3[listOfValsAll[randomNumber3]]
+			}		
+			endCounter3 = endCounter3 + 1
 		}
 		function check3(){
 			if(window.localStorage.getItem("correctAns3") == document.getElementById("myInput3").value){
