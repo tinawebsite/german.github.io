@@ -1,14 +1,9 @@
 {
-	"England":"England",
-	"Wales":"Wales",
-	"Schottland":"Scotland",
-	"Irland":"Ireland",
-	"Frankreich":"France",
-	"Deutschland":"Germany",
-	"Österreich":"Austria",
-	"Italien":"Italy",
-	"Spanien":"Spain",
-	"die Schweiz":"Switzerland",
-	"Wo wohnst du?":"Where do you live?",
-	"Ich wohne in...":"I live in..."
+	"Hello":"Hallo",
+	"Hello (formal)":"Guten Tag",
+	"Good Morning":"Guten Morgen",
+	"Good evening":"Guten Abend",
+	"Good night":"Gute Nacht",
+	"Bye":"Tschüss",
+	"Goodbye":"Auf Wiedersehen"
 }
