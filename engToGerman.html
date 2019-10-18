@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="background-color:#fffb8c">
 <head>
-	<title>German</title>
+	<title>English to German</title>
 </head>
 <body>
 	<header>
@@ -70,19 +70,21 @@
 		var numOfLessons = 0
 
 
-		function Lesson(json, title) {		
+		function Lesson(num, teacher, json, title) {
+ 			this.num = num
+  			this.teacher = teacher  			
   			this.json = json
   			this.title = title
 		}
 		
-		var deutsche1 = new Lesson("https://api.myjson.com/bins/houcp", "Numbers 0-19") ; numOfLessons++ 
-		var deutsche2 = new Lesson("https://api.myjson.com/bins/17f894", "Greetings") ; numOfLessons++ 
-		var deutsche3 = new Lesson("https://api.myjson.com/bins/luvl5", "Numbers 20-100") ; numOfLessons++ 
-		var deutsche4 = new Lesson("https://api.myjson.com/bins/1dwe6h", "Months") ; numOfLessons++ 	
-		var deutsche5 = new Lesson("https://api.myjson.com/bins/6hw6h", "The Verb 'Sein'") ; numOfLessons++ 		
-		var deutsche6 = new Lesson("https://api.myjson.com/bins/lz5wp", "Dates") ; numOfLessons++ 	
-		var deutsche7 = new Lesson("https://api.myjson.com/bins/18eab9", "The Verb 'Haben'") ; numOfLessons++ 	
-		var deutsche8 = new Lesson("https://api.myjson.com/bins/pkfm1", "Countries") ; numOfLessons++ 		
+		var deutsche1 = new Lesson(1, "Frau Sheikh", "https://api.myjson.com/bins/g6y4o", "Numbers 0-19") ; numOfLessons++ 
+		var deutsche2 = new Lesson(2, "Frau King", "https://api.myjson.com/bins/a9v5x", "Greetings") ; numOfLessons++ 
+		var deutsche3 = new Lesson(3, "Frau King", "https://api.myjson.com/bins/gly94", "Numbers 20-100") ; numOfLessons++ 
+		var deutsche4 = new Lesson(4, "Frau Sheikh", "https://api.myjson.com/bins/1dwe6h", "Months") ; numOfLessons++ 	
+		var deutsche5 = new Lesson(5, "Frau Sheikh", "https://api.myjson.com/bins/6hw6h", "The Verb 'Sein'") ; numOfLessons++ 		
+		var deutsche6 = new Lesson(6, "Frau Sheikh", "https://api.myjson.com/bins/lz5wp", "Dates") ; numOfLessons++ 	
+		var deutsche7 = new Lesson(7, "Frau King", "https://api.myjson.com/bins/18eab9", "The Verb 'Haben'") ; numOfLessons++ 	
+		var deutsche8 = new Lesson(8, "Frau Sheikh", "https://api.myjson.com/bins/1hahls", "Countries") ; numOfLessons++ 		
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 	</script>
