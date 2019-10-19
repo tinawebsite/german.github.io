@@ -157,6 +157,10 @@
 			var randomNumber1 = Math.floor((Math.random() * numOfKeys1))
 
 			if(endCounter1 == numOfKeysUnchanged1){
+				document.getElementById("nextButton1").style.display = "none"
+				document.getElementById("skipButton1").style.display = "none"
+				document.getElementById("checkButton1").style.display = "none"
+				document.getElementById("giveUpButton1").style.display = "none"
 				var endScore1 = counter1/numOfKeysUnchanged1*100
 				var message1 = ""
 				if(endScore1 == 100){
@@ -169,14 +173,11 @@
 					var message1 = "Keep practising. You didn't get many questions correct."
 				}
 				document.getElementById("resultsLabel1").innerHTML = "You have finished all the words, you got " + endScore1.toFixed(1) + "% of questions correct." + " " +  message1
+
+			}else {					
 				document.getElementById("resultsLabel1").style.color = "black"
 				document.getElementById("englishWord1").innerHTML = ""
 
-				document.getElementById("nextButton1").style.display = "none"
-				document.getElementById("skipButton1").style.display = "none"
-				document.getElementById("checkButton1").style.display = "none"
-				document.getElementById("giveUpButton1").style.display = "none"
-				}else {					
 				document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[listOfValsFirst[randomNumber1]]
 				var correctAns1 = listOfValsFirst[randomNumber1]
 				window.localStorage.setItem("correctAns1",  correctAns1)
@@ -218,6 +219,8 @@
 			isWrong1 = true
 		}
 		function firstSkip(){
+			var horn = new Audio('testSound.wav');
+			horn.play()
 			firstCheckInter()
 		}
 
