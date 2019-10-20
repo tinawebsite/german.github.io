@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html style="background-color:#fffb8c">
+<head>
+	<title>English to German</title>
+</head>
+<body>
+	<header>
+		<button style='border-radius:25px;color:#8003fc;background-color:#d9b3ff;outline-color:#8003fc' id="home">Home</button>
+	</header>
+	<script>
+		document.getElementById("home").addEventListener("click", function(){
+			window.open("index.html", "_self")
+		})
+	</script>
+	<h1 style="text-align:center;"><u>English to German</u></h1>
+	<form style="background-color:#fcce03"> 			
+		<section><input type="checkbox" id="firstCheck" > First Class</section>
+		<br>
+		<section><input type="checkbox" id="lastCheck"> Last Class</section>
+		<br>
+		<section><input type="checkbox" id="allCheck"> All Classes</section>
+	</form>
+
+	<section id="deutsche1Section" style="display:none">
+		<h3><u>First Lesson</u></h3><div><i>Type in the answer as a number, not a word</i></div>
+		<br>
+		<div id='counter1'><b>Score: 0</b></div>
+		<br>
+		<div id='englishWord1'></div>
+		<input type='text' id='myInput1' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton1').click()">
+		<button id='checkButton1' style='border-radius:25px' onclick="check1()">CHECK</button>
+		<button id='giveUpButton1' style='border-radius:25px' onclick="firstGiveUp()">GIVE UP</button>
+		<button id='skipButton1' style='border-radius:25px' onclick="firstSkip()">SKIP</button>
+		<button id='nextButton1' style='border-radius:25px' onclick="firstCheckInter()">NEXT</button>
+		<div id='resultsLabel1'></div>
+	</section>	
+
+	<section id="deutsche2Section" style="display:none">
+		<h3><u>Last Lesson</u></h3>
+		<div><i>Remember to correctly capitalise your answer.</i></div>
+		<br>
+		<div id='counter2'><b>Score: 0</b></div>
+		<br>
+		<div id='englishWord2'></div>
+		<br>
+		<input type='text' id='myInput2' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton2').click()">
+		<button id='checkButton2' style='border-radius:25px'  onclick="check2()">CHECK</button>
+		<button id='giveUpButton2' style='border-radius:25px' onclick="lastGiveUp()">GIVE UP</button>
+		<button id='skipButton2' style='border-radius:25px' onclick="lastSkip()">SKIP</button>
+		<button id='nextButton2' style='border-radius:25px' onclick="lastCheckInter()">NEXT</button>
+		<div id='resultsLabel2'></div>
+	</section>
+
+	<section id="deutsche3Section" style="display:none">
+		<h3><u>All Lessons</u></h3>
+		<div><i>Remember to correctly capitalise your answer and type numbers as words, not numbers.</i></div>
+		<br>
+		<div id='counter3'><b>Score: 0</b></div>
+		<br>
+		<div id='englishWord3'></div>
+		<input type='text' id='myInput3' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton3').click()">
+		<button id='checkButton3' style='border-radius:25px' onclick="check3()">CHECK</button>
+		<button id='giveUpButton3' style='border-radius:25px' onclick="allGiveUp()">GIVE UP</button>
+		<button id='skipButton3' style='border-radius:25px' onclick="allSkip()">SKIP</button>
+		<button id='nextButton3' style='border-radius:25px' onclick="allCheckInter()">NEXT</button>
+		<div id='resultsLabel3'></div>
+	</section>
+
+	<script>
+		var numOfLessons = 0
+
+
+		function Lesson(num, teacher, json, title) {
+ 			this.num = num
+  			this.teacher = teacher  			
+  			this.json = json
+  			this.title = title
+		}
+		
+		var deutsche1 = new Lesson(1, "Frau Sheikh", "https://api.myjson.com/bins/g6y4o", "Numbers 0-19") ; numOfLessons++ 
+		var deutsche2 = new Lesson(2, "Frau King", "https://api.myjson.com/bins/a9v5x", "Greetings") ; numOfLessons++ 
+		var deutsche3 = new Lesson(3, "Frau King", "https://api.myjson.com/bins/gly94", "Numbers 20-100") ; numOfLessons++ 
+		var deutsche4 = new Lesson(4, "Frau Sheikh", "https://api.myjson.com/bins/1dwe6h", "Months") ; numOfLessons++ 	
+		var deutsche5 = new Lesson(5, "Frau Sheikh", "https://api.myjson.com/bins/6hw6h", "The Verb 'Sein'") ; numOfLessons++ 		
+		var deutsche6 = new Lesson(6, "Frau Sheikh", "https://api.myjson.com/bins/lz5wp", "Dates") ; numOfLessons++ 	
+		var deutsche7 = new Lesson(7, "Frau King", "https://api.myjson.com/bins/18eab9", "The Verb 'Haben'") ; numOfLessons++ 	
+		var deutsche8 = new Lesson(8, "Frau Sheikh", "https://api.myjson.com/bins/1hahls", "Countries") ; numOfLessons++ 		
+
+		window.localStorage.setItem("numOfLessons",  numOfLessons)
+	</script>
+
+	
+	<script>
+		var deutsche1Dictionary = {} ; fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche1Dictionary[key] = myJson[key]})})
+
+	    var deutsche2Dictionary = {} ; fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche2Dictionary[key] = myJson[key]})})	    
+
+	    var deutsche3Dictionary = {} ; fetch(deutsche3.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche3Dictionary[key] = myJson[key]})})
+
+	   	var deutsche4Dictionary = {} ; fetch(deutsche4.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche4Dictionary[key] = myJson[key]})})
+
+	   	var deutsche5Dictionary = {} ; fetch(deutsche5.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche5Dictionary[key] = myJson[key]})})
+
+	   	var deutsche6Dictionary = {} ; fetch(deutsche6.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche6Dictionary[key] = myJson[key]})})
+
+	   	var deutsche7Dictionary = {} ; fetch(deutsche7.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche7Dictionary[key] = myJson[key]})})
+
+	   	var deutsche8Dictionary = {} ; fetch(deutsche8.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche8Dictionary[key] = myJson[key]})})
+
+		var numOfLessons = window.localStorage.getItem("numOfLessons")
+		var counter1 = 0 
+		var counter2 = 0 
+		var counter3 = 0
+		var endCounter1 = 0 
+		var endCounter2 = 0 
+		var endCounter3 = 0 
+		var isWrong1 = false 
+		var isWrong2 = false 
+		var isWrong3 = false 
+		var deletingDictionary1 = deutsche1Dictionary
+		var deletingDictionary2 = eval("deutsche" + numOfLessons + "Dictionary")
+		var deletingDictionary3 = Object.assign(deutsche1Dictionary, deutsche2Dictionary, deutsche3Dictionary, deutsche4Dictionary, deutsche5Dictionary, deutsche6Dictionary, deutsche7Dictionary, deutsche8Dictionary)
+
+		document.getElementById("firstCheck").addEventListener( "change", function(){
+			if(this.checked) {				
+				firstCheckInter()
+			}else{
+				document.getElementById("deutsche1Section").style = "display:none"
+				}
+		})
+		function firstCheckInter(){
+			isWrong1 = false
+			var listOfValsFirstUnchanged = []
+			for (var key in deutsche1Dictionary) {
+		    	if (deutsche1Dictionary.hasOwnProperty(key)) {
+		        	listOfValsFirstUnchanged.push([key])
+		    	}
+			}
+			var numOfKeysUnchanged1 = (Object.keys(listOfValsFirstUnchanged)).length
+
+
+			document.getElementById("deutsche1Section").style = "display:inline"
+			document.getElementById("myInput1").value = ""
+			document.getElementById("resultsLabel1").innerHTML = ""
+			document.getElementById("nextButton1").style.display = "none"
+			document.getElementById("skipButton1").style.display = "inline"
+			document.getElementById("checkButton1").style.display = "inline"
+			document.getElementById("giveUpButton1").style.display = "inline"
+
+			var listOfValsFirst = []
+			for (var key in deletingDictionary1) {
+			    if (deletingDictionary1.hasOwnProperty(key)) {
+			        listOfValsFirst.push([key])
+			    }
+			}
+
+			var numOfKeysUnchanged1 = window.localStorage.getItem("originalLength1")
+			var numOfKeys1 = (Object.keys(listOfValsFirst)).length
+			var randomNumber1 = Math.floor((Math.random() * numOfKeys1))
+
+			if(endCounter1 == numOfKeysUnchanged1){
+				var endScore1 = counter1/numOfKeysUnchanged1*100
+				var message1 = ""
+				if(endScore1 == 100){
+					var message1 = "Perfect! You got all the questions right!"
+				} else if (endScore1 > 50){
+					var message1 = "Well done! You got the majority of the questions correct."
+				} else if (endScore1 >= 10){
+					var message1 = "Keep learning the words and practising them, you didn't do very well."
+				}else if(endScore1 < 30){
+					var message1 = "Keep practising. You didn't get many questions correct."
+				}
+				document.getElementById("resultsLabel1").innerHTML = "You have finished all the words, you got " + endScore1.toFixed(1) + "% of questions correct." + " " +  message1
+				document.getElementById("resultsLabel1").style.color = "black"
+				document.getElementById("englishWord1").innerHTML = ""
+
+				document.getElementById("nextButton1").style.display = "none"
+				document.getElementById("skipButton1").style.display = "none"
+				document.getElementById("checkButton1").style.display = "none"
+				document.getElementById("giveUpButton1").style.display = "none"
+				}else {					
+				document.getElementById("englishWord1").innerHTML = deutsche1Dictionary[listOfValsFirst[randomNumber1]]
+				var correctAns1 = listOfValsFirst[randomNumber1]
+				window.localStorage.setItem("correctAns1",  correctAns1)
+				delete deletingDictionary1[listOfValsFirst[randomNumber1]]
+			}		
+
+			endCounter1 = endCounter1 + 1
+		}
+		function check1(){
+			if(window.localStorage.getItem("correctAns1") == document.getElementById("myInput1").value){
+				document.getElementById("resultsLabel1").innerHTML = "Well Done"
+				document.getElementById("resultsLabel1").style = "color:green"
+				document.getElementById("nextButton1").style.display = "inline"
+				if(isWrong1 == false){
+					counter1 = counter1 + 1 
+				}
+				document.getElementById("counter1").innerHTML = "Score: " + counter1 
+				document.getElementById("skipButton1").style.display = "none"
+				document.getElementById("checkButton1").style.display = "none"
+				document.getElementById("giveUpButton1").style.display = "none"
+				isWrong1 = true
+			}else{
+				document.getElementById("resultsLabel1").innerHTML = "Try Again"
+				document.getElementById("resultsLabel1").style = "color:red"
+				isWrong1 = true
+				counter1 = counter1 - 1 
+				document.getElementById("counter1").innerHTML = "Score: " + counter1 
+			}
+		}
+		function firstGiveUp(){
+			document.getElementById("resultsLabel1").innerHTML = "The correct answer is: " + window.localStorage.getItem("correctAns1")
+			document.getElementById("resultsLabel1").style = "color:red"
+			counter1 = counter1 - 3
+			document.getElementById("counter1").innerHTML = "Score: " + counter1 
+			document.getElementById("skipButton1").style.display = "none"
+			document.getElementById("checkButton1").style.display = "none"
+			document.getElementById("giveUpButton1").style.display = "none"
+			document.getElementById("nextButton1").style.display = "inline"
+			isWrong1 = true
+		}
+		function firstSkip(){
+			firstCheckInter()
+		}
+
+
+		document.getElementById("lastCheck").addEventListener( "change", function(){
+			if(this.checked) {				
+				lastCheckInter()
+			}else{
+				document.getElementById("deutsche2Section").style = "display:none"
+				}
+		})
+		function lastCheckInter(){
+			isWrong2 = false
+
+			var listOfValsLastUnchanged = []
+			var ogDictionary = eval("deutsche" + numOfLessons + "Dictionary")
+			for (var key in ogDictionary) {
+			    if (ogDictionary.hasOwnProperty(key)) {
+			        listOfValsLastUnchanged.push([key])
+			    }
+			}
+			var numOfKeysUnchanged2 = (Object.keys(listOfValsLastUnchanged)).length
+
+			document.getElementById("myInput2").value = ""
+			document.getElementById("resultsLabel2").innerHTML = ""
+			document.getElementById("nextButton2").style.display = "none"
+			document.getElementById("deutsche2Section").style.display = "inline"
+			document.getElementById("skipButton2").style.display = "inline"
+			document.getElementById("checkButton2").style.display = "inline"
+			document.getElementById("giveUpButton2").style.display = "inline"
+
+			var listOfValsLast = []
+			for (var key in deletingDictionary2) {
+			    if (deletingDictionary2.hasOwnProperty(key)) {
+			        listOfValsLast.push([key])
+			    }
+			}
+			var numOfKeys2 = (Object.keys(listOfValsLast)).length
+
+			var randomNumber2 = Math.floor((Math.random() * numOfKeys2))
+
+			if(endCounter2 == numOfKeysUnchanged2){
+				var endScore2 = counter2/numOfKeysUnchanged2*100
+				var message2 = ""
+				if(endScore2 == 100){
+					var message2 = "Perfect! You got all the questions right!"
+				} else if (endScore2 > 50){
+					var message2 = "Well done! You got the majority of the questions correct."
+				} else if (endScore2 >= 10){
+					var message2 = "Keep learning the words and practising them, you didn't do very well."
+				}else if(endScore2 < 30){
+					var message2 = "Keep practising. You didn't get many questions correct."
+				}
+				document.getElementById("resultsLabel2").innerHTML = "You have finished all the words, you got " + endScore2.toFixed(1) + "% of questions correct." + " " +  message2
+				document.getElementById("resultsLabel2").style.color = "black"
+				document.getElementById("englishWord2").innerHTML = ""
+
+				document.getElementById("nextButton2").style.display = "none"
+				document.getElementById("skipButton2").style.display = "none"
+				document.getElementById("checkButton2").style.display = "none"
+				document.getElementById("giveUpButton2").style.display = "none"
+				}else {					
+				document.getElementById("englishWord2").innerHTML = deletingDictionary2[listOfValsLast[randomNumber2]]
+				var correctAns2 = listOfValsLast[randomNumber2]
+				window.localStorage.setItem("correctAns2",  correctAns2)
+				delete deletingDictionary2[listOfValsLast[randomNumber2]]
+			}		
+
+			endCounter2 = endCounter2 + 1
+		}
+		function check2(){
+			if(window.localStorage.getItem("correctAns2") == document.getElementById("myInput2").value){
+				document.getElementById("resultsLabel2").innerHTML = "Well Done"
+				document.getElementById("resultsLabel2").style = "color:green"
+				document.getElementById("nextButton2").style.display = "inline"
+				if(isWrong2 == false){
+					counter2 = counter2 + 1
+				}
+				document.getElementById("counter2").innerHTML = "Score: " + counter2
+				document.getElementById("skipButton2").style.display = "none"
+				document.getElementById("checkButton2").style.display = "none"
+				document.getElementById("giveUpButton2").style.display = "none"
+				isWrong2 = true
+
+			}else{
+				document.getElementById("resultsLabel2").innerHTML = "Try Again"
+				document.getElementById("resultsLabel2").style = "color:red"
+				counter2 = counter2 - 1
+				document.getElementById("counter2").innerHTML = "Score: " + counter2
+				isWrong2 = true
+			}
+		}
+		function lastGiveUp(){
+			document.getElementById("resultsLabel2").innerHTML = "The correct answer is: " + window.localStorage.getItem("correctAns2")
+			document.getElementById("resultsLabel2").style = "color:red"
+			counter2 = counter2 - 3
+			document.getElementById("counter2").innerHTML = "Score: " + counter2
+			document.getElementById("skipButton2").style.display = "none"
+			document.getElementById("checkButton2").style.display = "none"
+			document.getElementById("giveUpButton2").style.display = "none"
+			document.getElementById("nextButton2").style.display = "inline"
+			isWrong2 = true
+		}
+		function lastSkip(){
+			lastCheckInter()
+		}
+
+
+
+		document.getElementById("allCheck").addEventListener( "change", function(){
+			if(this.checked) {				
+				allCheckInter()
+			}else{
+				document.getElementById("deutsche3Section").style.display = "none"
+				}
+		})
+		function allCheckInter(){
+			isWrong3 = false
+
+			var listOfValsAllUnchanged = []
+			var ogDictionary3 = Object.assign(deutsche1Dictionary, deutsche2Dictionary, deutsche3Dictionary, deutsche4Dictionary, deutsche5Dictionary, deutsche6Dictionary, deutsche7Dictionary, deutsche8Dictionary)
+			for (var key in ogDictionary3) {
+			    if (ogDictionary3.hasOwnProperty(key)) {
+			        listOfValsAllUnchanged.push([key])
+			    }
+			}
+			var numOfKeysUnchanged3 = (Object.keys(listOfValsAllUnchanged)).length
+
+			document.getElementById("myInput3").value = ""
+			document.getElementById("resultsLabel3").innerHTML = ""
+			document.getElementById("nextButton3").style.display = "none"
+			document.getElementById("deutsche3Section").style.display = "inline"
+			document.getElementById("skipButton3").style.display = "inline"
+			document.getElementById("checkButton3").style.display = "inline"
+			document.getElementById("giveUpButton3").style.display = "inline"
+
+			var listOfValsAll = []
+			for (var key in deletingDictionary3) {
+			    if (deletingDictionary3.hasOwnProperty(key)) {
+			        listOfValsAll.push([key])
+			    }
+			}
+			var numOfKeys3 = (Object.keys(listOfValsAll)).length
+			var randomNumber3 = Math.floor((Math.random() * numOfKeys3))
+			console.log(numOfKeys3)
+
+			if(endCounter3 == numOfKeysUnchanged3){
+				var endScore3 = counter3/numOfKeysUnchanged3*100
+				var message3 = ""
+				if(endScore3 == 100){
+					var message3 = "Perfect! You got all the questions right!"
+				} else if (endScore3 > 50){
+					var message3 = "Well done! You got the majority of the questions correct."
+				} else if (endScore3 >= 10){
+					var message3 = "Keep learning the words and practising them, you didn't do very well."
+				}else if(endScore3 < 30){
+					var message3 = "Keep practising. You didn't get many questions correct."
+				}
+				document.getElementById("resultsLabel3").innerHTML = "You have finished all the words, you got " + endScore3.toFixed(1) + "% of questions correct." + " " +  message3
+				document.getElementById("resultsLabel3").style.color = "black"
+				document.getElementById("englishWord3").innerHTML = ""
+
+				document.getElementById("nextButton3").style.display = "none"
+				document.getElementById("skipButton3").style.display = "none"
+				document.getElementById("checkButton3").style.display = "none"
+				document.getElementById("giveUpButton3").style.display = "none"
+				}else {					
+				document.getElementById("englishWord3").innerHTML = deletingDictionary3[listOfValsAll[randomNumber3]]
+				var correctAns3 = listOfValsAll[randomNumber3]
+				window.localStorage.setItem("correctAns3",  correctAns3)
+				delete deletingDictionary3[listOfValsAll[randomNumber3]]
+			}		
+
+			endCounter3 = endCounter3 + 1
+		}
+		function check3(){
+			if(window.localStorage.getItem("correctAns3") == document.getElementById("myInput3").value){
+				document.getElementById("resultsLabel3").innerHTML = "Well Done"
+				document.getElementById("resultsLabel3").style = "color:green"
+				document.getElementById("nextButton3").style.display = "inline"
+				if(isWrong3 == false){
+					counter3 = counter3 + 1
+				}
+				document.getElementById("counter3").innerHTML = "Score: " + counter3
+				document.getElementById("skipButton3").style.display = "none"
+				document.getElementById("checkButton3").style.display = "none"
+				document.getElementById("giveUpButton3").style.display = "none"
+				isWrong3 = true
+			}else{
+				document.getElementById("resultsLabel3").innerHTML = "Try Again"
+				document.getElementById("resultsLabel3").style = "color:red"
+				counter3 = counter3 - 1
+				document.getElementById("counter3").innerHTML = "Score: " + counter3
+				isWrong3 = true
+			}
+		}
+		function allGiveUp(){
+			document.getElementById("resultsLabel3").innerHTML = "The correct answer is: " + window.localStorage.getItem("correctAns3")
+			document.getElementById("resultsLabel3").style = "color:red"
+			counter3 = counter3 - 3
+			document.getElementById("counter3").innerHTML = "Score: " + counter3
+			document.getElementById("skipButton3").style.display = "none"
+			document.getElementById("checkButton3").style.display = "none"
+			document.getElementById("giveUpButton3").style.display = "none"
+			document.getElementById("nextButton3").style.display = "inline"
+			isWrong3 = true
+		}
+		function allSkip(){
+			allCheckInter()
+		}
+
+	</script>
+</body>
+</html>
