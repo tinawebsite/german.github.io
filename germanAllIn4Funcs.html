@@ -44,10 +44,10 @@
 		<div id='englishWord2'></div>
 		<br>
 		<input type='text' id='myInput2' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton2').click()">
-		<button id='checkButton2' style='border-radius:25px'  onclick="check()">CHECK</button>
-		<button id='giveUpButton2' style='border-radius:25px' onclick="giveUp()">GIVE UP</button>
-		<button id='skipButton2' style='border-radius:25px' onclick="skip()">SKIP</button>
-		<button id='nextButton2' style='border-radius:25px' onclick="start()">NEXT</button>
+		<button id='checkButton2' style='border-radius:25px'  onclick="check(2, dictionaryLast)">CHECK</button>
+		<button id='giveUpButton2' style='border-radius:25px' onclick="giveUp(2, dictionaryLast)">GIVE UP</button>
+		<button id='skipButton2' style='border-radius:25px' onclick="skip(2, dictionaryLast)">SKIP</button>
+		<button id='nextButton2' style='border-radius:25px' onclick="start(2, dictionaryLast)">NEXT</button>
 		<div id='resultsLabel2'></div>
 	</section>
 
@@ -59,10 +59,10 @@
 		<br>
 		<div id='englishWord3'></div>
 		<input type='text' id='myInput3' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton3').click()">
-		<button id='checkButton3' style='border-radius:25px' onclick="allCheck()">CHECK</button>
-		<button id='giveUpButton3' style='border-radius:25px' onclick="allGiveUp()">GIVE UP</button>
-		<button id='skipButton3' style='border-radius:25px' onclick="allSkip()">SKIP</button>
-		<button id='nextButton3' style='border-radius:25px' onclick="allStart()">NEXT</button>
+		<button id='checkButton3' style='border-radius:25px' onclick="check(3, dictionaryAll)">CHECK</button>
+		<button id='giveUpButton3' style='border-radius:25px' onclick="giveUp(3, dictionaryAll)">GIVE UP</button>
+		<button id='skipButton3' style='border-radius:25px' onclick="skip(3, dictionaryAll)">SKIP</button>
+		<button id='nextButton3' style='border-radius:25px' onclick="start(3, dictionaryAll)">NEXT</button>
 		<div id='resultsLabel3'></div>
 	</section>
 
@@ -107,10 +107,13 @@
 
 	   	var deutsche8Dictionary = {} ; fetch(deutsche8.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche8Dictionary[key] = myJson[key]})})
 
-		var numOfLessons = window.localStorage.getItem("numOfLessons")
+	   	var allFiles = {} ; fetch("https://api.myjson.com/bins/dpuq0").then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){allFiles[key] = myJson[key]})})
 
+
+
+		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var dictionaryLast = eval("deutsche" + numOfLessons + "Dictionary")
-		var dictionaryAll = Object.assign(deutsche1Dictionary, deutsche2Dictionary, deutsche3Dictionary, deutsche4Dictionary, deutsche5Dictionary, deutsche6Dictionary, deutsche7Dictionary, deutsche8Dictionary)
+		var dictionaryAll = allFiles
 
 		document.getElementById("firstCheck").addEventListener( "change", function(){
 			if(this.checked) {				
