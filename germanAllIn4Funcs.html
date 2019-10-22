@@ -24,7 +24,8 @@
 	<section id="deutsche1Section" style="display:none">
 		<h3><u>First Lesson</u></h3><div><i>Type in the answer as a number, not a word</i></div>
 		<br>
-		<div id='counter1'><b>Score: 0</b></div>
+		<div style="display:inline">Score: </div>
+		<div id='counter1' style="display:inline">0</div>
 		<br>
 		<div id='englishWord1'></div>
 		<input type='text' id='myInput1' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton1').click()">
@@ -39,7 +40,8 @@
 		<h3><u>Last Lesson</u></h3>
 		<div><i>Remember to correctly capitalise your answer.</i></div>
 		<br>
-		<div id='counter2'><b>Score: 0</b></div>
+		<div style="display:inline">Score: </div>
+		<div id='counter2' style="display:inline">0</div>
 		<br>
 		<div id='englishWord2'></div>
 		<br>
@@ -55,7 +57,8 @@
 		<h3><u>All Lessons</u></h3>
 		<div><i>Remember to correctly capitalise your answer and type numbers as words, not numbers.</i></div>
 		<br>
-		<div id='counter3'><b>Score: 0</b></div>
+		<div style="display:inline">Score: </div>
+		<div id='counter3' style="display:inline">0</div>
 		<br>
 		<div id='englishWord3'></div>
 		<input type='text' id='myInput3' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton3').click()">
@@ -110,10 +113,11 @@
 	   	var allFiles = {} ; fetch("https://api.myjson.com/bins/dpuq0").then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){allFiles[key] = myJson[key]})})
 
 
-
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var dictionaryLast = eval("deutsche" + numOfLessons + "Dictionary")
 		var dictionaryAll = allFiles
+
+		console.log(dictionaryAll)
 
 		document.getElementById("firstCheck").addEventListener( "change", function(){
 			if(this.checked) {				
@@ -144,14 +148,16 @@
 
 		var deletingDictionary1 = deutsche1Dictionary
 		var deletingDictionary2 = eval("deutsche" + numOfLessons + "Dictionary") 
-		var deletingDictionary3 =  Object.assign(deutsche1Dictionary, deutsche2Dictionary, deutsche3Dictionary, deutsche4Dictionary, deutsche5Dictionary, deutsche6Dictionary, deutsche7Dictionary, deutsche8Dictionary)
+		var deletingDictionary3 =  dictionaryAll
 		var endCounter = 0
-		var counter = 0
+		var counter1 = 0
+		var counter2 = 0
+		var counter3 = 0
 
 		function start(number, dictionary){
 			var number = number
 			var dictionary = dictionary
-			var thisCounter = eval("counter" + number)
+			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
 			var deletingDictionary = eval("deletingDictionary" + number)
 			isWrong = false
 			var listOfValsUnchanged = []
@@ -183,19 +189,19 @@
 			var randomNumber = Math.floor((Math.random() * numOfKeys))
 
 			if(thisCounter == numOfKeysUnchanged){
-				var endScore = thisCounter/numOfKeysUnchanged*100
+				eval("endScore" + number "=" thisCounter/numOfKeysUnchanged*100)
 				var message = ""
-				if(endScore == 100){
+				if(eval("endScore" + number) == 100){
 					var message = "Perfect! You got all the questions right!"
-				} else if (endScore > 50){
+				} else if (eval("endScore" + number)> 50){
 					var message = "Well done! You got the majority of the questions correct."
-				} else if (endScore >= 10){
+				} else if (eval("endScore" + number) >= 10){
 					var message = "Keep learning the words and practising them, you didn't do very well."
-				}else if(endScore < 30){
+				}else if(eval("endScore" + number) < 30){
 					var message = "Keep practising. You didn't get many questions correct."
 				}
 
-				document.getElementById("resultsLabel" + number).innerHTML = "You have finished all the words, you got " + endScore.toFixed(1) + "% of questions correct." + " " +  message
+				document.getElementById("resultsLabel" + number).innerHTML = "You have finished all the words, you got " + eval("endScore" + number).toFixed(1) + "% of questions correct." + " " +  message
 				document.getElementById("resultsLabel" + number).style.color = "black"
 				document.getElementById("englishWord" + number).innerHTML = ""
 
@@ -213,10 +219,11 @@
 			endCounter = endCounter + 1
 		}
 		function giveUp(number, dictionary){
+			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
 			document.getElementById("resultsLabel" + number).innerHTML = "The correct answer is: " + window.localStorage.getItem("correctAns")
 			document.getElementById("resultsLabel" + number).style = "color:red"
-			counter = counter - 3
-			document.getElementById("counter" + number).innerHTML = "Score: " + counter
+			thisCounter = thisCounter - 3
+			document.getElementById("counter" + number).innerHTML =  thisCounter
 			document.getElementById("skipButton" + number).style.display = "none"
 			document.getElementById("checkButton" + number).style.display = "none"
 			document.getElementById("giveUpButton" + number).style.display = "none"
@@ -224,14 +231,16 @@
 			isWrong = true
 		}
 		function check(number, dictionary){
+			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
+			console.log(thisCounter)
 			if(window.localStorage.getItem("correctAns") == document.getElementById("myInput" + number).value){
 				document.getElementById("resultsLabel"+ number).innerHTML = "Well Done"
 				document.getElementById("resultsLabel" + number).style = "color:green"
 				document.getElementById("nextButton" + number).style.display = "inline"
 				if(isWrong == false){
-					counter = counter + 1
+					thisCounter = thisCounter + 1
 				}
-				document.getElementById("counter" + number).innerHTML = "Score: " + counter
+				document.getElementById("counter" + number).innerHTML = thisCounter
 				document.getElementById("skipButton" + number).style.display = "none"
 				document.getElementById("checkButton" + number).style.display = "none"
 				document.getElementById("giveUpButton" + number).style.display = "none"
@@ -240,8 +249,8 @@
 			}else{
 				document.getElementById("resultsLabel" + number).innerHTML = "Try Again"
 				document.getElementById("resultsLabel" + number).style = "color:red"
-				counter = counter - 1
-				document.getElementById("counter" + number).innerHTML = "Score: " + counter
+				thisCounter = thisCounter - 1
+				document.getElementById("counter" + number).innerHTML = thisCounter
 				isWrong = true
 			}
 		}
