@@ -62,10 +62,10 @@
 		<br>
 		<div id='englishWord3'></div>
 		<input type='text' id='myInput3' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton3').click()">
-		<button id='checkButton3' style='border-radius:25px' onclick="check(3, dictionaryAll)">CHECK</button>
-		<button id='giveUpButton3' style='border-radius:25px' onclick="giveUp(3, dictionaryAll)">GIVE UP</button>
-		<button id='skipButton3' style='border-radius:25px' onclick="skip(3, dictionaryAll)">SKIP</button>
-		<button id='nextButton3' style='border-radius:25px' onclick="start(3, dictionaryAll)">NEXT</button>
+		<button id='checkButton3' style='border-radius:25px' onclick="check(3, allFiles)">CHECK</button>
+		<button id='giveUpButton3' style='border-radius:25px' onclick="giveUp(3, allFiles)">GIVE UP</button>
+		<button id='skipButton3' style='border-radius:25px' onclick="skip(3, allFiles)">SKIP</button>
+		<button id='nextButton3' style='border-radius:25px' onclick="start(3, allFiles)">NEXT</button>
 		<div id='resultsLabel3'></div>
 	</section>
 
@@ -85,9 +85,9 @@
 		var deutsche3 = new Lesson(3, "Frau King", "https://api.myjson.com/bins/gly94", "Numbers 20-100") ; numOfLessons++ 
 		var deutsche4 = new Lesson(4, "Frau Sheikh", "https://api.myjson.com/bins/1dwe6h", "Months") ; numOfLessons++ 	
 		var deutsche5 = new Lesson(5, "Frau Sheikh", "https://api.myjson.com/bins/6hw6h", "The Verb 'Sein'") ; numOfLessons++ 		
-		var deutsche6 = new Lesson(6, "Frau Sheikh", "https://api.myjson.com/bins/lz5wp", "Dates") ; numOfLessons++ 	
+		var deutsche6 = new Lesson(6, "Frau Sheikh", "https://api.myjson.com/bins/1hahls", "Dates") ; numOfLessons++ 	
 		var deutsche7 = new Lesson(7, "Frau King", "https://api.myjson.com/bins/18eab9", "The Verb 'Haben'") ; numOfLessons++ 	
-		var deutsche8 = new Lesson(8, "Frau Sheikh", "https://api.myjson.com/bins/1hahls", "Countries") ; numOfLessons++ 		
+		var deutsche8 = new Lesson(8, "Frau Sheikh", "https://api.myjson.com/bins/k3pho", "Countries") ; numOfLessons++ 		
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 	</script>
@@ -115,10 +115,6 @@
 
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var dictionaryLast = eval("deutsche" + numOfLessons + "Dictionary")
-		var dictionaryAll = allFiles
-
-		console.log(dictionaryAll)
-
 		document.getElementById("firstCheck").addEventListener( "change", function(){
 			if(this.checked) {				
 				start(1, deutsche1Dictionary)
@@ -137,7 +133,7 @@
 
 		document.getElementById("allCheck").addEventListener( "change", function(){
 			if(this.checked) {				
-				start(3, dictionaryAll)
+				start(3, allFiles)
 			}else{
 				document.getElementById("deutsche3Section").style = "display:none"
 				}
@@ -148,7 +144,7 @@
 
 		var deletingDictionary1 = deutsche1Dictionary
 		var deletingDictionary2 = eval("deutsche" + numOfLessons + "Dictionary") 
-		var deletingDictionary3 =  dictionaryAll
+		var deletingDictionary3 =  allFiles
 		var endCounter = 0
 		var counter1 = 0
 		var counter2 = 0
@@ -188,8 +184,8 @@
 			var numOfKeys = (Object.keys(listOfVals)).length
 			var randomNumber = Math.floor((Math.random() * numOfKeys))
 
-			if(thisCounter == numOfKeysUnchanged){
-				eval("endScore" + number "=" thisCounter/numOfKeysUnchanged*100)
+			if(endCounter == numOfKeysUnchanged){
+				eval("endScore" + number + "=" + thisCounter/numOfKeysUnchanged*100)
 				var message = ""
 				if(eval("endScore" + number) == 100){
 					var message = "Perfect! You got all the questions right!"
@@ -232,7 +228,6 @@
 		}
 		function check(number, dictionary){
 			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
-			console.log(thisCounter)
 			if(window.localStorage.getItem("correctAns") == document.getElementById("myInput" + number).value){
 				document.getElementById("resultsLabel"+ number).innerHTML = "Well Done"
 				document.getElementById("resultsLabel" + number).style = "color:green"
