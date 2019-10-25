@@ -27,6 +27,7 @@
 		<div style="display:inline">Score: </div>
 		<div id='counter1' style="display:inline">0</div>
 		<br>
+		<br>
 		<div id='englishWord1'></div>
 		<input type='text' id='myInput1' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton1').click()">
 		<button id='checkButton1' style='border-radius:25px' onclick="check(1, deutsche1Dictionary)">CHECK</button>
@@ -43,6 +44,7 @@
 		<div style="display:inline">Score: </div>
 		<div id='counter2' style="display:inline">0</div>
 		<br>
+		<br>
 		<div id='englishWord2'></div>
 		<br>
 		<input type='text' id='myInput2' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton2').click()">
@@ -55,12 +57,14 @@
 
 	<section id="deutsche3Section" style="display:none">
 		<h3><u>All Lessons</u></h3>
-		<div><i>Remember to correctly capitalise your answer and type numbers as numbers, not words.</i></div>
+		<div><i>Remember to correctly capitalise your answer and type numbers as words, not numbers.</i></div>
 		<br>
 		<div style="display:inline">Score: </div>
 		<div id='counter3' style="display:inline">0</div>
 		<br>
+		<br>
 		<div id='englishWord3'></div>
+		<br>
 		<input type='text' id='myInput3' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton3').click()">
 		<button id='checkButton3' style='border-radius:25px' onclick="check(3, allFiles)">CHECK</button>
 		<button id='giveUpButton3' style='border-radius:25px' onclick="giveUp(3, allFiles)">GIVE UP</button>
@@ -74,19 +78,20 @@
 
 
 		function Lesson(num, teacher, json, title) {
- 			this.num = num			
+ 			this.num = num
+  			this.teacher = teacher  			
   			this.json = json
   			this.title = title
 		}
 		
-		var deutsche1 = new Lesson(1, "https://api.myjson.com/bins/g6y4o", "Numbers 0-19") ; numOfLessons++ 
-		var deutsche2 = new Lesson(2, "https://api.myjson.com/bins/a9v5x", "Greetings") ; numOfLessons++ 
-		var deutsche3 = new Lesson(3, "https://api.myjson.com/bins/gly94", "Numbers 20-100") ; numOfLessons++ 
-		var deutsche4 = new Lesson(4, "https://api.myjson.com/bins/1dwe6h", "Months") ; numOfLessons++ 	
-		var deutsche5 = new Lesson(5, "https://api.myjson.com/bins/6hw6h", "The Verb 'Sein'") ; numOfLessons++ 		
-		var deutsche6 = new Lesson(6, "https://api.myjson.com/bins/1hahls", "Dates") ; numOfLessons++ 	
-		var deutsche7 = new Lesson(7, "https://api.myjson.com/bins/18eab9", "The Verb 'Haben'") ; numOfLessons++ 	
-		var deutsche8 = new Lesson(8, "https://api.myjson.com/bins/k3pho", "Countries") ; numOfLessons++ 		
+		var deutsche1 = new Lesson(1, "Frau Sheikh", "https://api.myjson.com/bins/g6y4o", "Numbers 0-19") ; numOfLessons++ 
+		var deutsche2 = new Lesson(2, "Frau King", "https://api.myjson.com/bins/a9v5x", "Greetings") ; numOfLessons++ 
+		var deutsche3 = new Lesson(3, "Frau King", "https://api.myjson.com/bins/gly94", "Numbers 20-100") ; numOfLessons++ 
+		var deutsche4 = new Lesson(4, "Frau Sheikh", "https://api.myjson.com/bins/1dwe6h", "Months") ; numOfLessons++ 	
+		var deutsche5 = new Lesson(5, "Frau Sheikh", "https://api.myjson.com/bins/6hw6h", "The Verb 'Sein'") ; numOfLessons++ 		
+		var deutsche6 = new Lesson(6, "Frau Sheikh", "https://api.myjson.com/bins/1hahls", "Dates") ; numOfLessons++ 	
+		var deutsche7 = new Lesson(7, "Frau King", "https://api.myjson.com/bins/18eab9", "The Verb 'Haben'") ; numOfLessons++ 	
+		var deutsche8 = new Lesson(8, "Frau Sheikh", "https://api.myjson.com/bins/k3pho", "Countries") ; numOfLessons++ 		
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 	</script>
