@@ -35,6 +35,7 @@
 		<button id='giveUpButton1' style='border-radius:25px' onclick="giveUp(1, deutsche1Dictionary)">GIVE UP</button>
 		<button id='skipButton1' style='border-radius:25px' onclick="skip(1, deutsche1Dictionary)">SKIP</button>
 		<button id='nextButton1' style='border-radius:25px' onclick="start(1, deutsche1Dictionary)">NEXT</button>
+		<button id='endButton1' style='border-radius:25px' onclick="end(1, deutsche1Dictionary)">END</button>
 		<div id='resultsLabel1'></div>
 	</section>	
 
@@ -53,6 +54,7 @@
 		<button id='giveUpButton2' style='border-radius:25px' onclick="giveUp(2, dictionaryLast)">GIVE UP</button>
 		<button id='skipButton2' style='border-radius:25px' onclick="skip(2, dictionaryLast)">SKIP</button>
 		<button id='nextButton2' style='border-radius:25px' onclick="start(2, dictionaryLast)">NEXT</button>
+		<button id='endButton2' style='border-radius:25px' onclick="end(2, dictionaryLast)">END</button>
 		<div id='resultsLabel2'></div>
 	</section>
 
@@ -71,6 +73,7 @@
 		<button id='giveUpButton3' style='border-radius:25px' onclick="giveUp(3, allFiles)">GIVE UP</button>
 		<button id='skipButton3' style='border-radius:25px' onclick="skip(3, allFiles)">SKIP</button>
 		<button id='nextButton3' style='border-radius:25px' onclick="start(3, allFiles)">NEXT</button>
+		<button id='endButton3' style='border-radius:25px' onclick="end(3, allFiles)">END</button>
 		<div id='resultsLabel3'></div>
 	</section>
 
@@ -154,6 +157,9 @@
 		var counter1 = 0
 		var counter2 = 0
 		var counter3 = 0
+		var	questionsAnswered1 = 0
+		var	questionsAnswered2 = 0
+		var	questionsAnswered3 = 0
 
 		function start(number, dictionary){
 			var number = number
@@ -161,14 +167,6 @@
 			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
 			var deletingDictionary = eval("deletingDictionary" + number)
 			isWrong = false
-			var listOfValsUnchanged = []
-			for (var key in dictionary) {
-		    	if (dictionary.hasOwnProperty(key)) {
-		        	listOfValsUnchanged.push([key])
-		    	}
-			}
-			var numOfKeysUnchanged = (Object.keys(listOfValsUnchanged)).length
-
 
 			document.getElementById("deutsche" + number + "Section").style = "display:inline"
 			document.getElementById("myInput" + number).value = ""
@@ -177,6 +175,8 @@
 			document.getElementById("skipButton" + number).style.display = "inline"
 			document.getElementById("checkButton" + number).style.display = "inline"
 			document.getElementById("giveUpButton" + number).style.display = "inline"
+			document.getElementById("soundButton" + number).style.display = "inline"
+
 
 			var listOfVals = []
 			var myDeletingDictionary = eval("deletingDictionary" + number)
@@ -189,27 +189,12 @@
 			var numOfKeys = (Object.keys(listOfVals)).length
 			var randomNumber = Math.floor((Math.random() * numOfKeys))
 
-			if(endCounter == numOfKeysUnchanged){
-				eval("endScore" + number + "=" + thisCounter/numOfKeysUnchanged*100)
-				var message = ""
-				if(eval("endScore" + number) == 100){
-					var message = "Perfect! You got all the questions right!"
-				} else if (eval("endScore" + number)> 50){
-					var message = "Well done! You got the majority of the questions correct."
-				} else if (eval("endScore" + number) >= 10){
-					var message = "Keep learning the words and practising them, you didn't do very well."
-				}else if(eval("endScore" + number) < 30){
-					var message = "Keep practising. You didn't get many questions correct."
-				}
+			window.localStorage.setItem("questionsAnswered" + number, eval("questionsAnswered"+ number))
+			window.localStorage.setItem("thisCounter", thisCounter)
 
-				document.getElementById("resultsLabel" + number).innerHTML = "You have finished all the words, you got " + eval("endScore" + number).toFixed(1) + "% of questions correct." + " " +  message
-				document.getElementById("resultsLabel" + number).style.color = "black"
-				document.getElementById("englishWord" + number).innerHTML = ""
-
-				document.getElementById("nextButton" + number).style.display = "none"
-				document.getElementById("skipButton" + number).style.display = "none"
-				document.getElementById("checkButton" + number).style.display = "none"
-				document.getElementById("giveUpButton" + number).style.display = "none"
+			if(endCounter == eval("questionsAnswered" + number)){
+				end(number, dictionary)
+				
 				}else {					
 				document.getElementById("englishWord" + number).innerHTML = dictionary[listOfVals[randomNumber]]
 				var correctAns = listOfVals[randomNumber]
@@ -230,6 +215,9 @@
 			document.getElementById("giveUpButton" + number).style.display = "none"
 			document.getElementById("nextButton" + number).style.display = "inline"
 			isWrong = true
+			var msg = new SpeechSynthesisUtterance(document.getElementById("resultsLabel" + number).innerHTML)
+			window.speechSynthesis.speak(msg)
+	    	eval("questionsAnswered" + number + "=" + eval("questionsAnswered" + number) + 1)
 		}
 		function check(number, dictionary){
 			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
@@ -246,24 +234,56 @@
 				document.getElementById("giveUpButton" + number).style.display = "none"
 				isWrong = true
 
+				var msg = new SpeechSynthesisUtterance("Well done!")
+				window.speechSynthesis.speak(msg)
+	    	eval("questionsAnswered" + number + "=" + eval("questionsAnswered" + number) + 1)
+
 			}else{
 				document.getElementById("resultsLabel" + number).innerHTML = "Try Again"
 				document.getElementById("resultsLabel" + number).style = "color:red"
 				thisCounter = thisCounter - 1
 				document.getElementById("counter" + number).innerHTML = thisCounter
 				isWrong = true
+
+				var msg = new SpeechSynthesisUtterance("Try again!")
+				window.speechSynthesis.speak(msg)
 			}
 		}
 		function skip(number, dictionary){
 			start(number, dictionary)
 		}
-
 	    function playSound(number) {
 	    	var word = document.getElementById("englishWord" + number).innerHTML
-	    	console.log(word)
 
 			var msg = new SpeechSynthesisUtterance(word)
 			window.speechSynthesis.speak(msg)
+	    }
+	    function end(number, dictionary){
+	    	var thisCounter = window.localStorage.getItem("thisCounter")
+	    	var questionsAnswered = window.localStorage.getItem("questionsAnswered" + number)
+	    	eval("endScore" + number + "=" + thisCounter/questionsAnswered*100)
+			var message = ""
+				if(eval("endScore" + number) == 100){
+					var message = "Perfect! You got all the questions right!"
+				} else if (eval("endScore" + number)> 50){
+					var message = "Well done! You got the majority of the questions correct."
+				} else if (eval("endScore" + number) >= 10){
+					var message = "Keep learning the words and practising them, you didn't do very well."
+				}else if(eval("endScore" + number) < 30){
+					var message = "Keep practising. You didn't get many questions correct."
+				}
+
+			document.getElementById("resultsLabel" + number).innerHTML = "You have finished all the words, you got " + eval("endScore" + number).toFixed(1) + "% of questions correct." + " " +  message
+			var msg = new SpeechSynthesisUtterance(document.getElementById("resultsLabel" + number).innerHTML)
+			window.speechSynthesis.speak(msg)
+			document.getElementById("resultsLabel" + number).style.color = "black"
+			document.getElementById("englishWord" + number).innerHTML = ""
+			document.getElementById("soundButton" + number).style.display = "none"
+
+			document.getElementById("nextButton" + number).style.display = "none"
+			document.getElementById("skipButton" + number).style.display = "none"
+			document.getElementById("checkButton" + number).style.display = "none"
+			document.getElementById("giveUpButton" + number).style.display = "none"
 	    }
 	</script>
 </body>
