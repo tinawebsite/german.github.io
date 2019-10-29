@@ -46,8 +46,8 @@
 		<div id='counter2' style="display:inline">0</div>
 		<br>
 		<br>
-		<div id='germanWord2'></div>
-		<br>
+		<div id='germanWord2' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton2" style="display:inline;border-radius:25px" onclick="playSound(2, dictionaryLast)"> 🗣️</button>
+		<br> 
 		<input type='text' id='myInput2' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton2').click()">
 		<button id='checkButton2' style='border-radius:25px'  onclick="check(2, dictionaryLast)">CHECK</button>
 		<button id='giveUpButton2' style='border-radius:25px' onclick="giveUp(2, dictionaryLast)">GIVE UP</button>
@@ -64,8 +64,8 @@
 		<div id='counter3' style="display:inline">0</div>
 		<br>
 		<br>
-		<div id='germanWord3'></div>
-		<br>
+		<div id='germanWord3' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton3" style="display:inline;border-radius:25px" onclick="playSound(3, allFiles)"> 🗣️</button>
+		<br> 
 		<input type='text' id='myInput3' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton3').click()">
 		<button id='checkButton3' style='border-radius:25px' onclick="check(3, allFiles)">CHECK</button>
 		<button id='giveUpButton3' style='border-radius:25px' onclick="giveUp(3, allFiles)">GIVE UP</button>
@@ -93,6 +93,7 @@
 		var deutsche6 = new Lesson(6, "Frau Sheikh" ,"https://api.myjson.com/bins/lz5wp", "Dates") ; numOfLessons++ 	
 		var deutsche7 = new Lesson(7, "Frau King", "https://api.myjson.com/bins/18zons", "The Verb 'Haben'") ; numOfLessons++ 	
 		var deutsche8 = new Lesson(8, "Frau Sheikh" ,"https://api.myjson.com/bins/fvsw8", "Countries") ; numOfLessons++	
+		var deutsche9 = new Lesson(9, "Frau King" ,"https://api.myjson.com/bins/vibcw", "School Subjects") ; numOfLessons++	
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 	</script>
@@ -113,9 +114,11 @@
 
 	   	var deutsche7Dictionary = {} ; fetch(deutsche7.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche7Dictionary[key] = myJson[key]})})
 
-	   	var deutsche8Dictionary = {} ; fetch(deutsche8.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche8Dictionary[key] = myJson[key]})})
+	   	var deutsche8Dictionary = {} ; fetch(deutsche8.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche8Dictionary[key] = myJson[key]})})	   
 
-	   	var allFiles = {} ; fetch("https://api.myjson.com/bins/1796yw").then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){allFiles[key] = myJson[key]})})
+	   	var deutsche9Dictionary = {} ; fetch(deutsche9.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche9Dictionary[key] = myJson[key]})})
+
+	   	var allFiles = {} ; fetch("https://api.myjson.com/bins/xcz1s").then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){allFiles[key] = myJson[key]})})
 
 
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
@@ -258,14 +261,10 @@
 			start(number, dictionary)
 		}
 
-		var sound = new Audio()
-	    function playSound(number, dictionary) {
-	    	//var word = window.localStorage.getItem("correctAns")
-
-	      	//sound.src = word + '.mp3'
-	      	//sound.play()
-			var msg = new SpeechSynthesisUtterance('ich bin');
-			window.speechSynthesis.speak(msg);
+	    function playSound(number) {
+			var msg = new SpeechSynthesisUtterance(document.getElementById("germanWord" + number).innerHTML)
+			msg.lang = "de"
+			window.speechSynthesis.speak(msg)
 	    }
 
 	</script>
