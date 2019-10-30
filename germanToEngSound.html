@@ -224,7 +224,7 @@
 		}
 		function giveUp(number, dictionary){
 			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
-			document.getElementById("resultsLabel" + number).innerHTML = "The correct answer is: " + window.localStorage.getItem("correctAns")
+			document.getElementById("resultsLabel" + number).innerHTML = "The correct answer was: " + window.localStorage.getItem("correctAns")
 			document.getElementById("resultsLabel" + number).style = "color:red"
 			thisCounter = thisCounter - 3
 			document.getElementById("counter" + number).innerHTML =  thisCounter
@@ -233,6 +233,9 @@
 			document.getElementById("giveUpButton" + number).style.display = "none"
 			document.getElementById("nextButton" + number).style.display = "inline"
 			isWrong = true
+			var msg = new SpeechSynthesisUtterance(document.getElementById("The correct answer was " + window.localStorage.getItem("correctAns")))
+			msg.lang = "en"
+			window.speechSynthesis.speak(msg)
 		}
 		function check(number, dictionary){
 			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
@@ -248,6 +251,7 @@
 				document.getElementById("checkButton" + number).style.display = "none"
 				document.getElementById("giveUpButton" + number).style.display = "none"
 				isWrong = true
+				var msg = new SpeechSynthesisUtterance("Well Done!")
 
 			}else{
 				document.getElementById("resultsLabel" + number).innerHTML = "Try Again"
@@ -255,7 +259,11 @@
 				thisCounter = thisCounter - 1
 				document.getElementById("counter" + number).innerHTML = thisCounter
 				isWrong = true
+				var msg = new SpeechSynthesisUtterance("Try Again!")
 			}
+			msg.lang = "en"
+			console.log(msg)
+			window.speechSynthesis.speak(msg)
 		}
 		function skip(number, dictionary){
 			start(number, dictionary)
