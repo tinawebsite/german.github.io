@@ -220,7 +220,7 @@
 			document.getElementById("giveUpButton" + number).style.display = "none"
 			document.getElementById("nextButton" + number).style.display = "inline"
 			isWrong = true
-			var msg = new SpeechSynthesisUtterance(document.getElementById("The correct answer was " + window.localStorage.getItem("correctAns")))
+			var msg = new SpeechSynthesisUtterance("The correct answer was " + window.localStorage.getItem("correctAns"))
 			msg.lang = "en"
 			window.speechSynthesis.speak(msg)
 			questionsAnswered = questionsAnswered + 1

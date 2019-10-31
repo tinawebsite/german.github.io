@@ -221,9 +221,13 @@
 			document.getElementById("giveUpButton" + number).style.display = "none"
 			document.getElementById("nextButton" + number).style.display = "inline"
 			isWrong = true
-			var msg = new SpeechSynthesisUtterance(document.getElementById("The correct answer was " + window.localStorage.getItem("correctAns")))
+			correctAns = window.localStorage.getItem("correctAns") 
+			var msg = new SpeechSynthesisUtterance("The correct answer was ")
+			var msg1 = new SpeechSynthesisUtterance(correctAns)
 			msg.lang = "en"
+			msg1.lang = "de"
 			window.speechSynthesis.speak(msg)
+			window.speechSynthesis.speak(msg1)
 			questionsAnswered = questionsAnswered + 1
 		}
 		function check(number, dictionary){
@@ -259,7 +263,7 @@
 
 	    function playSound(number) {
 			var msg = new SpeechSynthesisUtterance(document.getElementById("englishWord" + number).innerHTML)
-			msg.lang = "de"
+			msg.lang = "en"
 			window.speechSynthesis.speak(msg)
 	    }
 	    function end (number){
