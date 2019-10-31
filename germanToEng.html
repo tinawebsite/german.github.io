@@ -19,6 +19,8 @@
 		<section><input type="checkbox" id="lastCheck"> Last Class</section>
 		<br>
 		<section><input type="checkbox" id="allCheck"> All Classes</section>
+		<br>
+		<section><input type="checkbox" id="theseCheck"> From class ... to ...</section>
 	</form>
 
 	<section id="deutsche1Section" style="display:none">
@@ -75,6 +77,25 @@
 		<button id='nextButton3' style='border-radius:25px' onclick="start(3, allFiles)">NEXT</button>
 		<button id='endButton3' style='border-radius:25px' onclick="end(3)">END</button>
 		<div id='resultsLabel3'></div>
+	</section>
+
+	<section id="deutsche4Section" style="display:none">
+		<h3><u>All Lessons</u></h3>
+		<div><i>Remember to correctly capitalise your answer and type numbers as numbers, not words.</i></div>
+		<br>
+		<div style="display:inline">Score: </div>
+		<div id='counter4' style="display:inline">0</div>
+		<br>
+		<br>
+		<div id='germanWord4' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton4" style="display:inline;border-radius:25px" onclick="playSound(4, theseFiles)"> 🗣️</button>
+		<br> 
+		<input type='text' id='myInput4' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton4').click()">
+		<button id='checkButton4' style='border-radius:25px' onclick="check(4, theseFiles)">CHECK</button>
+		<button id='giveUpButton4' style='border-radius:25px' onclick="giveUp(4, theseFiles)">GIVE UP</button>
+		<button id='skipButton4' style='border-radius:25px' onclick="skip(4, theseFiles)">SKIP</button>
+		<button id='nextButton4' style='border-radius:25px' onclick="start(4, theseFiles)">NEXT</button>
+		<button id='endButton4' style='border-radius:25px' onclick="end(4)">END</button>
+		<div id='resultsLabel4'></div>
 	</section>
 
 	<script>
@@ -210,6 +231,7 @@
 			}		
 
 			endCounter = endCounter + 1
+			playSound(number)
 		}
 		function giveUp(number, dictionary){
 			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
