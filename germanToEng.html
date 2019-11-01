@@ -20,7 +20,8 @@
 		<br>
 		<section><input type="checkbox" id="allCheck"> All Classes</section>
 		<br>
-		<section><input type="checkbox" id="theseCheck"> From class ... to ...</section>
+		<section><input type="checkbox" id="theseCheck"> Classes <input type="number" min="1" max="9" style="background-color:#fcce03" id="lowEnd"> to <input type="number" min="1" max="9" style="background-color:#fcce03" id="highEnd">
+		</section>
 	</form>
 
 	<section id="deutsche1Section" style="display:none">
@@ -80,7 +81,7 @@
 	</section>
 
 	<section id="deutsche4Section" style="display:none">
-		<h3><u>All Lessons</u></h3>
+		<h3><u>From .. to ...</u></h3>
 		<div><i>Remember to correctly capitalise your answer and type numbers as numbers, not words.</i></div>
 		<br>
 		<div style="display:inline">Score: </div>
@@ -143,7 +144,8 @@
 	   	var deutsche9Dictionary = {} ; fetch(deutsche9.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche9Dictionary[key] = myJson[key]})})
 
 	   	var allFiles = {} ; fetch("https://api.myjson.com/bins/xcz1s").then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){allFiles[key] = myJson[key]})})
-
+	   	
+	   	var theseFiles = {}
 
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var dictionaryLast = eval("deutsche" + numOfLessons + "Dictionary")
@@ -169,6 +171,24 @@
 			}else{
 				document.getElementById("deutsche3Section").style = "display:none"
 				}
+		})		
+
+		document.getElementById("theseCheck").addEventListener( "change", function(){
+			if(this.checked) {		
+				var numbers = []
+				var highEnd = document.getElementById("highEnd").value
+				var lowEnd = document.getElementById("lowEnd").value
+				for (var i = parseInt(lowEnd); i <= highEnd; i++) {
+				    numbers.push(i);
+				}
+				for(i in numbers){
+					var x = numbers[i]
+					theseFiles = {...theseFiles, ...eval("deutsche" + x + "Dictionary")}
+	   			}
+				start(4, theseFiles)
+			}else{
+				document.getElementById("deutsche3Section").style = "display:none"
+				}
 		})
 
 
@@ -177,10 +197,12 @@
 		var deletingDictionary1 = deutsche1Dictionary
 		var deletingDictionary2 = eval("deutsche" + numOfLessons + "Dictionary") 
 		var deletingDictionary3 =  allFiles
+		var deletingDictionary4 =  theseFiles
 		var endCounter = 0
 		var counter1 = 0
 		var counter2 = 0
 		var counter3 = 0
+		var counter4 = 0
 		var questionsAnswered = 0
 		
 		function start(number, dictionary){
@@ -278,7 +300,6 @@
 		function skip(number, dictionary){
 			start(number, dictionary)
 		}
-
 	    function playSound(number) {
 			var msg = new SpeechSynthesisUtterance(document.getElementById("germanWord" + number).innerHTML)
 			msg.lang = "de"
