@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="background-color:#fffb8c">
 <head>
-	<title>English to German</title>
+	<title>Enlish to German</title>
 </head>
 <body>
 	<header>
@@ -19,6 +19,9 @@
 		<section><input type="checkbox" id="lastCheck"> Last Class</section>
 		<br>
 		<section><input type="checkbox" id="allCheck"> All Classes</section>
+		<br>
+		<section><input type="checkbox" id="theseCheck"> Classes <input type="number" min="1" max="9" style="background-color:#fcce03" id="lowEnd"> to <input type="number" min="1" max="9" style="background-color:#fcce03" id="highEnd">
+		</section>
 	</form>
 
 	<section id="deutsche1Section" style="display:none">
@@ -77,6 +80,25 @@
 		<div id='resultsLabel3'></div>
 	</section>
 
+	<section id="deutsche4Section" style="display:none">
+		<h3><u>From .. to ...</u></h3>
+		<div><i>Remember to correctly capitalise your answer and type numbers as numbers, not words.</i></div>
+		<br>
+		<div style="display:inline">Score: </div>
+		<div id='counter4' style="display:inline">0</div>
+		<br>
+		<br>
+		<div id='englishWord4' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton4" style="display:inline;border-radius:25px" onclick="playSound(4, theseFiles)"> 🗣️</button>
+		<br> 
+		<input type='text' id='myInput4' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton4').click()">
+		<button id='checkButton4' style='border-radius:25px' onclick="check(4, theseFiles)">CHECK</button>
+		<button id='giveUpButton4' style='border-radius:25px' onclick="giveUp(4, theseFiles)">GIVE UP</button>
+		<button id='skipButton4' style='border-radius:25px' onclick="skip(4, theseFiles)">SKIP</button>
+		<button id='nextButton4' style='border-radius:25px' onclick="start(4, theseFiles)">NEXT</button>
+		<button id='endButton4' style='border-radius:25px' onclick="end(4)">END</button>
+		<div id='resultsLabel4'></div>
+	</section>
+
 	<script>
 		var numOfLessons = 0
 
@@ -96,8 +118,7 @@
 		var deutsche6 = new Lesson(6, "Frau Sheikh", "https://api.myjson.com/bins/1hahls", "Dates") ; numOfLessons++ 	
 		var deutsche7 = new Lesson(7, "Frau King", "https://api.myjson.com/bins/18eab9", "The Verb 'Haben'") ; numOfLessons++ 	
 		var deutsche8 = new Lesson(8, "Frau Sheikh", "https://api.myjson.com/bins/k3pho", "Countries") ; numOfLessons++ 		
-		var deutsche9 = new Lesson(9, "Frau King", "https://api.myjson.com/bins/k2sjk", "School Subjects") ; numOfLessons++ 		
-
+		var deutsche9 = new Lesson(9, "Frau King", "https://api.myjson.com/bins/k2sjk", "School Subjects") ; numOfLessons++ 
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 	</script>
@@ -122,8 +143,9 @@
 
 	   	var deutsche9Dictionary = {} ; fetch(deutsche9.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche9Dictionary[key] = myJson[key]})})
 
-
 	   	var allFiles = {} ; fetch("https://api.myjson.com/bins/kx0i8").then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){allFiles[key] = myJson[key]})})
+	   	
+	   	var theseFiles = {}
 
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var dictionaryLast = eval("deutsche" + numOfLessons + "Dictionary")
@@ -149,6 +171,24 @@
 			}else{
 				document.getElementById("deutsche3Section").style = "display:none"
 				}
+		})		
+
+		document.getElementById("theseCheck").addEventListener( "change", function(){
+			if(this.checked) {		
+				var numbers = []
+				var highEnd = document.getElementById("highEnd").value
+				var lowEnd = document.getElementById("lowEnd").value
+				for (var i = parseInt(lowEnd); i <= highEnd; i++) {
+				    numbers.push(i);
+				}
+				for(i in numbers){
+					var x = numbers[i]
+					theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
+	   			}
+				start(4, theseFiles)
+			}else{
+				document.getElementById("deutsche3Section").style = "display:none"
+				}
 		})
 
 
@@ -157,10 +197,12 @@
 		var deletingDictionary1 = deutsche1Dictionary
 		var deletingDictionary2 = eval("deutsche" + numOfLessons + "Dictionary") 
 		var deletingDictionary3 =  allFiles
+		var deletingDictionary4 =  theseFiles
 		var endCounter = 0
 		var counter1 = 0
 		var counter2 = 0
 		var counter3 = 0
+		var counter4 = 0
 		var questionsAnswered = 0
 		
 		function start(number, dictionary){
@@ -223,13 +265,9 @@
 			document.getElementById("giveUpButton" + number).style.display = "none"
 			document.getElementById("nextButton" + number).style.display = "inline"
 			isWrong = true
-			correctAns = window.localStorage.getItem("correctAns") 
-			var msg = new SpeechSynthesisUtterance("The correct answer was ")
-			var msg1 = new SpeechSynthesisUtterance(correctAns)
+			var msg = new SpeechSynthesisUtterance("The correct answer was " + window.localStorage.getItem("correctAns"))
 			msg.lang = "en"
-			msg1.lang = "de"
 			window.speechSynthesis.speak(msg)
-			window.speechSynthesis.speak(msg1)
 			questionsAnswered = questionsAnswered + 1
 		}
 		function check(number, dictionary){
@@ -262,7 +300,6 @@
 		function skip(number, dictionary){
 			start(number, dictionary)
 		}
-
 	    function playSound(number) {
 			var msg = new SpeechSynthesisUtterance(document.getElementById("englishWord" + number).innerHTML)
 			msg.lang = "en"
@@ -286,9 +323,10 @@
 			document.getElementById("resultsLabel" + number).innerHTML = "You have finished, you got " + eval("endScore" + number).toFixed(1) + "% of questions correct." + " " +  message
 			document.getElementById("resultsLabel" + number).style.color = "black"
 			document.getElementById("englishWord" + number).innerHTML = ""
+			document.getElementById("myInput" + number).value = ""
 			document.getElementById("nextButton" + number).style.display = "none"
-			document.getElementById("skipButton" + number).style.display = "none"
 			document.getElementById("endButton" + number).style.display = "none"
+			document.getElementById("skipButton" + number).style.display = "none"
 			document.getElementById("checkButton" + number).style.display = "none"
 			document.getElementById("giveUpButton" + number).style.display = "none"
 	    }

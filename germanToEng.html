@@ -183,8 +183,9 @@
 				}
 				for(i in numbers){
 					var x = numbers[i]
-					theseFiles = {...theseFiles, ...eval("deutsche" + x + "Dictionary")}
+					theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
 	   			}
+	   			console.log(theseFiles)
 				start(4, theseFiles)
 			}else{
 				document.getElementById("deutsche3Section").style = "display:none"
@@ -323,6 +324,7 @@
 			document.getElementById("resultsLabel" + number).innerHTML = "You have finished, you got " + eval("endScore" + number).toFixed(1) + "% of questions correct." + " " +  message
 			document.getElementById("resultsLabel" + number).style.color = "black"
 			document.getElementById("germanWord" + number).innerHTML = ""
+			document.getElementById("myInput" + number).value = ""
 			document.getElementById("nextButton" + number).style.display = "none"
 			document.getElementById("endButton" + number).style.display = "none"
 			document.getElementById("skipButton" + number).style.display = "none"
