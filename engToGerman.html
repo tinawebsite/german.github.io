@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html style="background-color:#fffb8c">
 <head>
-	<title>Enlish to German</title>
+	<title>English to German</title>
 </head>
 <body>
+
 	<header>
+		<!--Home button-->
 		<button style='border-radius:25px;color:#8003fc;background-color:#d9b3ff;outline-color:#8003fc' id="home">Home</button>
 	</header>
+
 	<script>
 		document.getElementById("home").addEventListener("click", function(){
 			window.open("index.html", "_self")
 		})
 	</script>
+	
 	<h1 style="text-align:center;"><u>English to German</u></h1>
+	<ol id="listOfClasses" style="background-color:#ffda36"></ol>
+	
+	<br>
+
 	<form style="background-color:#fcce03"> 			
 		<section><input type="checkbox" id="firstCheck" > First Class</section>
 		<br>
@@ -63,7 +71,7 @@
 
 	<section id="deutsche3Section" style="display:none">
 		<h3><u>All Lessons</u></h3>
-		<div><i>Remember to correctly capitalise your answer and type numbers as numbers, not words.</i></div>
+		<div><i>Remember to correctly capitalise your answer and type numbers as words, not numbers.</i></div>
 		<br>
 		<div style="display:inline">Score: </div>
 		<div id='counter3' style="display:inline">0</div>
@@ -81,8 +89,8 @@
 	</section>
 
 	<section id="deutsche4Section" style="display:none">
-		<h3><u>From .. to ...</u></h3>
-		<div><i>Remember to correctly capitalise your answer and type numbers as numbers, not words.</i></div>
+		<h3><u id="theseNumbers">From .. to ...</u></h3>
+		<div><i>Remember to correctly capitalise your answer and type numbers as words, not numbers.</i></div>
 		<br>
 		<div style="display:inline">Score: </div>
 		<div id='counter4' style="display:inline">0</div>
@@ -109,7 +117,7 @@
   			this.json = json
   			this.title = title
 		}
-		
+
 		var deutsche1 = new Lesson(1, "Frau Sheikh", "https://api.myjson.com/bins/g6y4o", "Numbers 0-19") ; numOfLessons++ 
 		var deutsche2 = new Lesson(2, "Frau King", "https://api.myjson.com/bins/a9v5x", "Greetings") ; numOfLessons++ 
 		var deutsche3 = new Lesson(3, "Frau King", "https://api.myjson.com/bins/gly94", "Numbers 20-100") ; numOfLessons++ 
@@ -121,8 +129,15 @@
 		var deutsche9 = new Lesson(9, "Frau King", "https://api.myjson.com/bins/k2sjk", "School Subjects") ; numOfLessons++ 
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
-	</script>
 
+		var ol = document.getElementById("listOfClasses")
+		for (var i = 1; i <= numOfLessons; i++) {
+    		var title = eval("deutsche" + i)
+		 	var listItem = document.createElement("li");
+		  	listItem.textContent = title.title
+		  	ol.appendChild(listItem);
+		}
+	</script>
 	
 	<script>
 		var deutsche1Dictionary = {} ; fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche1Dictionary[key] = myJson[key]})})
@@ -185,6 +200,7 @@
 					var x = numbers[i]
 					theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
 	   			}
+	   			document.getElementById("theseNumbers").innerHTML = "Classes " + lowEnd + " to " + highEnd
 				start(4, theseFiles)
 			}else{
 				document.getElementById("deutsche3Section").style = "display:none"
@@ -273,7 +289,14 @@
 		function check(number, dictionary){
 			questionsAnswered = questionsAnswered + 1
 			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
-			if(window.localStorage.getItem("correctAns") == document.getElementById("myInput" + number).value){
+			var correctAns = window.localStorage.getItem("correctAns")
+			var correct1 = correctAns.toLowerCase()
+			var userAns = document.getElementById("myInput" + number).value
+			var user1 = userAns.toLowerCase()
+
+			console.log(correct1)
+			console.log(user1)
+			if(correct1 == user1){
 				document.getElementById("resultsLabel"+ number).innerHTML = "Well Done"
 				document.getElementById("resultsLabel" + number).style = "color:green"
 				document.getElementById("nextButton" + number).style.display = "inline"
@@ -330,7 +353,6 @@
 			document.getElementById("checkButton" + number).style.display = "none"
 			document.getElementById("giveUpButton" + number).style.display = "none"
 	    }
-
 	</script>
 </body>
 </html>

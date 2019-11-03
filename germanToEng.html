@@ -13,6 +13,8 @@
 		})
 	</script>
 	<h1 style="text-align:center;"><u>German to English</u></h1>
+	<ol id="listOfClasses" style="background-color:#ffda36"></ol>
+	<br>
 	<form style="background-color:#fcce03"> 			
 		<section><input type="checkbox" id="firstCheck" > First Class</section>
 		<br>
@@ -44,7 +46,6 @@
 
 	<section id="deutsche2Section" style="display:none">
 		<h3><u>Last Lesson</u></h3>
-		<div><i>Remember to correctly capitalise your answer.</i></div>
 		<br>
 		<div style="display:inline">Score: </div>
 		<div id='counter2' style="display:inline">0</div>
@@ -63,7 +64,7 @@
 
 	<section id="deutsche3Section" style="display:none">
 		<h3><u>All Lessons</u></h3>
-		<div><i>Remember to correctly capitalise your answer and type numbers as numbers, not words.</i></div>
+		<div><i>Remember to type numbers as numbers, not words.</i></div>
 		<br>
 		<div style="display:inline">Score: </div>
 		<div id='counter3' style="display:inline">0</div>
@@ -81,8 +82,8 @@
 	</section>
 
 	<section id="deutsche4Section" style="display:none">
-		<h3><u>From .. to ...</u></h3>
-		<div><i>Remember to correctly capitalise your answer and type numbers as numbers, not words.</i></div>
+		<h3><u id="theseNumbers"></u></h3>
+		<div><i>Remember to type numbers as numbers, not words.</i></div>
 		<br>
 		<div style="display:inline">Score: </div>
 		<div id='counter4' style="display:inline">0</div>
@@ -121,6 +122,16 @@
 		var deutsche9 = new Lesson(9, "Frau King" ,"https://api.myjson.com/bins/vibcw", "School Subjects") ; numOfLessons++	
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
+
+
+		var ol = document.getElementById("listOfClasses")
+		for (var i = 1; i <= numOfLessons; i++) {
+    		var title = eval("deutsche" + i)
+		 	var listItem = document.createElement("li");
+		  	listItem.textContent = title.title
+		  	ol.appendChild(listItem);
+		}
+
 	</script>
 
 	
@@ -185,8 +196,8 @@
 					var x = numbers[i]
 					theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
 	   			}
-	   			console.log(theseFiles)
 				start(4, theseFiles)
+				document.getElementById("theseNumbers").innerHTML = "Classes " + lowEnd + " to " + highEnd
 			}else{
 				document.getElementById("deutsche3Section").style = "display:none"
 				}
@@ -274,7 +285,12 @@
 		function check(number, dictionary){
 			questionsAnswered = questionsAnswered + 1
 			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
-			if(window.localStorage.getItem("correctAns") == document.getElementById("myInput" + number).value){
+			var correctAns = window.localStorage.getItem("correctAns")
+			var correct1 = correctAns.toLowerCase()
+			var userAns = document.getElementById("myInput" + number).value
+			var user1 = userAns.toLowerCase()
+
+			if(correct1 == user1){
 				document.getElementById("resultsLabel"+ number).innerHTML = "Well Done"
 				document.getElementById("resultsLabel" + number).style = "color:green"
 				document.getElementById("nextButton" + number).style.display = "inline"
