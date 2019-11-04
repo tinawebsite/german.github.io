@@ -346,6 +346,10 @@
 			document.getElementById("skipButton" + number).style.display = "none"
 			document.getElementById("checkButton" + number).style.display = "none"
 			document.getElementById("giveUpButton" + number).style.display = "none"
+
+			var msg = new SpeechSynthesisUtterance(document.getElementById("resultsLabel" + number).innerHTML)
+			msg.lang = "en"
+			window.speechSynthesis.speak(msg)
 	    }
 
 	</script>
