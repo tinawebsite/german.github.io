@@ -20,6 +20,14 @@
 	<ol id="listOfClasses" style="background-color:#ffda36"></ol>
 	
 	<br>
+	<section style="background-color:#fcce03" >
+		<div><i>Please select one of these before checking any of the classes.</i></div>
+		<input type="radio" name="soundRadio" id="soundAndText" checked> Sound and text
+		<input type="radio" name="soundRadio" id="text"> Only text
+		<input type="radio" name="soundRadio" id="sound"> Only sound
+	</section>
+	<br>
+	<br>
 
 	<form style="background-color:#fcce03"> 			
 		<section><input type="checkbox" id="firstCheck" > Erste Klasse</section>
@@ -223,6 +231,21 @@
 		var questionsAnswered = 0
 		
 		function start(number, dictionary){
+			if(document.getElementById("sound").checked == true){
+				var sound = true
+				var text = false
+			}else if(document.getElementById("text").checked == true){
+				var sound = false
+				var text = true
+			}else{
+				var sound = true
+				var text = true
+			}
+			if(sound == true){
+				document.getElementById("soundButton" + number).style.display = "inline"
+			}else{
+				document.getElementById("soundButton" + number).style.display = "none"
+			}
 			var number = number
 			var dictionary = dictionary
 			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
@@ -262,14 +285,18 @@
 
 			if(endCounter == numOfKeysUnchanged){
 				end(number)
-				}else {					
-				document.getElementById("englishWord" + number).innerHTML = dictionary[listOfVals[randomNumber]]
-				var correctAns = listOfVals[randomNumber]
-				window.localStorage.setItem("correctAns",  correctAns)
-				delete deletingDictionary[listOfVals[randomNumber]]
+				}else {		
+					if(text == true){
+					document.getElementById("englishWord" + number).innerHTML = dictionary[listOfVals[randomNumber]]
+					}			
+					var correctAns = listOfVals[randomNumber]
+					window.localStorage.setItem("correctAns",  correctAns)
+					window.localStorage.setItem("readThisWord",  dictionary[listOfVals[randomNumber]])
+					delete deletingDictionary[listOfVals[randomNumber]]
 			}		
 
 			endCounter = endCounter + 1
+			window.localStorage.setItem("sound", sound)
 			playSound(number)
 		}
 		function giveUp(number, dictionary){
@@ -316,9 +343,13 @@
 			start(number, dictionary)
 		}
 	    function playSound(number) {
-			var msg = new SpeechSynthesisUtterance(document.getElementById("englishWord" + number).innerHTML)
-			msg.lang = "en"
-			window.speechSynthesis.speak(msg)
+	    	var sound = window.localStorage.getItem("sound")
+	    	var readThisWord = window.localStorage.getItem("readThisWord")
+	    	if(sound = true){
+				var msg = new SpeechSynthesisUtterance(JSON.stringify(readThisWord))
+				msg.lang = "en"
+				window.speechSynthesis.speak(msg)
+	    	}
 	    }
 	    function end (number){
 	    	var thisCounter = window.localStorage.getItem("thisCounter")
