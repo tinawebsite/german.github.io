@@ -6,7 +6,7 @@
 <body>
 
 	<header>
-		<!--Home button-->
+
 		<button style='border-radius:25px;color:#8003fc;background-color:#d9b3ff;outline-color:#8003fc' id="home">Home</button>
 	</header>
 
@@ -21,7 +21,6 @@
 	
 	<br>
 	<section style="background-color:#fcce03" >
-		<div><i>Please select one of these before checking any of the classes.</i></div>
 		<input type="radio" name="soundRadio" id="soundAndText" checked> Sound and text
 		<input type="radio" name="soundRadio" id="text"> Only text
 		<input type="radio" name="soundRadio" id="sound"> Only sound
@@ -354,27 +353,34 @@
 	    function end (number){
 	    	var thisCounter = window.localStorage.getItem("thisCounter")
 	    	var questionsAnswered = window.localStorage.getItem("questionsAnswered")
-	    	eval("endScore" + number + "=" + thisCounter/questionsAnswered*100)
-			var message = ""
-			if(eval("endScore" + number) == 100){
-				var message = "Perfekt! Sie haben alle Fragen richtig!"
-			} else if (eval("endScore" + number)> 50){
-				var message = "Gut gemacht! Sie haben die meisten Fragen richtig beantwortet."
-			} else if (eval("endScore" + number) >= 10){
-				var message = "Lerne die Wörter weiter und übe sie, du hast es nicht sehr gut gemacht."
-			}else if(eval("endScore" + number) < 30){
-				var message = "Üben Sie weiter. Sie haben nicht viele Fragen richtig gestellt."
-			}
+	    	if(questionsAnswered == 0){
+	    		var message = "Sie haben keine Fragen beantwortet."
+	    		document.getElementById("resultsLabel" + number).innerHTML = message
+	    	} else {
+		    	eval("endScore" + number + "=" + thisCounter/questionsAnswered*100)
+				var message = ""
+				if(eval("endScore" + number) == 100){
+					var message = "Perfekt! Sie haben alle Fragen richtig!"
+				} else if (eval("endScore" + number)> 50){
+					var message = "Gut gemacht! Sie haben die meisten Fragen richtig beantwortet."
+				} else if (eval("endScore" + number) >= 10){
+					var message = "Lerne die Wörter weiter und übe sie, du hast es nicht sehr gut gemacht."
+				}else if(eval("endScore" + number) < 30){
+					var message = "Üben Sie weiter. Sie haben nicht viele Fragen richtig gestellt."
+				}
 
-			document.getElementById("resultsLabel" + number).innerHTML = "Du bist fertig, du hast " + eval("endScore" + number).toFixed(1) + "% der Wörter richtig." + " " +  message
+				document.getElementById("resultsLabel" + number).innerHTML = "Du bist fertig, du hast " + eval("endScore" + number).toFixed(1) + "% der Wörter richtig." + " " +  message
+	    	}
+
 			document.getElementById("resultsLabel" + number).style.color = "black"
+			document.getElementById("soundButton" + number).style.display = "none"
 			document.getElementById("englishWord" + number).innerHTML = ""
 			document.getElementById("myInput" + number).value = ""
 			document.getElementById("nextButton" + number).style.display = "none"
 			document.getElementById("endButton" + number).style.display = "none"
 			document.getElementById("skipButton" + number).style.display = "none"
 			document.getElementById("checkButton" + number).style.display = "none"
-			document.getElementById("giveUpButton" + number).style.display = "none"
+			document.getElementById("giveUpButton" + number).style.display = "none"    		
 
 			var msg = new SpeechSynthesisUtterance(document.getElementById("resultsLabel" + number).innerHTML)
 			msg.lang = "de"

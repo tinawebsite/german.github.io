@@ -4,16 +4,29 @@
 	<title>German to English</title>
 </head>
 <body>
+
 	<header>
+
 		<button style='border-radius:25px;color:#8003fc;background-color:#d9b3ff;outline-color:#8003fc' id="home">Home</button>
 	</header>
+
 	<script>
 		document.getElementById("home").addEventListener("click", function(){
 			window.open("index.html", "_self")
 		})
 	</script>
+
 	<h1 style="text-align:center;"><u>German to English</u></h1>
 	<ol id="listOfClasses" style="background-color:#ffda36"></ol>
+
+	<br>
+	<section style="background-color:#fcce03" >
+		<input type="radio" name="soundRadio" id="soundAndText" checked> Sound and text
+		<input type="radio" name="soundRadio" id="text"> Only text
+		<input type="radio" name="soundRadio" id="sound"> Only sound
+	</section>
+	<br>
+	
 	<br>
 	<form style="background-color:#fcce03"> 			
 		<section><input type="checkbox" id="firstCheck" > First Class</section>
@@ -160,6 +173,7 @@
 
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var dictionaryLast = eval("deutsche" + numOfLessons + "Dictionary")
+
 		document.getElementById("firstCheck").addEventListener( "change", function(){
 			if(this.checked) {				
 				start(1, deutsche1Dictionary)
@@ -218,6 +232,22 @@
 		var questionsAnswered = 0
 		
 		function start(number, dictionary){
+			if(document.getElementById("sound").checked == true){
+				var sound = true
+				var text = false
+			}else if(document.getElementById("text").checked == true){
+				var sound = false
+				var text = true
+			}else{
+				var sound = true
+				var text = true
+			}
+
+			if(sound == true){
+				document.getElementById("soundButton" + number).style.display = "inline"
+			}else{
+				document.getElementById("soundButton" + number).style.display = "none"
+			}
 			var number = number
 			var dictionary = dictionary
 			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
@@ -257,16 +287,21 @@
 
 			if(endCounter == numOfKeysUnchanged){
 				end(number)
-				}else {					
-				document.getElementById("germanWord" + number).innerHTML = dictionary[listOfVals[randomNumber]]
-				var correctAns = listOfVals[randomNumber]
-				window.localStorage.setItem("correctAns",  correctAns)
-				delete deletingDictionary[listOfVals[randomNumber]]
+				}else {		
+					if(text == true){
+					document.getElementById("germanWord" + number).innerHTML = dictionary[listOfVals[randomNumber]]
+					}			
+					var correctAns = listOfVals[randomNumber]
+					window.localStorage.setItem("correctAns",  correctAns)
+					window.localStorage.setItem("readThisWord",  dictionary[listOfVals[randomNumber]])
+					delete deletingDictionary[listOfVals[randomNumber]]
 			}		
 
 			endCounter = endCounter + 1
+			window.localStorage.setItem("sound", sound)
 			playSound(number)
 		}
+
 		function giveUp(number, dictionary){
 			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
 			document.getElementById("resultsLabel" + number).innerHTML = "The correct answer was: " + window.localStorage.getItem("correctAns")
@@ -282,6 +317,7 @@
 			window.speechSynthesis.speak(msg)
 			questionsAnswered = questionsAnswered + 1
 		}
+
 		function check(number, dictionary){
 			questionsAnswered = questionsAnswered + 1
 			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
@@ -318,28 +354,41 @@
 			start(number, dictionary)
 		}
 	    function playSound(number) {
-			var msg = new SpeechSynthesisUtterance(document.getElementById("germanWord" + number).innerHTML)
-			msg.lang = "de"
-			window.speechSynthesis.speak(msg)
+	    	var sound = window.localStorage.getItem("sound")
+	    	var readThisWord = window.localStorage.getItem("readThisWord")
+	    	if(sound = true){
+				var msg = new SpeechSynthesisUtterance(JSON.stringify(readThisWord))
+				msg.lang = "en"
+				window.speechSynthesis.speak(msg)
+	    	}
 	    }
+
 	    function end (number){
 	    	var thisCounter = window.localStorage.getItem("thisCounter")
 	    	var questionsAnswered = window.localStorage.getItem("questionsAnswered")
-	    	eval("endScore" + number + "=" + thisCounter/questionsAnswered*100)
-			var message = ""
-			if(eval("endScore" + number) == 100){
-				var message = "Perfect! You got all the questions right!"
-			} else if (eval("endScore" + number)> 50){
-				var message = "Well done! You got the majority of the questions correct."
-			} else if (eval("endScore" + number) >= 10){
-				var message = "Keep learning the words and practising them, you didn't do very well."
-			}else if(eval("endScore" + number) < 30){
-				var message = "Keep practising. You didn't get many questions correct."
-			}
 
-			document.getElementById("resultsLabel" + number).innerHTML = "You have finished, you got " + eval("endScore" + number).toFixed(1) + "% of questions correct." + " " +  message
+	    	if(questionsAnswered == 0){
+	    		var message = "You have not answered any questions."
+	    		document.getElementById("resultsLabel"+number).innnerHTML = message
+	    	} else {
+		    	eval("endScore" + number + "=" + thisCounter/questionsAnswered*100)
+				var message = ""
+				if(eval("endScore" + number) == 100){
+					var message = "Perfect! You got all the questions right!"
+				} else if (eval("endScore" + number)> 50){
+					var message = "Well done! You got the majority of the questions correct."
+				} else if (eval("endScore" + number) >= 10){
+					var message = "Keep learning the words and practising them, you didn't do very well."
+				}else if(eval("endScore" + number) < 30){
+					var message = "Keep practising. You didn't get many questions correct."
+				}
+
+				document.getElementById("resultsLabel" + number).innerHTML = "You have finished, you got " + eval("endScore" + number).toFixed(1) + "% of questions correct." + " " +  message	
+	    	}
+
 			document.getElementById("resultsLabel" + number).style.color = "black"
 			document.getElementById("germanWord" + number).innerHTML = ""
+			document.getElementById("soundButton" + number).style.display = "none"
 			document.getElementById("myInput" + number).value = ""
 			document.getElementById("nextButton" + number).style.display = "none"
 			document.getElementById("endButton" + number).style.display = "none"
