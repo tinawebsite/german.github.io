@@ -134,6 +134,8 @@
 		var deutsche7 = new Lesson(7, "Frau King", "https://api.myjson.com/bins/18eab9", "The Verb 'Haben'") ; numOfLessons++ 	
 		var deutsche8 = new Lesson(8, "Frau Sheikh", "https://api.myjson.com/bins/k3pho", "Countries") ; numOfLessons++ 		
 		var deutsche9 = new Lesson(9, "Frau King", "https://api.myjson.com/bins/k2sjk", "School Subjects") ; numOfLessons++ 
+		var deutsche10 = new Lesson(10, "Frau Sheikh", "https://api.myjson.com/bins/qr1p0", "Opinions") ; numOfLessons++ 
+		var deutsche11 = new Lesson(11, "Frau Sheikh", "https://api.myjson.com/bins/1ftlz8", "Adjectives for Opinions") ; numOfLessons++ 
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 
@@ -165,7 +167,22 @@
 
 	   	var deutsche9Dictionary = {} ; fetch(deutsche9.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche9Dictionary[key] = myJson[key]})})
 
-	   	var allFiles = {} ; fetch("https://api.myjson.com/bins/kx0i8").then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){allFiles[key] = myJson[key]})})
+	   	var deutsche10Dictionary = {} ; fetch(deutsche10.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche10Dictionary[key] = myJson[key]})})
+
+	   	var deutsche11Dictionary = {} ; fetch(deutsche11.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche11Dictionary[key] = myJson[key]})})
+
+		var numbers = []
+		var highEnd = numOfLessons
+		var lowEnd = 1
+		for (var i = parseInt(lowEnd); i <= highEnd; i++) {
+		    numbers.push(i);
+		}
+		for(i in numbers){
+			var x = numbers[i]
+			allFiles = Object.assign(allFiles, eval("deutsche" + x + "Dictionary"))
+	   	}
+
+	   	var allFiles = {}
 	   	
 	   	var theseFiles = {}
 
