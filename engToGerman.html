@@ -136,11 +136,12 @@
 		var deutsche9 = new Lesson(9, "Frau King", "https://api.myjson.com/bins/k2sjk", "School Subjects") ; numOfLessons++ 
 		var deutsche10 = new Lesson(10, "Frau Sheikh", "https://api.myjson.com/bins/qr1p0", "Opinions") ; numOfLessons++ 
 		var deutsche11 = new Lesson(11, "Frau Sheikh", "https://api.myjson.com/bins/1ftlz8", "Adjectives for Opinions") ; numOfLessons++ 
+		var deutsche12 = new Lesson(12, "Frau King", "https://api.myjson.com/bins/smua4", "Days of the Week") ; numOfLessons++ 
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 
 		var ol = document.getElementById("listOfClasses")
-		for (var i = 1; i <= numOfLessons; i++) {
+		for (var i = 1; i <= numOfLessons; i++){
     		var title = eval("deutsche" + i)
 		 	var listItem = document.createElement("li");
 		  	listItem.textContent = title.title
@@ -171,20 +172,10 @@
 
 	   	var deutsche11Dictionary = {} ; fetch(deutsche11.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche11Dictionary[key] = myJson[key]})})
 
-		var numbers = []
-		var highEnd = numOfLessons
-		var lowEnd = 1
-		for (var i = parseInt(lowEnd); i <= highEnd; i++) {
-		    numbers.push(i);
-		}
-		for(i in numbers){
-			var x = numbers[i]
-			allFiles = Object.assign(allFiles, eval("deutsche" + x + "Dictionary"))
-	   	}
+	   	var deutsche12Dictionary = {} ; fetch(deutsche12.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche12Dictionary[key] = myJson[key]})})
 
-	   	var allFiles = {}
-	   	
 	   	var theseFiles = {}
+	   	var	allFiles = {}
 
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var dictionaryLast = eval("deutsche" + numOfLessons + "Dictionary")
@@ -206,7 +197,19 @@
 		})		
 
 		document.getElementById("allCheck").addEventListener( "change", function(){
-			if(this.checked) {				
+			if(this.checked) {		
+				var numbers = []
+				var highEnd = numOfLessons
+				var lowEnd = 1
+				for (var i = parseInt(lowEnd); i <= highEnd; i++) {
+				    numbers.push(i);
+				}
+				for(i in numbers){
+					var x = numbers[i]
+					allFiles = Object.assign(allFiles, eval("deutsche" + x + "Dictionary"))
+			   	}
+
+			   	console.log(allFiles)		
 				start(3, allFiles)
 			}else{
 				document.getElementById("deutsche3Section").style = "display:none"
@@ -228,7 +231,7 @@
 	   			document.getElementById("theseNumbers").innerHTML = "Klassen " + lowEnd + " zu " + highEnd
 				start(4, theseFiles)
 			}else{
-				document.getElementById("deutsche3Section").style = "display:none"
+				document.getElementById("deutsche4Section").style = "display:none"
 				}
 		})
 
@@ -371,7 +374,7 @@
 	    	var thisCounter = window.localStorage.getItem("thisCounter")
 	    	var questionsAnswered = window.localStorage.getItem("questionsAnswered")
 	    	if(questionsAnswered == 0){
-	    		var message = "Sie haben keine Fragen beantwortet."
+	    		var message = "Sie haben keine Fragen richtig beantwortet."
 	    		document.getElementById("resultsLabel" + number).innerHTML = message
 	    	} else {
 		    	eval("endScore" + number + "=" + thisCounter/questionsAnswered*100)

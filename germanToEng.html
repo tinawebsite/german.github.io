@@ -133,6 +133,9 @@
 		var deutsche7 = new Lesson(7, "Frau King", "https://api.myjson.com/bins/18zons", "The Verb 'Haben'") ; numOfLessons++ 	
 		var deutsche8 = new Lesson(8, "Frau Sheikh" ,"https://api.myjson.com/bins/fvsw8", "Countries") ; numOfLessons++	
 		var deutsche9 = new Lesson(9, "Frau King" ,"https://api.myjson.com/bins/vibcw", "School Subjects") ; numOfLessons++	
+		var deutsche10 = new Lesson(10, "Frau Sheikh" ,"https://api.myjson.com/bins/bypcc", "Opinions") ; numOfLessons++	
+		var deutsche11 = new Lesson(11, "Frau Sheikh" ,"https://api.myjson.com/bins/9im1o", "Adjectives for Opinions") ; numOfLessons++	
+		var deutsche12 = new Lesson(12, "Frau King" ,"https://api.myjson.com/bins/1gibn0", "Weekdays") ; numOfLessons++	
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 
@@ -165,10 +168,15 @@
 
 	   	var deutsche8Dictionary = {} ; fetch(deutsche8.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche8Dictionary[key] = myJson[key]})})	   
 
-	   	var deutsche9Dictionary = {} ; fetch(deutsche9.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche9Dictionary[key] = myJson[key]})})
-
-	   	var allFiles = {} ; fetch("https://api.myjson.com/bins/xcz1s").then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){allFiles[key] = myJson[key]})})
+	   	var deutsche9Dictionary = {} ; fetch(deutsche9.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche9Dictionary[key] = myJson[key]})})	   	
 	   	
+	   	var deutsche10Dictionary = {} ; fetch(deutsche10.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche10Dictionary[key] = myJson[key]})})	   
+	   	
+	   	var deutsche11Dictionary = {} ; fetch(deutsche11.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche11Dictionary[key] = myJson[key]})})	   	
+	   	
+	   	var deutsche12Dictionary = {} ; fetch(deutsche12.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche12Dictionary[key] = myJson[key]})})
+
+	   	var allFiles = {} 	   	
 	   	var theseFiles = {}
 
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
@@ -192,6 +200,17 @@
 
 		document.getElementById("allCheck").addEventListener( "change", function(){
 			if(this.checked) {				
+				var numbers = []
+				var highEnd = numOfLessons
+				var lowEnd = 1
+				for (var i = parseInt(lowEnd); i <= highEnd; i++) {
+				    numbers.push(i);
+				}
+				for(i in numbers){
+					var x = numbers[i]
+					allFiles = Object.assign(allFiles, eval("deutsche" + x + "Dictionary"))
+			   	}
+		
 				start(3, allFiles)
 			}else{
 				document.getElementById("deutsche3Section").style = "display:none"
@@ -368,7 +387,7 @@
 	    	var questionsAnswered = window.localStorage.getItem("questionsAnswered")
 
 	    	if(questionsAnswered == 0){
-	    		var message = "You have not answered any questions."
+	    		var message = "You have not gotten any questions correct."
 	    		document.getElementById("resultsLabel"+number).innnerHTML = message
 	    	} else {
 		    	eval("endScore" + number + "=" + thisCounter/questionsAnswered*100)

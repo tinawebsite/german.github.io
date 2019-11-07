@@ -1,12 +1,12 @@
 {
-  "Ich finde es...":"I find it...",
-  "gut":"good",
-  "schlecht":"bad",
-  "interessant":"interesting",
-  "langweilig":"boring",
-  "einfach":"easy",
-  "schwierig":"difficult",
-  "toll":"great",
-  "furchtbar":"terrible",
+  "I find it...":"Ich finde es...",
+  "good":"gut",
+  "bad":"schlecht",
+  "interesting":"interessant",
+  "boring":"langweilig",
+  "easy":"einfach",
+  "difficult":"schwierig",
+  "great":"toll",
+  "terrible":"furchtbar"
 
 }
