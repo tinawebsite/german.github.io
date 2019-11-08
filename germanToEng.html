@@ -17,8 +17,11 @@
 	</script>
 
 	<h1 style="text-align:center;"><u>German to English</u></h1>
-	<ol id="listOfClasses" style="background-color:#ffda36"></ol>
 
+	<section id="checklistOfClasses" style="background-color:#ffda36">
+		
+	</section>
+	
 	<br>
 	<section style="background-color:#fcce03" >
 		<input type="radio" name="soundRadio" id="soundAndText" checked> Sound and text
@@ -28,16 +31,6 @@
 	<br>
 	
 	<br>
-	<form style="background-color:#fcce03"> 			
-		<section><input type="checkbox" id="firstCheck" > First Class</section>
-		<br>
-		<section><input type="checkbox" id="lastCheck"> Last Class</section>
-		<br>
-		<section><input type="checkbox" id="allCheck"> All Classes</section>
-		<br>
-		<section><input type="checkbox" id="theseCheck"> Classes <input type="number" min="1" max="9" style="background-color:#fcce03" id="lowEnd"> to <input type="number" min="1" max="9" style="background-color:#fcce03" id="highEnd">
-		</section>
-	</form>
 
 	<section id="deutsche1Section" style="display:none">
 		<h3><u>First Lesson</u></h3><div><i>Type in the answer as a number, not a word.</i></div>
@@ -140,12 +133,24 @@
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 
 
-		var ol = document.getElementById("listOfClasses")
+		var mySection = document.getElementById("checklistOfClasses")
 		for (var i = 1; i <= numOfLessons; i++) {
     		var title = eval("deutsche" + i)
-		 	var listItem = document.createElement("li");
-		  	listItem.textContent = title.title
-		  	ol.appendChild(listItem);
+
+		 	var checkbox = document.createElement("input");
+		 	checkbox.type = "checkbox"
+		 	checkbox.id = "checkbox" + i
+		 	checkbox.style.display= "inline"
+		  	mySection.appendChild(checkbox);
+
+		  	var lessonTitle = document.createElement("div");
+		 	lessonTitle.id = "lessonTitle" + i
+		 	lessonTitle.style.display = "inline"
+		 	lessonTitle.innerHTML = title.title
+		  	mySection.appendChild(lessonTitle);		  	
+
+		  	var br = document.createElement("br");
+		  	mySection.appendChild(br);
 		}
 
 	</script>
