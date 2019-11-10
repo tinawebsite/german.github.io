@@ -18,6 +18,7 @@
 
 	<h1 style="text-align:center;"><u>German to English</u></h1>
 
+	<br>
 	<section style="background-color:#fcce03" >
 		<input type="radio" name="soundRadio" id="soundAndText" checked> Sound and text
 		<input type="radio" name="soundRadio" id="text"> Only text
@@ -25,40 +26,34 @@
 	</section>
 
 	<br>
+
+	<section id="listOfClasses" style="background-color:#ffda36"></section>
+	
 	<br>
-
-	<section id="checklistOfClasses" style="background-color:#ffda36"></section>
-
-	<br>
-
 	<button id="goButton" style='border-radius:50px;background-color:#fcce03'>GO!</button>
-	
-	
-	<br>
 
 	<section id="deutscheSection" style="display:none">
-		<div><i>Type in the answers as a numbers, not a words.</i></div>
+		</h3><div><i>Type in the answer as a number, not a word.</i></div>
 		<br>
 		<div style="display:inline">Score: </div>
 		<div id='counter' style="display:inline">0</div>
 		<br>
 		<br>
-		<div id='germanWord' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton" style="display:inline;border-radius:25px" onclick="playSound(theseFiles)"> 🗣️</button>
+		<div id='germanWord' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton" style="display:inline;border-radius:25px" onclick="playSound(deutsche1Dictionary)"> 🗣️</button>
 		<br> 
 		<input style='display:block;'type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
-		<button id='checkButton' style='border-radius:25px' onclick="check(theseFiles)">CHECK</button>
-		<button id='giveUpButton' style='border-radius:25px' onclick="giveUp(theseFiles)">GIVE UP</button>
-		<button id='skipButton' style='border-radius:25px' onclick="skip(theseFiles)">SKIP</button>
-		<button id='nextButton' style='border-radius:25px' onclick="start(theseFiles)">NEXT</button>
+		<button id='checkButton' style='border-radius:25px' onclick="check(deutsche1Dictionary)">CHECK</button>
+		<button id='giveUpButton' style='border-radius:25px' onclick="giveUp(deutsche1Dictionary)">GIVE UP</button>
+		<button id='skipButton' style='border-radius:25px' onclick="skip(deutsche1Dictionary)">SKIP</button>
+		<button id='nextButton' style='border-radius:25px' onclick="start(deutsche1Dictionary)">NEXT</button>
 		<button id='endButton' style='border-radius:25px' onclick="end()">END</button>
 		<div id='resultsLabel'></div>
 	</section>	
 
-	<br>
-	<br>
 
 	<script>
 		var numOfLessons = 0
+
 
 		function Lesson(num, teacher, json, title) {
  			this.num = num
@@ -82,8 +77,7 @@
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 
-
-		var mySection = document.getElementById("checklistOfClasses")
+		var mySection = document.getElementById("listOfClasses")
 		for (var i = 1; i <= numOfLessons; i++) {
     		var title = eval("deutsche" + i)
 
@@ -102,12 +96,11 @@
 		  	var br = document.createElement("br");
 		  	mySection.appendChild(br);
 		}
-
 	</script>
 
 	
 	<script>
-		var deutsche1Dictionary = {} ; fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){theseFiles[key] = myJson[key]})})
+		var deutsche1Dictionary = {} ; fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche1Dictionary[key] = myJson[key]})})
 
 	    var deutsche2Dictionary = {} ; fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche2Dictionary[key] = myJson[key]})})	    
 
@@ -138,21 +131,20 @@
 
 		document.getElementById("goButton").addEventListener( "click", function(){
 			var numbers = []
-
-			for (var i = 1; i <= numOfLessons; i++) {
-				if(eval("checkbox" + i).checked == true){
-					numbers.push(i);
-				}
+			var highEnd = numOfLessons
+			var lowEnd = 1
+			for (var i = parseInt(lowEnd); i <= highEnd; i++) {
+			    numbers.push(i);
 			}
+
 			for(i in numbers){
 				var x = numbers[i]
 				theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
-	   		}
-	   		console.log(theseFiles)
+			}
 			start(theseFiles)
-		})		
+			})
+				
 
-		
 
 		var deletingDictionary = theseFiles
 		var endCounter = 0
@@ -190,7 +182,7 @@
 			var numOfKeysUnchanged = (Object.keys(listOfValsUnchanged)).length
 
 
-			document.getElementById("deutsche"+ "Section").style = "display:inline"
+			document.getElementById("deutscheSection").style = "display:inline"
 			document.getElementById("myInput").value = ""
 			document.getElementById("resultsLabel").innerHTML = ""
 			document.getElementById("nextButton").style.display = "none"
@@ -221,9 +213,6 @@
 					var correctAns = listOfVals[randomNumber]
 					window.localStorage.setItem("correctAns",  correctAns)
 					window.localStorage.setItem("readThisWord",  dictionary[listOfVals[randomNumber]])
-					console.log(deletingDictionary)
-					console.log(listOfVals)
-					console.log(randomNumber)
 					delete deletingDictionary[listOfVals[randomNumber]]
 			}		
 
@@ -301,7 +290,7 @@
 	    		var message = "You have not gotten any questions correct."
 	    		document.getElementById("resultsLabel").innnerHTML = message
 	    	} else {
-		    	eval("endScore" + "=" + thisCounter/questionsAnswered*100)
+		    	eval("endScore =" + thisCounter/questionsAnswered*100)
 				var message = ""
 				if(eval("endScore") == 100){
 					var message = "Perfect! You got all the questions right!"
