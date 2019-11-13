@@ -38,13 +38,13 @@
 		<div id='counter' style="display:inline">0</div>
 		<br>
 		<br>
-		<div id='germanWord' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton" style="display:inline;border-radius:25px" onclick="playSound(deutsche1Dictionary)"> 🗣️</button>
+		<div id='germanWord' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton" style="display:inline;border-radius:25px" onclick="playSound()"> 🗣️</button>
 		<br> 
 		<input style='display:block;'type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
-		<button id='checkButton' style='border-radius:25px' onclick="check(deutsche1Dictionary)">CHECK</button>
-		<button id='giveUpButton' style='border-radius:25px' onclick="giveUp(deutsche1Dictionary)">GIVE UP</button>
-		<button id='skipButton' style='border-radius:25px' onclick="skip(deutsche1Dictionary)">SKIP</button>
-		<button id='nextButton' style='border-radius:25px' onclick="start(deutsche1Dictionary)">NEXT</button>
+		<button id='checkButton' style='border-radius:25px' onclick="check()">CHECK</button>
+		<button id='giveUpButton' style='border-radius:25px' onclick="giveUp()">GIVE UP</button>
+		<button id='skipButton' style='border-radius:25px' onclick="skip(theseFiles, firstTime)">SKIP</button>
+		<button id='nextButton' style='border-radius:25px' onclick="start(theseFiles, firstTime)">NEXT</button>
 		<button id='endButton' style='border-radius:25px' onclick="end()">END</button>
 		<div id='resultsLabel'></div>
 	</section>	
@@ -99,8 +99,6 @@
 
 	
 	<script>
-		var deutsche1Dictionary = {} ; fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche1Dictionary[key] = myJson[key]})})
-
 	    var deutsche2Dictionary = {} ; fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche2Dictionary[key] = myJson[key]})})	    
 
 	    var deutsche3Dictionary = {} ; fetch(deutsche3.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche3Dictionary[key] = myJson[key]})})
@@ -124,14 +122,17 @@
 	   	var deutsche12Dictionary = {} ; fetch(deutsche12.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche12Dictionary[key] = myJson[key]})})
    	
 	   	var theseFiles = {}
-
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var dictionaryLast = eval("deutsche" + numOfLessons + "Dictionary")
 		var checkedFiles = []
-
+		var endCounter = 0
+		var counter = 0
+		var questionsAnswered = 0
+		var firstTime = true
 		for(var i = 1; i <= numOfLessons; i++){
 			document.getElementById("checkbox" + i).addEventListener( "change", function(){
 				if(this.checked){
+					var firstTime = true
 					var x = this.id
 					x = x.replace("checkbox", "")
 					checkedFiles.push(parseInt(x))
@@ -140,8 +141,8 @@
 						var x = checkedFiles[i]
 						theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
 					}
-					start(theseFiles)
-					window.localStorage.setItem("deletingDictionary", theseFiles)
+					start(theseFiles, firstTime)
+					window.localStorage.setItem("theseFiles", theseFiles)
 				} else {
 					var x = this.id
 					x = x.replace("checkbox", "")
@@ -151,15 +152,13 @@
 				}
 			})
 		}
-
-
-
-		var endCounter = 0
-		var counter = 0
-		var questionsAnswered = 0
 		
-		function start(dictionary){
-			var deletingDictionary = window.localStorage.getItem("deletingDictionary")
+		function start(dictionary, firstTime){
+			if(firstTime == true){
+				var deletingDictionary = dictionary
+			}
+			var firstTime = false
+
 			if(document.getElementById("sound").checked == true){
 				var sound = true
 				var text = false
@@ -213,10 +212,7 @@
 			if(endCounter == numOfKeysUnchanged){
 				end()
 				}else {		
-					if(text == true){
-						console.log(deletingDictionary)			
-						console.log(listOfVals)			
-						console.log(randomNumber)
+					if(text == true){		
 						document.getElementById("germanWord").innerHTML = deletingDictionary[listOfVals[randomNumber]]
 						}			
 						var correctAns = listOfVals[randomNumber]
@@ -278,8 +274,8 @@
 			msg.lang = "en"
 			window.speechSynthesis.speak(msg)
 		}
-		function skip(dictionary){
-			start(dictionary)
+		function skip(dictionary, firstTime){
+			start(dictionary, firstTime)
 		}
 	    function playSound() {
 	    	var sound = window.localStorage.getItem("sound")
