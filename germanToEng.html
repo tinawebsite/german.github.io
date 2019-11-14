@@ -99,6 +99,8 @@
 
 	
 	<script>
+	    var deutsche1Dictionary = {} ; fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche1Dictionary[key] = myJson[key]})})	    
+
 	    var deutsche2Dictionary = {} ; fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche2Dictionary[key] = myJson[key]})})	    
 
 	    var deutsche3Dictionary = {} ; fetch(deutsche3.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche3Dictionary[key] = myJson[key]})})
@@ -131,25 +133,31 @@
 		var firstTime = true
 		for(var i = 1; i <= numOfLessons; i++){
 			document.getElementById("checkbox" + i).addEventListener( "change", function(){
+				var firstTime = true
+				var x = this.id
+				x = x.replace("checkbox", "")
 				if(this.checked){
-					var firstTime = true
-					var x = this.id
-					x = x.replace("checkbox", "")
 					checkedFiles.push(parseInt(x))
 					document.getElementById("deutscheSection").style.display = "block"
 					for(i in checkedFiles){
 						var x = checkedFiles[i]
 						theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
 					}
-					start(theseFiles, firstTime)
 					window.localStorage.setItem("theseFiles", theseFiles)
 				} else {
-					var x = this.id
-					x = x.replace("checkbox", "")
 					var index = checkedFiles.indexOf(parseInt(x))
 					checkedFiles.splice(index, 1)
-					document.getElementById("deutscheSection").style.display = "none"
+					console.log(checkedFiles.length)
+					if(checkedFiles.length == 0){
+						console.log("done")
+						document.getElementById("deutscheSection").style.display = "none"
+					}
+					for(i in checkedFiles){
+						var x = checkedFiles[i]
+						theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
+					}
 				}
+				start(theseFiles, firstTime)
 			})
 		}
 		
@@ -188,7 +196,6 @@
 			var numOfKeysUnchanged = (Object.keys(listOfValsUnchanged)).length
 
 
-			document.getElementById("deutscheSection").style = "display:inline"
 			document.getElementById("myInput").value = ""
 			document.getElementById("resultsLabel").innerHTML = ""
 			document.getElementById("nextButton").style.display = "none"
@@ -287,7 +294,7 @@
 	    	}
 	    }
 
-	    function end (){
+	    function end(){
 	    	var thisCounter = window.localStorage.getItem("thisCounter")
 	    	var questionsAnswered = window.localStorage.getItem("questionsAnswered")
 
