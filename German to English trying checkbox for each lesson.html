@@ -57,6 +57,24 @@
 		<div id='resultsLabel1'></div>
 	</section>	
 
+	<section id="deutsche1Section" style="display:none">
+		<h3><u>X Lesson</u></h3><div><i>Type in the answer as a number, not a word.</i></div>
+		<br>
+		<div style="display:inline">Score: </div>
+		<div id='counter1' style="display:inline">0</div>
+		<br>
+		<br>
+		<div id='germanWord1' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton1" style="display:inline;border-radius:25px" onclick="playSound(1, deutsche1Dictionary)"> 🗣️</button>
+		<br> 
+		<input style='display:block;'type='text' id='myInput1' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton1').click()">
+		<button id='checkButton1' style='border-radius:25px' onclick="check(1, deutsche1Dictionary)">CHECK</button>
+		<button id='giveUpButton1' style='border-radius:25px' onclick="giveUp(1, deutsche1Dictionary)">GIVE UP</button>
+		<button id='skipButton1' style='border-radius:25px' onclick="skip(1, deutsche1Dictionary)">SKIP</button>
+		<button id='nextButton1' style='border-radius:25px' onclick="start(1, deutsche1Dictionary)">NEXT</button>
+		<button id='endButton1' style='border-radius:25px' onclick="end(1)">END</button>
+		<div id='resultsLabel1'></div>
+	</section>	
+
 	<section id="deutsche2Section" style="display:none">
 		<h3><u>Last Lesson</u></h3>
 		<br>

@@ -80,20 +80,20 @@
 		for (var i = 1; i <= numOfLessons; i++) {
     		var title = eval("deutsche" + i)
 
-		 	var checkbox = document.createElement("input");
+		 	var checkbox = document.createElement("input")
 		 	checkbox.type = "checkbox"
 		 	checkbox.id = "checkbox" + i
 		 	checkbox.style.display= "inline"
-		  	mySection.appendChild(checkbox);
+		  	mySection.appendChild(checkbox)
 
-		  	var lessonTitle = document.createElement("div");
+		  	var lessonTitle = document.createElement("div")
 		 	lessonTitle.id = "lessonTitle" + i
 		 	lessonTitle.style.display = "inline"
 		 	lessonTitle.innerHTML = title.title
-		  	mySection.appendChild(lessonTitle);		  	
+		  	mySection.appendChild(lessonTitle)	  	
 
-		  	var br = document.createElement("br");
-		  	mySection.appendChild(br);
+		  	var br = document.createElement("br")
+		  	mySection.appendChild(br)
 		}
 	</script>
 
@@ -131,6 +131,7 @@
 		var counter = 0
 		var questionsAnswered = 0
 		var firstTime = true
+
 		for(var i = 1; i <= numOfLessons; i++){
 			document.getElementById("checkbox" + i).addEventListener( "change", function(){
 				var firstTime = true
@@ -147,10 +148,9 @@
 				} else {
 					var index = checkedFiles.indexOf(parseInt(x))
 					checkedFiles.splice(index, 1)
-					console.log(checkedFiles.length)
 					if(checkedFiles.length == 0){
-						console.log("done")
 						document.getElementById("deutscheSection").style.display = "none"
+						theseFiles = {}
 					}
 					for(i in checkedFiles){
 						var x = checkedFiles[i]
