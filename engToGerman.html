@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="background-color:#fffb8c">
 <head>
-	<title>Englisch zu Deutsch</title>
+	<title>Englsich zu Deutsch</title>
 </head>
 <body>
 
@@ -15,108 +15,47 @@
 			window.open("index.html", "_self")
 		})
 	</script>
-	
-	<h1 style="text-align:center;"><u>Englisch zu Deutsch</u></h1>
-	<ol id="listOfClasses" style="background-color:#ffda36"></ol>
-	
+
+	<h1 style="text-align:center;"><u>Englsich zu Deutsch</u></h1>
+
 	<br>
 	<section style="background-color:#fcce03" >
-		<input type="radio" name="soundRadio" id="soundAndText" checked> Sound and text
-		<input type="radio" name="soundRadio" id="text"> Only text
-		<input type="radio" name="soundRadio" id="sound"> Only sound
+		<input type="radio" name="soundRadio" id="soundAndText" checked> Ton und Text
+		<input type="radio" name="soundRadio" id="text"> Nur Text
+		<input type="radio" name="soundRadio" id="sound"> Nur Ton
 	</section>
-	<br>
+
 	<br>
 
-	<form style="background-color:#fcce03"> 			
-		<section><input type="checkbox" id="firstCheck" > Erste Klasse</section>
-		<br>
-		<section><input type="checkbox" id="lastCheck"> Letzte Klasse</section>
-		<br>
-		<section><input type="checkbox" id="allCheck"> Alle Klassen</section>
-		<br>
-		<section><input type="checkbox" id="theseCheck"> Klassen <input type="number" min="1" max="9" style="background-color:#fcce03" id="lowEnd"> zu <input type="number" min="1" max="9" style="background-color:#fcce03" id="highEnd">
-		</section>
-	</form>
+	<section id="listOfClasses" style="background-color:#ffda36"></section>
 
-	<section id="deutsche1Section" style="display:none">
-		<h3><u>Erste Klasse</u></h3><div><i>Geben Sie die Antwort als Zahl und nicht als Wort ein.</i></div>
+	<br>
+
+	<button id="goButton" style='border-radius:25px;background-color:#fcce03;outline-color:#fcce03'>GO!</button>
+	
+	<br>
+
+	<section id="deutscheSection" style="display:none">
+		</h3><div><i>Denken Sie daran, Wörter richtig in Großbuchstaben zu schreiben und Zahlen als Wörter und nicht als Zahlen einzugeben.</i></div>
 		<br>
 		<div style="display:inline">Score: </div>
-		<div id='counter1' style="display:inline">0</div>
+		<div id='counter' style="display:inline">0</div>
 		<br>
 		<br>
-		<div id='englishWord1' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton1" style="display:inline;border-radius:25px" onclick="playSound(1, deutsche1Dictionary)"> 🗣️</button>
+		<div id='englishWord' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton" style="display:inline;border-radius:25px" onclick="playSound()"> 🗣️</button>
 		<br> 
-		<input style='display:block;'type='text' id='myInput1' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton1').click()">
-		<button id='checkButton1' style='border-radius:25px' onclick="check(1, deutsche1Dictionary)">PRÜFEN</button>
-		<button id='giveUpButton1' style='border-radius:25px' onclick="giveUp(1, deutsche1Dictionary)">GIB AUF</button>
-		<button id='skipButton1' style='border-radius:25px' onclick="skip(1, deutsche1Dictionary)">ÜBERSPRINGEN</button>
-		<button id='nextButton1' style='border-radius:25px' onclick="start(1, deutsche1Dictionary)">NÄCHSTER</button>
-		<button id='endButton1' style='border-radius:25px' onclick="end(1)">BEENDE</button>
-		<div id='resultsLabel1'></div>
+		<input style='display:block;'type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
+		<button id='checkButton' style='border-radius:25px' onclick="check()">PRÜFEN</button>
+		<button id='giveUpButton' style='border-radius:25px' onclick="giveUp()">GIB AUF</button>
+		<button id='skipButton' style='border-radius:25px' onclick="skip(theseFiles, firstTime)">ÜBERSPRINGEN</button>
+		<button id='nextButton' style='border-radius:25px' onclick="start(theseFiles, firstTime)">NÄCHSTER</button>
+		<button id='endButton' style='border-radius:25px' onclick="end()">BEENDE</button>
+		<div id='resultsLabel'></div>
 	</section>	
 
-	<section id="deutsche2Section" style="display:none">
-		<h3><u>Letzte Klasse</u></h3>
-		<div><i>Denken Sie daran, Wörter richtig in Großbuchstaben zu schreiben.</i></div>
-		<br>
-		<div style="display:inline">Score: </div>
-		<div id='counter2' style="display:inline">0</div>
-		<br>
-		<br>
-		<div id='englishWord2' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton2" style="display:inline;border-radius:25px" onclick="playSound(2, dictionaryLast)"> 🗣️</button>
-		<br> 
-		<input type='text' id='myInput2' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton2').click()">
-		<button id='checkButton2' style='border-radius:25px'  onclick="check(2, dictionaryLast)">PRÜFEN</button>
-		<button id='giveUpButton2' style='border-radius:25px' onclick="giveUp(2, dictionaryLast)">GIB AUF</button>
-		<button id='skipButton2' style='border-radius:25px' onclick="skip(2, dictionaryLast)">ÜBERSPRINGEN</button>
-		<button id='nextButton2' style='border-radius:25px' onclick="start(2, dictionaryLast)">NÄCHSTER</button>
-		<button id='endButton2' style='border-radius:25px' onclick="end(2)">BEENDE</button>
-		<div id='resultsLabel2'></div>
-	</section>
-
-	<section id="deutsche3Section" style="display:none">
-		<h3><u>Alle Klassen</u></h3>
-		<div><i>Denken Sie daran, Wörter richtig in Großbuchstaben zu schreiben und Zahlen als Wörter und nicht als Zahlen einzugeben.</i></div>
-		<br>
-		<div style="display:inline">Score: </div>
-		<div id='counter3' style="display:inline">0</div>
-		<br>
-		<br>
-		<div id='englishWord3' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton3" style="display:inline;border-radius:25px" onclick="playSound(3, allFiles)"> 🗣️</button>
-		<br> 
-		<input type='text' id='myInput3' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton3').click()">
-		<button id='checkButton3' style='border-radius:25px' onclick="check(3, allFiles)">PRÜFEN</button>
-		<button id='giveUpButton3' style='border-radius:25px' onclick="giveUp(3, allFiles)">GIB AUF</button>
-		<button id='skipButton3' style='border-radius:25px' onclick="skip(3, allFiles)">ÜBERSPRINGEN</button>
-		<button id='nextButton3' style='border-radius:25px' onclick="start(3, allFiles)">NÄCHSTER</button>
-		<button id='endButton3' style='border-radius:25px' onclick="end(3)">BEENDE</button>
-		<div id='resultsLabel3'></div>
-	</section>
-
-	<section id="deutsche4Section" style="display:none">
-		<h3><u id="theseNumbers">From .. to ...</u></h3>
-		<div><i>Denken Sie daran, Wörter richtig in Großbuchstaben zu schreiben und Zahlen als Wörter und nicht als Zahlen einzugeben./i></div>
-		<br>
-		<div style="display:inline">Score: </div>
-		<div id='counter4' style="display:inline">0</div>
-		<br>
-		<br>
-		<div id='englishWord4' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton4" style="display:inline;border-radius:25px" onclick="playSound(4, theseFiles)"> 🗣️</button>
-		<br> 
-		<input type='text' id='myInput4' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton4').click()">
-		<button id='checkButton4' style='border-radius:25px' onclick="check(4, theseFiles)">PRÜFEN</button>
-		<button id='giveUpButton4' style='border-radius:25px' onclick="giveUp(4, theseFiles)">GIB AUF</button>
-		<button id='skipButton4' style='border-radius:25px' onclick="skip(4, theseFiles)">ÜBERSPRINGEN</button>
-		<button id='nextButton4' style='border-radius:25px' onclick="start(4, theseFiles)">NÄCHSTER</button>
-		<button id='endButton4' style='border-radius:25px' onclick="end(4)">BEENDE</button>
-		<div id='resultsLabel4'></div>
-	</section>
 
 	<script>
 		var numOfLessons = 0
-
 
 		function Lesson(num, teacher, json, title) {
  			this.num = num
@@ -124,7 +63,7 @@
   			this.json = json
   			this.title = title
 		}
-
+		
 		var deutsche1 = new Lesson(1, "Frau Sheikh", "https://api.myjson.com/bins/g6y4o", "Numbers 0-19") ; numOfLessons++ 
 		var deutsche2 = new Lesson(2, "Frau King", "https://api.myjson.com/bins/a9v5x", "Greetings") ; numOfLessons++ 
 		var deutsche3 = new Lesson(3, "Frau King", "https://api.myjson.com/bins/gly94", "Numbers 20-100") ; numOfLessons++ 
@@ -140,17 +79,30 @@
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 
-		var ol = document.getElementById("listOfClasses")
-		for (var i = 1; i <= numOfLessons; i++){
+		var mySection = document.getElementById("listOfClasses")
+		for (var i = 1; i <= numOfLessons; i++) {
     		var title = eval("deutsche" + i)
-		 	var listItem = document.createElement("li");
-		  	listItem.textContent = title.title
-		  	ol.appendChild(listItem);
+
+		 	var checkbox = document.createElement("input")
+		 	checkbox.type = "checkbox"
+		 	checkbox.id = "checkbox" + i
+		 	checkbox.style.display= "inline"
+		  	mySection.appendChild(checkbox)
+
+		  	var lessonTitle = document.createElement("div")
+		 	lessonTitle.id = "lessonTitle" + i
+		 	lessonTitle.style.display = "inline"
+		 	lessonTitle.innerHTML = title.title
+		  	mySection.appendChild(lessonTitle)	  	
+
+		  	var br = document.createElement("br")
+		  	mySection.appendChild(br)
 		}
 	</script>
+
 	
 	<script>
-		var deutsche1Dictionary = {} ; fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche1Dictionary[key] = myJson[key]})})
+	    var deutsche1Dictionary = {} ; fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche1Dictionary[key] = myJson[key]})})	    
 
 	    var deutsche2Dictionary = {} ; fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche2Dictionary[key] = myJson[key]})})	    
 
@@ -166,88 +118,47 @@
 
 	   	var deutsche8Dictionary = {} ; fetch(deutsche8.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche8Dictionary[key] = myJson[key]})})	   
 
-	   	var deutsche9Dictionary = {} ; fetch(deutsche9.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche9Dictionary[key] = myJson[key]})})
-
-	   	var deutsche10Dictionary = {} ; fetch(deutsche10.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche10Dictionary[key] = myJson[key]})})
-
-	   	var deutsche11Dictionary = {} ; fetch(deutsche11.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche11Dictionary[key] = myJson[key]})})
-
+	   	var deutsche9Dictionary = {} ; fetch(deutsche9.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche9Dictionary[key] = myJson[key]})})	   	
+	   	
+	   	var deutsche10Dictionary = {} ; fetch(deutsche10.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche10Dictionary[key] = myJson[key]})})	   
+	   	
+	   	var deutsche11Dictionary = {} ; fetch(deutsche11.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche11Dictionary[key] = myJson[key]})})	   	
+	   	
 	   	var deutsche12Dictionary = {} ; fetch(deutsche12.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche12Dictionary[key] = myJson[key]})})
-
+   	
 	   	var theseFiles = {}
-	   	var	allFiles = {}
-
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var dictionaryLast = eval("deutsche" + numOfLessons + "Dictionary")
-		
-		document.getElementById("firstCheck").addEventListener( "change", function(){
-			if(this.checked) {				
-				start(1, deutsche1Dictionary)
-			}else{
-				document.getElementById("deutsche1Section").style = "display:none"
-				}
-		})		
+		var checkedFiles = []
+		var endCounter = 0
+		var counter = 0
+		var questionsAnswered = 0
+		var firstTime = true
 
-		document.getElementById("lastCheck").addEventListener( "change", function(){
-			if(this.checked) {				
-				start(2, dictionaryLast)
-			}else{
-				document.getElementById("deutsche2Section").style = "display:none"
+		document.getElementById("goButton").addEventListener( "click", function(){
+			var firstTime = true
+			for(var i = 1; i <= numOfLessons; i++){
+				if(document.getElementById("checkbox" + i).checked == true){
+					var x = i
+					checkedFiles.push(parseInt(x))
+					document.getElementById("deutscheSection").style.display = "block"
+					for(i in checkedFiles){
+						var x = checkedFiles[i]
+						theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
+					}
 				}
-		})		
-
-		document.getElementById("allCheck").addEventListener( "change", function(){
-			if(this.checked) {		
-				var numbers = []
-				var highEnd = numOfLessons
-				var lowEnd = 1
-				for (var i = parseInt(lowEnd); i <= highEnd; i++) {
-				    numbers.push(i);
-				}
-				for(i in numbers){
-					var x = numbers[i]
-					allFiles = Object.assign(allFiles, eval("deutsche" + x + "Dictionary"))
-			   	}		
-				start(3, allFiles)
-			}else{
-				document.getElementById("deutsche3Section").style = "display:none"
-				}
-		})		
-
-		document.getElementById("theseCheck").addEventListener( "change", function(){
-			if(this.checked) {		
-				var numbers = []
-				var highEnd = document.getElementById("highEnd").value
-				var lowEnd = document.getElementById("lowEnd").value
-				for (var i = parseInt(lowEnd); i <= highEnd; i++) {
-				    numbers.push(i);
-				}
-				for(i in numbers){
-					var x = numbers[i]
-					theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
-	   			}
-	   			document.getElementById("theseNumbers").innerHTML = "Klassen " + lowEnd + " zu " + highEnd
-				start(4, theseFiles)
-			}else{
-				document.getElementById("deutsche4Section").style = "display:none"
-				}
+			}
+			window.localStorage.setItem("theseFiles", theseFiles)
+			start(theseFiles, firstTime)
 		})
 
-
-
-
-		var deletingDictionary1 = deutsche1Dictionary
-		var deletingDictionary2 = eval("deutsche" + numOfLessons + "Dictionary") 
-		var deletingDictionary3 =  allFiles
-		var deletingDictionary4 =  theseFiles
-		var endCounter = 0
-		var counter1 = 0
-		var counter2 = 0
-		var counter3 = 0
-		var counter4 = 0
-		var questionsAnswered = 0
 		
-		function start(number, dictionary){
+		function start(dictionary, firstTime){
+			if(firstTime == true){
+				var deletingDictionary = dictionary
+				var firstTime = false
+			}
+
 			if(document.getElementById("sound").checked == true){
 				var sound = true
 				var text = false
@@ -258,15 +169,14 @@
 				var sound = true
 				var text = true
 			}
+
 			if(sound == true){
-				document.getElementById("soundButton" + number).style.display = "inline"
+				document.getElementById("soundButton").style.display = "inline"
 			}else{
-				document.getElementById("soundButton" + number).style.display = "none"
+				document.getElementById("soundButton").style.display = "none"
 			}
-			var number = number
 			var dictionary = dictionary
-			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
-			var deletingDictionary = eval("deletingDictionary" + number)
+			var thisCounter = parseInt(document.getElementById("counter").innerHTML)
 			isWrong = false
 			var listOfValsUnchanged = []
 			for (var key in dictionary) {
@@ -278,19 +188,17 @@
 			var numOfKeysUnchanged = (Object.keys(listOfValsUnchanged)).length
 
 
-			document.getElementById("deutsche" + number + "Section").style = "display:inline"
-			document.getElementById("myInput" + number).value = ""
-			document.getElementById("resultsLabel" + number).innerHTML = ""
-			document.getElementById("nextButton" + number).style.display = "none"
-			document.getElementById("skipButton" + number).style.display = "inline"
-			document.getElementById("endButton" + number).style.display = "inline"
-			document.getElementById("checkButton" + number).style.display = "inline"
-			document.getElementById("giveUpButton" + number).style.display = "inline"
+			document.getElementById("myInput").value = ""
+			document.getElementById("resultsLabel").innerHTML = ""
+			document.getElementById("nextButton").style.display = "none"
+			document.getElementById("skipButton").style.display = "inline"
+			document.getElementById("endButton").style.display = "inline"
+			document.getElementById("checkButton").style.display = "inline"
+			document.getElementById("giveUpButton").style.display = "inline"
 
 			var listOfVals = []
-			var myDeletingDictionary = eval("deletingDictionary" + number)
-			for (var key in myDeletingDictionary) {
-			    if (myDeletingDictionary.hasOwnProperty(key)) {
+			for (var key in deletingDictionary) {
+			    if (deletingDictionary.hasOwnProperty(key)) {
 			        listOfVals.push([key])
 			    }
 			}
@@ -300,66 +208,75 @@
 			window.localStorage.setItem("thisCounter", thisCounter)
 			window.localStorage.setItem("questionsAnswered", questionsAnswered)
 
-			if(endCounter == numOfKeysUnchanged){
-				end(number)
+			if(deletingDictionary[listOfVals[randomNumber]] == undefined){
+				end()
 				}else {		
-					if(text == true){
-					document.getElementById("englishWord" + number).innerHTML = dictionary[listOfVals[randomNumber]]
-					}			
-					var correctAns = listOfVals[randomNumber]
-					window.localStorage.setItem("correctAns",  correctAns)
-					window.localStorage.setItem("readThisWord",  dictionary[listOfVals[randomNumber]])
-					delete deletingDictionary[listOfVals[randomNumber]]
+					if(text == true){		
+						document.getElementById("englishWord").innerHTML = deletingDictionary[listOfVals[randomNumber]]
+						}			
+						var correctAns = listOfVals[randomNumber]
+						window.localStorage.setItem("correctAns",  correctAns)
+						window.localStorage.setItem("readThisWord",  deletingDictionary[listOfVals[randomNumber]])
+						delete deletingDictionary[listOfVals[randomNumber]]
 			}		
 
 			endCounter = endCounter + 1
 			window.localStorage.setItem("sound", sound)
-			playSound(number)
+			playSound()
 		}
-		function giveUp(number, dictionary){
-			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
-			document.getElementById("resultsLabel" + number).innerHTML = "Die richtige Antwort war: " + window.localStorage.getItem("correctAns")
-			document.getElementById("resultsLabel" + number).style = "color:red"
-			document.getElementById("counter" + number).innerHTML =  thisCounter
-			document.getElementById("skipButton" + number).style.display = "none"
-			document.getElementById("checkButton" + number).style.display = "none"
-			document.getElementById("giveUpButton" + number).style.display = "none"
-			document.getElementById("nextButton" + number).style.display = "inline"
+
+		function giveUp(){
+			var thisCounter = parseInt(document.getElementById("counter").innerHTML)
+			document.getElementById("resultsLabel").innerHTML = "The correct answer was: " + window.localStorage.getItem("correctAns")
+			document.getElementById("resultsLabel").style = "color:red"
+			document.getElementById("counter").innerHTML =  thisCounter
+			document.getElementById("skipButton").style.display = "none"
+			document.getElementById("checkButton").style.display = "none"
+			document.getElementById("giveUpButton").style.display = "none"
+			document.getElementById("nextButton").style.display = "inline"
 			isWrong = true
-			var msg = new SpeechSynthesisUtterance("Die richtige Antwort war " + window.localStorage.getItem("correctAns"))
-			msg.lang = "de"
+			var msg = new SpeechSynthesisUtterance("The correct answer was " + window.localStorage.getItem("correctAns"))
+			msg.lang = "en"
 			window.speechSynthesis.speak(msg)
 			questionsAnswered = questionsAnswered + 1
 		}
-		function check(number, dictionary){
+
+		function check(){
 			questionsAnswered = questionsAnswered + 1
-			var thisCounter = parseInt(document.getElementById("counter" + number).innerHTML)
-			if(window.localStorage.getItem("correctAns") == document.getElementById("myInput" + number).value){
-				document.getElementById("resultsLabel"+ number).innerHTML = "Gut gemacht!"
-				document.getElementById("resultsLabel" + number).style = "color:green"
-				document.getElementById("nextButton" + number).style.display = "inline"
+			var thisCounter = parseInt(document.getElementById("counter").innerHTML)
+			var correctAns = window.localStorage.getItem("correctAns")
+			var correct1 = correctAns.toLowerCase()
+			var userAns = document.getElementById("myInput").value
+			var user1 = userAns.toLowerCase()
+
+			if(correct1 == user1){
+				document.getElementById("resultsLabel").innerHTML = "Well Done"
+				document.getElementById("resultsLabel").style = "color:green"
+				document.getElementById("nextButton").style.display = "inline"
 				if(isWrong == false){
 					thisCounter = thisCounter + 1
 				}
-				document.getElementById("counter" + number).innerHTML = thisCounter
-				document.getElementById("skipButton" + number).style.display = "none"
-				document.getElementById("checkButton" + number).style.display = "none"
-				document.getElementById("giveUpButton" + number).style.display = "none"
+				document.getElementById("counter").innerHTML = thisCounter
+				document.getElementById("skipButton").style.display = "none"
+				document.getElementById("checkButton").style.display = "none"
+				document.getElementById("giveUpButton").style.display = "none"
 				isWrong = true
+				var msg = new SpeechSynthesisUtterance("Well Done!")
+
 			}else{
-				document.getElementById("resultsLabel" + number).innerHTML = "Versuch es noch einmal!"
-				document.getElementById("resultsLabel" + number).style = "color:red"
-				document.getElementById("counter" + number).innerHTML = thisCounter
+				document.getElementById("resultsLabel").innerHTML = "Try Again"
+				document.getElementById("resultsLabel").style = "color:red"
+				document.getElementById("counter").innerHTML = thisCounter
 				isWrong = true
+				var msg = new SpeechSynthesisUtterance("Try Again!")
 			}
-			var msg = new SpeechSynthesisUtterance(document.getElementById("resultsLabel" + number).innerHTML)
-			msg.lang = "de"
+			msg.lang = "en"
 			window.speechSynthesis.speak(msg)
 		}
-		function skip(number, dictionary){
-			start(number, dictionary)
+		function skip(dictionary, firstTime){
+			start(dictionary, firstTime)
 		}
-	    function playSound(number) {
+	    function playSound() {
 	    	var sound = window.localStorage.getItem("sound")
 	    	var readThisWord = window.localStorage.getItem("readThisWord")
 	    	if(sound = true){
@@ -368,42 +285,45 @@
 				window.speechSynthesis.speak(msg)
 	    	}
 	    }
-	    function end (number){
+
+	    function end(){
 	    	var thisCounter = window.localStorage.getItem("thisCounter")
 	    	var questionsAnswered = window.localStorage.getItem("questionsAnswered")
+
 	    	if(questionsAnswered == 0){
-	    		var message = "Sie haben keine Fragen richtig beantwortet."
-	    		document.getElementById("resultsLabel" + number).innerHTML = message
+	    		var message = "You have not gotten any questions correct."
+	    		document.getElementById("resultsLabel").innnerHTML = message
 	    	} else {
-		    	eval("endScore" + number + "=" + thisCounter/questionsAnswered*100)
+		    	eval("endScore =" + thisCounter/questionsAnswered*100)
 				var message = ""
-				if(eval("endScore" + number) == 100){
-					var message = "Perfekt! Sie haben alle Fragen richtig!"
-				} else if (eval("endScore" + number)> 50){
-					var message = "Gut gemacht! Sie haben die meisten Fragen richtig beantwortet."
-				} else if (eval("endScore" + number) >= 10){
-					var message = "Lerne die Wörter weiter und übe sie, du hast es nicht sehr gut gemacht."
-				}else if(eval("endScore" + number) < 30){
-					var message = "Üben Sie weiter. Sie haben nicht viele Fragen richtig gestellt."
+				if(eval("endScore") == 100){
+					var message = "Perfect! You got all the questions right!"
+				} else if (eval("endScore")> 50){
+					var message = "Well done! You got the majority of the questions correct."
+				} else if (eval("endScore") >= 10){
+					var message = "Keep learning the words and practising them, you didn't do very well."
+				}else if(eval("endScore") < 30){
+					var message = "Keep practising. You didn't get many questions correct."
 				}
 
-				document.getElementById("resultsLabel" + number).innerHTML = "Du bist fertig, du hast " + eval("endScore" + number).toFixed(1) + "% der Wörter richtig." + " " +  message
+				document.getElementById("resultsLabel").innerHTML = "You have finished, you got " + eval("endScore").toFixed(1) + "% of questions correct." + " " +  message	
 	    	}
 
-			document.getElementById("resultsLabel" + number).style.color = "black"
-			document.getElementById("soundButton" + number).style.display = "none"
-			document.getElementById("englishWord" + number).innerHTML = ""
-			document.getElementById("myInput" + number).value = ""
-			document.getElementById("nextButton" + number).style.display = "none"
-			document.getElementById("endButton" + number).style.display = "none"
-			document.getElementById("skipButton" + number).style.display = "none"
-			document.getElementById("checkButton" + number).style.display = "none"
-			document.getElementById("giveUpButton" + number).style.display = "none"    		
+			document.getElementById("resultsLabel").style.color = "black"
+			document.getElementById("englishWord").innerHTML = ""
+			document.getElementById("soundButton").style.display = "none"
+			document.getElementById("myInput").value = ""
+			document.getElementById("nextButton").style.display = "none"
+			document.getElementById("endButton").style.display = "none"
+			document.getElementById("skipButton").style.display = "none"
+			document.getElementById("checkButton").style.display = "none"
+			document.getElementById("giveUpButton").style.display = "none"
 
-			var msg = new SpeechSynthesisUtterance(document.getElementById("resultsLabel" + number).innerHTML)
-			msg.lang = "de"
+			var msg = new SpeechSynthesisUtterance(document.getElementById("resultsLabel").innerHTML)
+			msg.lang = "en"
 			window.speechSynthesis.speak(msg)
 	    }
+
 	</script>
 </body>
 </html>

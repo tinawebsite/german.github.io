@@ -28,6 +28,10 @@
 	<br>
 
 	<section id="listOfClasses" style="background-color:#ffda36"></section>
+
+	<br>
+
+	<button id="goButton" style='border-radius:25px;background-color:#fcce03;outline-color:#fcce03'>GO!</button>
 	
 	<br>
 
@@ -52,7 +56,6 @@
 
 	<script>
 		var numOfLessons = 0
-
 
 		function Lesson(num, teacher, json, title) {
  			this.num = num
@@ -132,40 +135,29 @@
 		var questionsAnswered = 0
 		var firstTime = true
 
-		for(var i = 1; i <= numOfLessons; i++){
-			document.getElementById("checkbox" + i).addEventListener( "change", function(){
-				var firstTime = true
-				var x = this.id
-				x = x.replace("checkbox", "")
-				if(this.checked){
+		document.getElementById("goButton").addEventListener( "click", function(){
+			var firstTime = true
+			for(var i = 1; i <= numOfLessons; i++){
+				if(document.getElementById("checkbox" + i).checked == true){
+					var x = i
 					checkedFiles.push(parseInt(x))
 					document.getElementById("deutscheSection").style.display = "block"
 					for(i in checkedFiles){
 						var x = checkedFiles[i]
 						theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
 					}
-					window.localStorage.setItem("theseFiles", theseFiles)
-				} else {
-					var index = checkedFiles.indexOf(parseInt(x))
-					checkedFiles.splice(index, 1)
-					if(checkedFiles.length == 0){
-						document.getElementById("deutscheSection").style.display = "none"
-						theseFiles = {}
-					}
-					for(i in checkedFiles){
-						var x = checkedFiles[i]
-						theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
-					}
 				}
-				start(theseFiles, firstTime)
-			})
-		}
+			}
+			window.localStorage.setItem("theseFiles", theseFiles)
+			start(theseFiles, firstTime)
+		})
+
 		
 		function start(dictionary, firstTime){
 			if(firstTime == true){
 				var deletingDictionary = dictionary
+				var firstTime = false
 			}
-			var firstTime = false
 
 			if(document.getElementById("sound").checked == true){
 				var sound = true
@@ -216,7 +208,7 @@
 			window.localStorage.setItem("thisCounter", thisCounter)
 			window.localStorage.setItem("questionsAnswered", questionsAnswered)
 
-			if(endCounter == numOfKeysUnchanged){
+			if(deletingDictionary[listOfVals[randomNumber]] == undefined){
 				end()
 				}else {		
 					if(text == true){		
