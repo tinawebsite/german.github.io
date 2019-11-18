@@ -25,6 +25,13 @@
 		<input type="radio" name="soundRadio" id="sound"> Only sound
 	</section>
 
+	
+	<br>
+
+	<section style="background-color:#ffda36">
+		<input type="checkbox" id="allSelect" style="display:inline "> <div style="display:inline">Select All</div> 
+	</section>
+
 	<br>
 
 	<section id="listOfClasses" style="background-color:#ffda36"></section>
@@ -135,6 +142,18 @@
 		var questionsAnswered = 0
 		var firstTime = true
 
+		document.getElementById("allSelect").addEventListener("change", function(){
+			if(this.checked == true){
+				for(var i = 1; i <= numOfLessons; i++){
+					document.getElementById("checkbox" + i).checked = true
+				}
+			}else{
+				for(var i = 1; i <= numOfLessons; i++){
+					document.getElementById("checkbox" + i).checked = false
+				}
+			}
+		})
+
 		document.getElementById("goButton").addEventListener( "click", function(){
 			var firstTime = true
 			theseFiles = {}
@@ -148,6 +167,14 @@
 						var x = checkedFiles[i]
 						theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
 					}
+
+/*					if(checkedFiles.length =! numOfLessons){
+						console.log("allSelect not selected")
+						document.getElementById("allSelect").checked = false
+					}else{
+						console.log("allSelect selected")
+						document.getElementById("allSelect").checked = true
+					}*/
 				}
 			}
 			window.localStorage.setItem("theseFiles", theseFiles)
