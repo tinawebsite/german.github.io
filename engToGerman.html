@@ -137,6 +137,8 @@
 
 		document.getElementById("goButton").addEventListener( "click", function(){
 			var firstTime = true
+			theseFiles = {}
+			checkedFiles = []
 			for(var i = 1; i <= numOfLessons; i++){
 				if(document.getElementById("checkbox" + i).checked == true){
 					var x = i
