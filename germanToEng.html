@@ -57,6 +57,7 @@
 		<button id='skipButton' style='border-radius:25px' onclick="skip(theseFiles, firstTime)">SKIP</button>
 		<button id='nextButton' style='border-radius:25px' onclick="start(theseFiles, firstTime)">NEXT</button>
 		<button id='endButton' style='border-radius:25px' onclick="end()">END</button>
+		<button id='iWasCorrectButton' style='border-radius:25px;display:none' onclick="iwc(theseFiles, firstTime)">I WAS CORRECT</button>
 		<div id='resultsLabel'></div>
 	</section>	
 
@@ -137,8 +138,6 @@
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var dictionaryLast = eval("deutsche" + numOfLessons + "Dictionary")
 		var checkedFiles = []
-		var endCounter = 0
-		var counter = 0
 		var questionsAnswered = 0
 		var firstTime = true
 
@@ -167,14 +166,6 @@
 						var x = checkedFiles[i]
 						theseFiles = Object.assign(theseFiles, eval("deutsche" + x + "Dictionary"))
 					}
-
-/*					if(checkedFiles.length =! numOfLessons){
-						console.log("allSelect not selected")
-						document.getElementById("allSelect").checked = false
-					}else{
-						console.log("allSelect selected")
-						document.getElementById("allSelect").checked = true
-					}*/
 				}
 			}
 			window.localStorage.setItem("theseFiles", theseFiles)
@@ -222,6 +213,7 @@
 			document.getElementById("nextButton").style.display = "none"
 			document.getElementById("skipButton").style.display = "inline"
 			document.getElementById("endButton").style.display = "inline"
+			document.getElementById("iWasCorrectButton").style.display = "none"
 			document.getElementById("checkButton").style.display = "inline"
 			document.getElementById("giveUpButton").style.display = "inline"
 
@@ -249,7 +241,6 @@
 						delete deletingDictionary[listOfVals[randomNumber]]
 			}		
 
-			endCounter = endCounter + 1
 			window.localStorage.setItem("sound", sound)
 			playSound()
 		}
@@ -295,6 +286,7 @@
 			}else{
 				document.getElementById("resultsLabel").innerHTML = "Try Again"
 				document.getElementById("resultsLabel").style = "color:red"
+				document.getElementById("iWasCorrectButton").style.display = "inline"
 				document.getElementById("counter").innerHTML = thisCounter
 				isWrong = true
 				var msg = new SpeechSynthesisUtterance("Try Again!")
@@ -305,12 +297,18 @@
 		function skip(dictionary, firstTime){
 			start(dictionary, firstTime)
 		}
+		function iwc (dictionary, firstTime){
+			var thisCounter = window.localStorage.getItem("thisCounter")
+			var thisCounter = parseInt(thisCounter) + 1
+			document.getElementById("counter").innerHTML = thisCounter
+			start(dictionary, firstTime)
+		}
 	    function playSound() {
 	    	var sound = window.localStorage.getItem("sound")
 	    	var readThisWord = window.localStorage.getItem("readThisWord")
 	    	if(sound = true){
 				var msg = new SpeechSynthesisUtterance(JSON.stringify(readThisWord))
-				msg.lang = "en"
+				msg.lang = "de"
 				window.speechSynthesis.speak(msg)
 	    	}
 	    }

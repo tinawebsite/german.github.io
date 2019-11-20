@@ -25,6 +25,13 @@
 		<input type="radio" name="soundRadio" id="sound"> Nur Ton
 	</section>
 
+	
+	<br>
+
+	<section style="background-color:#ffda36">
+		<input type="checkbox" id="allSelect" style="display:inline "> <div style="display:inline">Select All</div> 
+	</section>
+
 	<br>
 
 	<section id="listOfClasses" style="background-color:#ffda36"></section>
@@ -50,6 +57,7 @@
 		<button id='skipButton' style='border-radius:25px' onclick="skip(theseFiles, firstTime)">ÜBERSPRINGEN</button>
 		<button id='nextButton' style='border-radius:25px' onclick="start(theseFiles, firstTime)">NÄCHSTER</button>
 		<button id='endButton' style='border-radius:25px' onclick="end()">BEENDE</button>
+		<button id='iWasCorrectButton' style='border-radius:25px;display:none' onclick="iwc(theseFiles, firstTime)">ICH HATTE RECHT</button>
 		<div id='resultsLabel'></div>
 	</section>	
 
@@ -130,10 +138,20 @@
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var dictionaryLast = eval("deutsche" + numOfLessons + "Dictionary")
 		var checkedFiles = []
-		var endCounter = 0
-		var counter = 0
 		var questionsAnswered = 0
 		var firstTime = true
+
+		document.getElementById("allSelect").addEventListener("change", function(){
+			if(this.checked == true){
+				for(var i = 1; i <= numOfLessons; i++){
+					document.getElementById("checkbox" + i).checked = true
+				}
+			}else{
+				for(var i = 1; i <= numOfLessons; i++){
+					document.getElementById("checkbox" + i).checked = false
+				}
+			}
+		})
 
 		document.getElementById("goButton").addEventListener( "click", function(){
 			var firstTime = true
@@ -194,6 +212,7 @@
 			document.getElementById("resultsLabel").innerHTML = ""
 			document.getElementById("nextButton").style.display = "none"
 			document.getElementById("skipButton").style.display = "inline"
+			document.getElementById("iWasCorrectButton").style.display = "none"
 			document.getElementById("endButton").style.display = "inline"
 			document.getElementById("checkButton").style.display = "inline"
 			document.getElementById("giveUpButton").style.display = "inline"
@@ -222,14 +241,13 @@
 						delete deletingDictionary[listOfVals[randomNumber]]
 			}		
 
-			endCounter = endCounter + 1
 			window.localStorage.setItem("sound", sound)
 			playSound()
 		}
 
 		function giveUp(){
 			var thisCounter = parseInt(document.getElementById("counter").innerHTML)
-			document.getElementById("resultsLabel").innerHTML = "The correct answer was: " + window.localStorage.getItem("correctAns")
+			document.getElementById("resultsLabel").innerHTML = "Die richtige Antwort war: " + window.localStorage.getItem("correctAns")
 			document.getElementById("resultsLabel").style = "color:red"
 			document.getElementById("counter").innerHTML =  thisCounter
 			document.getElementById("skipButton").style.display = "none"
@@ -237,8 +255,9 @@
 			document.getElementById("giveUpButton").style.display = "none"
 			document.getElementById("nextButton").style.display = "inline"
 			isWrong = true
-			var msg = new SpeechSynthesisUtterance("The correct answer was " + window.localStorage.getItem("correctAns"))
-			msg.lang = "en"
+			var msg = new SpeechSynthesisUtterance("Die richtige Antwort war" + window.localStorage.getItem("correctAns"))
+			msg.lang = "de"			
+
 			window.speechSynthesis.speak(msg)
 			questionsAnswered = questionsAnswered + 1
 		}
@@ -252,7 +271,7 @@
 			var user1 = userAns.toLowerCase()
 
 			if(correct1 == user1){
-				document.getElementById("resultsLabel").innerHTML = "Well Done"
+				document.getElementById("resultsLabel").innerHTML = "Gut gemacht"
 				document.getElementById("resultsLabel").style = "color:green"
 				document.getElementById("nextButton").style.display = "inline"
 				if(isWrong == false){
@@ -263,16 +282,17 @@
 				document.getElementById("checkButton").style.display = "none"
 				document.getElementById("giveUpButton").style.display = "none"
 				isWrong = true
-				var msg = new SpeechSynthesisUtterance("Well Done!")
+				var msg = new SpeechSynthesisUtterance("Gut gemacht!")
 
 			}else{
-				document.getElementById("resultsLabel").innerHTML = "Try Again"
+				document.getElementById("resultsLabel").innerHTML = "Versuch es noch einmal!"
 				document.getElementById("resultsLabel").style = "color:red"
+				document.getElementById("iWasCorrectButton").style.display = "inline"
 				document.getElementById("counter").innerHTML = thisCounter
 				isWrong = true
-				var msg = new SpeechSynthesisUtterance("Try Again!")
+				var msg = new SpeechSynthesisUtterance("Versuch es noch einmal!")
 			}
-			msg.lang = "en"
+			msg.lang = "de"
 			window.speechSynthesis.speak(msg)
 		}
 		function skip(dictionary, firstTime){
@@ -287,28 +307,33 @@
 				window.speechSynthesis.speak(msg)
 	    	}
 	    }
-
+	   	function iwc (dictionary, firstTime){
+			var thisCounter = window.localStorage.getItem("thisCounter")
+			var thisCounter = parseInt(thisCounter) + 1
+			document.getElementById("counter").innerHTML = thisCounter
+			start(dictionary, firstTime)
+		}
 	    function end(){
 	    	var thisCounter = window.localStorage.getItem("thisCounter")
 	    	var questionsAnswered = window.localStorage.getItem("questionsAnswered")
 
 	    	if(questionsAnswered == 0){
-	    		var message = "You have not gotten any questions correct."
+	    		var message = "Sie haben keine richtigen Fragen bekommen."
 	    		document.getElementById("resultsLabel").innnerHTML = message
 	    	} else {
 		    	eval("endScore =" + thisCounter/questionsAnswered*100)
 				var message = ""
 				if(eval("endScore") == 100){
-					var message = "Perfect! You got all the questions right!"
+					var message = "Perfekt! Sie haben alle Fragen richtig!"
 				} else if (eval("endScore")> 50){
-					var message = "Well done! You got the majority of the questions correct."
+					var message = "Gut gemacht! Sie haben die meisten Fragen richtig gestellt."
 				} else if (eval("endScore") >= 10){
-					var message = "Keep learning the words and practising them, you didn't do very well."
+					var message = "Lerne die Wörter weiter und übe sie, du hast es nicht sehr gut gemacht."
 				}else if(eval("endScore") < 30){
-					var message = "Keep practising. You didn't get many questions correct."
+					var message = "Übe weiter. Sie haben viele Fragen nicht richtig beantwortet."
 				}
 
-				document.getElementById("resultsLabel").innerHTML = "You have finished, you got " + eval("endScore").toFixed(1) + "% of questions correct." + " " +  message	
+				document.getElementById("resultsLabel").innerHTML = "Du bist fertig, du hast " + eval("endScore").toFixed(1) + "% der Fragen richtig. " +  message	
 	    	}
 
 			document.getElementById("resultsLabel").style.color = "black"
