@@ -11,6 +11,7 @@
 	</header>
 
 	<script>
+		//Setting Home button
 		document.getElementById("home").addEventListener("click", function(){
 			window.open("index.html", "_self")
 		})
@@ -29,7 +30,8 @@
 	<br>
 
 	<section style="background-color:#ffda36">
-		<input type="checkbox" id="allSelect" style="display:inline "> <div style="display:inline">Select All</div> 
+		<input type="checkbox" id="allSelect" style="display:inline "> 
+		<div style="display:inline">Select All</div> 
 	</section>
 
 	<br>
@@ -45,19 +47,19 @@
 	<section id="deutscheSection" style="display:none">
 		</h3><div><i>Type in the answer as a number, not a word.</i></div>
 		<br>
-		<div style="display:inline">Score: </div>
+		<div style="display:inline" id="scoreWord">Score: </div>
 		<div id='counter' style="display:inline">0</div>
 		<br>
 		<br>
 		<div id='germanWord' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton" style="display:inline;border-radius:25px" onclick="playSound()"> 🗣️</button>
 		<br> 
 		<input style='display:block;'type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
-		<button id='checkButton' style='border-radius:25px' onclick="check()">CHECK</button>
+		<button id='checkButton' style='border-radius:25px' onclick="checkUserAnswer()">CHECK</button>
 		<button id='giveUpButton' style='border-radius:25px' onclick="giveUp()">GIVE UP</button>
 		<button id='skipButton' style='border-radius:25px' onclick="skip(theseFiles, firstTime)">SKIP</button>
-		<button id='nextButton' style='border-radius:25px' onclick="start(theseFiles, firstTime)">NEXT</button>
+		<button id='nextButton' style='border-radius:25px' onclick="getWord(theseFiles, firstTime)">NEXT</button>
 		<button id='endButton' style='border-radius:25px' onclick="end()">END</button>
-		<button id='iWasCorrectButton' style='border-radius:25px;display:none' onclick="iwc(theseFiles, firstTime)">I WAS CORRECT</button>
+		<button id='iWasCorrectButton' style='border-radius:25px;display:none' onclick="iWasCorrect(theseFiles, firstTime)">I WAS CORRECT</button>
 		<div id='resultsLabel'></div>
 	</section>	
 
@@ -88,6 +90,8 @@
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 
 		var mySection = document.getElementById("listOfClasses")
+
+		//Creating the checkboxes
 		for (var i = 1; i <= numOfLessons; i++) {
     		var title = eval("deutsche" + i)
 
@@ -110,30 +114,54 @@
 
 	
 	<script>
-	    var deutsche1Dictionary = {} ; fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche1Dictionary[key] = myJson[key]})})	    
+	    var deutsche1Dictionary = {} 
+		
+		fetch(deutsche1.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche1Dictionary[key] = myJson[key]})})	    
 
-	    var deutsche2Dictionary = {} ; fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche2Dictionary[key] = myJson[key]})})	    
+	    var deutsche2Dictionary = {}
 
-	    var deutsche3Dictionary = {} ; fetch(deutsche3.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche3Dictionary[key] = myJson[key]})})
+	    fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche2Dictionary[key] = myJson[key]})})	    
 
-	   	var deutsche4Dictionary = {} ; fetch(deutsche4.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche4Dictionary[key] = myJson[key]})})
+	    var deutsche3Dictionary = {}
 
-	   	var deutsche5Dictionary = {} ; fetch(deutsche5.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche5Dictionary[key] = myJson[key]})})
+	    fetch(deutsche3.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche3Dictionary[key] = myJson[key]})})
 
-	   	var deutsche6Dictionary = {} ; fetch(deutsche6.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche6Dictionary[key] = myJson[key]})})
+	   	var deutsche4Dictionary = {}
 
-	   	var deutsche7Dictionary = {} ; fetch(deutsche7.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche7Dictionary[key] = myJson[key]})})
+	   	fetch(deutsche4.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche4Dictionary[key] = myJson[key]})})
 
-	   	var deutsche8Dictionary = {} ; fetch(deutsche8.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche8Dictionary[key] = myJson[key]})})	   
+	   	var deutsche5Dictionary = {}
 
-	   	var deutsche9Dictionary = {} ; fetch(deutsche9.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche9Dictionary[key] = myJson[key]})})	   	
+	   	fetch(deutsche5.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche5Dictionary[key] = myJson[key]})})
+
+	   	var deutsche6Dictionary = {}
+
+	   	fetch(deutsche6.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche6Dictionary[key] = myJson[key]})})
+
+	   	var deutsche7Dictionary = {}
+
+	   	fetch(deutsche7.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche7Dictionary[key] = myJson[key]})})
+
+	   	var deutsche8Dictionary = {}
+
+	   	fetch(deutsche8.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche8Dictionary[key] = myJson[key]})})	   
+
+	   	var deutsche9Dictionary = {}
+
+	   	fetch(deutsche9.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche9Dictionary[key] = myJson[key]})})	   	
 	   	
-	   	var deutsche10Dictionary = {} ; fetch(deutsche10.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche10Dictionary[key] = myJson[key]})})	   
+	   	var deutsche10Dictionary = {}
+
+	   	fetch(deutsche10.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche10Dictionary[key] = myJson[key]})})	   
 	   	
-	   	var deutsche11Dictionary = {} ; fetch(deutsche11.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche11Dictionary[key] = myJson[key]})})	   	
+	   	var deutsche11Dictionary = {}
+
+	   	fetch(deutsche11.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche11Dictionary[key] = myJson[key]})})	   	
 	   	
-	   	var deutsche12Dictionary = {} ; fetch(deutsche12.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche12Dictionary[key] = myJson[key]})})
-   	
+	   	var deutsche12Dictionary = {}
+
+	   	fetch(deutsche12.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche12Dictionary[key] = myJson[key]})})
+
 	   	var theseFiles = {}
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
 		var dictionaryLast = eval("deutsche" + numOfLessons + "Dictionary")
@@ -169,11 +197,11 @@
 				}
 			}
 			window.localStorage.setItem("theseFiles", theseFiles)
-			start(theseFiles, firstTime)
+			getWord(theseFiles, firstTime)
 		})
 
 		
-		function start(dictionary, firstTime){
+		function getWord(dictionary, firstTime){
 			if(firstTime == true){
 				var deletingDictionary = dictionary
 				var firstTime = false
@@ -207,6 +235,9 @@
 
 			var numOfKeysUnchanged = (Object.keys(listOfValsUnchanged)).length
 
+
+			document.getElementById("scoreWord").style.display = "inline"
+			document.getElementById("counter").style.display = "inline"
 
 			document.getElementById("myInput").value = ""
 			document.getElementById("resultsLabel").innerHTML = ""
@@ -261,7 +292,7 @@
 			questionsAnswered = questionsAnswered + 1
 		}
 
-		function check(){
+		function checkUserAnswer(){
 			questionsAnswered = questionsAnswered + 1
 			var thisCounter = parseInt(document.getElementById("counter").innerHTML)
 			var correctAns = window.localStorage.getItem("correctAns")
@@ -294,15 +325,18 @@
 			msg.lang = "en"
 			window.speechSynthesis.speak(msg)
 		}
+
 		function skip(dictionary, firstTime){
-			start(dictionary, firstTime)
+			getWord(dictionary, firstTime)
 		}
-		function iwc (dictionary, firstTime){
+
+		function iWasCorrect (dictionary, firstTime){
 			var thisCounter = window.localStorage.getItem("thisCounter")
 			var thisCounter = parseInt(thisCounter) + 1
 			document.getElementById("counter").innerHTML = thisCounter
-			start(dictionary, firstTime)
+			getWord(dictionary, firstTime)
 		}
+		
 	    function playSound() {
 	    	var sound = window.localStorage.getItem("sound")
 	    	var readThisWord = window.localStorage.getItem("readThisWord")
@@ -345,12 +379,13 @@
 			document.getElementById("skipButton").style.display = "none"
 			document.getElementById("checkButton").style.display = "none"
 			document.getElementById("giveUpButton").style.display = "none"
+			document.getElementById("scoreWord").style.display = "none"
+			document.getElementById("counter").style.display = "none"
 
 			var msg = new SpeechSynthesisUtterance(document.getElementById("resultsLabel").innerHTML)
 			msg.lang = "en"
 			window.speechSynthesis.speak(msg)
 	    }
-
 	</script>
 </body>
 </html>

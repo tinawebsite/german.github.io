@@ -45,17 +45,17 @@
 	<section id="deutscheSection" style="display:none">
 		</h3><div><i>Denken Sie daran, Wörter richtig in Großbuchstaben zu schreiben und Zahlen als Wörter und nicht als Zahlen einzugeben.</i></div>
 		<br>
-		<div style="display:inline">Score: </div>
+		<div style="display:inline" id="scoreWord">Score: </div>
 		<div id='counter' style="display:inline">0</div>
 		<br>
 		<br>
 		<div id='englishWord' style="display:inline;"></div><div style="display:inline;"> </div><button id="soundButton" style="display:inline;border-radius:25px" onclick="playSound()"> 🗣️</button>
 		<br> 
 		<input style='display:block;'type='text' id='myInput' onkeydown = "if (event.keyCode == 13)document.getElementById('checkButton').click()">
-		<button id='checkButton' style='border-radius:25px' onclick="check()">PRÜFEN</button>
+		<button id='checkButton' style='border-radius:25px' onclick="checkUserAnswer()">PRÜFEN</button>
 		<button id='giveUpButton' style='border-radius:25px' onclick="giveUp()">GIB AUF</button>
 		<button id='skipButton' style='border-radius:25px' onclick="skip(theseFiles, firstTime)">ÜBERSPRINGEN</button>
-		<button id='nextButton' style='border-radius:25px' onclick="start(theseFiles, firstTime)">NÄCHSTER</button>
+		<button id='nextButton' style='border-radius:25px' onclick="getWord(theseFiles, firstTime)">NÄCHSTER</button>
 		<button id='endButton' style='border-radius:25px' onclick="end()">BEENDE</button>
 		<button id='iWasCorrectButton' style='border-radius:25px;display:none' onclick="iwc(theseFiles, firstTime)">ICH HATTE RECHT</button>
 		<div id='resultsLabel'></div>
@@ -87,6 +87,7 @@
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 
+		//Creating the checkboxes
 		var mySection = document.getElementById("listOfClasses")
 		for (var i = 1; i <= numOfLessons; i++) {
     		var title = eval("deutsche" + i)
@@ -110,33 +111,56 @@
 
 	
 	<script>
-	    var deutsche1Dictionary = {} ; fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche1Dictionary[key] = myJson[key]})})	    
+	    var deutsche1Dictionary = {}
 
-	    var deutsche2Dictionary = {} ; fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche2Dictionary[key] = myJson[key]})})	    
+	    fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche1Dictionary[key] = myJson[key]})})	    
 
-	    var deutsche3Dictionary = {} ; fetch(deutsche3.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche3Dictionary[key] = myJson[key]})})
+	    var deutsche2Dictionary = {}
 
-	   	var deutsche4Dictionary = {} ; fetch(deutsche4.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche4Dictionary[key] = myJson[key]})})
+	    fetch(deutsche2.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche2Dictionary[key] = myJson[key]})})	    
 
-	   	var deutsche5Dictionary = {} ; fetch(deutsche5.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche5Dictionary[key] = myJson[key]})})
+	    var deutsche3Dictionary = {}
 
-	   	var deutsche6Dictionary = {} ; fetch(deutsche6.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche6Dictionary[key] = myJson[key]})})
+	    fetch(deutsche3.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche3Dictionary[key] = myJson[key]})})
 
-	   	var deutsche7Dictionary = {} ; fetch(deutsche7.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche7Dictionary[key] = myJson[key]})})
+	   	var deutsche4Dictionary = {}
 
-	   	var deutsche8Dictionary = {} ; fetch(deutsche8.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche8Dictionary[key] = myJson[key]})})	   
+	   	fetch(deutsche4.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche4Dictionary[key] = myJson[key]})})
 
-	   	var deutsche9Dictionary = {} ; fetch(deutsche9.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche9Dictionary[key] = myJson[key]})})	   	
+	   	var deutsche5Dictionary = {}
+
+	   	fetch(deutsche5.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche5Dictionary[key] = myJson[key]})})
+
+	   	var deutsche6Dictionary = {}
+
+	   	fetch(deutsche6.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche6Dictionary[key] = myJson[key]})})
+
+	   	var deutsche7Dictionary = {}
+
+	   	fetch(deutsche7.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche7Dictionary[key] = myJson[key]})})
+
+	   	var deutsche8Dictionary = {}
+
+	   	fetch(deutsche8.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche8Dictionary[key] = myJson[key]})})	 
+
+	   	var deutsche9Dictionary = {}
+
+	   	fetch(deutsche9.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche9Dictionary[key] = myJson[key]})})	   	
 	   	
-	   	var deutsche10Dictionary = {} ; fetch(deutsche10.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche10Dictionary[key] = myJson[key]})})	   
+	   	var deutsche10Dictionary = {}
+
+	   	fetch(deutsche10.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche10Dictionary[key] = myJson[key]})})	   
 	   	
-	   	var deutsche11Dictionary = {} ; fetch(deutsche11.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche11Dictionary[key] = myJson[key]})})	   	
+	   	var deutsche11Dictionary = {}
+
+	   	fetch(deutsche11.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche11Dictionary[key] = myJson[key]})})	   	
 	   	
-	   	var deutsche12Dictionary = {} ; fetch(deutsche12.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche12Dictionary[key] = myJson[key]})})
+	   	var deutsche12Dictionary = {}
+
+	   	fetch(deutsche12.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche12Dictionary[key] = myJson[key]})})
    	
 	   	var theseFiles = {}
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
-		var dictionaryLast = eval("deutsche" + numOfLessons + "Dictionary")
 		var checkedFiles = []
 		var questionsAnswered = 0
 		var firstTime = true
@@ -169,11 +193,11 @@
 				}
 			}
 			window.localStorage.setItem("theseFiles", theseFiles)
-			start(theseFiles, firstTime)
+			getWord(theseFiles, firstTime)
 		})
 
 		
-		function start(dictionary, firstTime){
+		function getWord(dictionary, firstTime){
 			if(firstTime == true){
 				var deletingDictionary = dictionary
 				var firstTime = false
@@ -216,6 +240,8 @@
 			document.getElementById("endButton").style.display = "inline"
 			document.getElementById("checkButton").style.display = "inline"
 			document.getElementById("giveUpButton").style.display = "inline"
+			document.getElementById("scoreWord").style.display = "inline"
+			document.getElementById("counter").style.display = "inline"
 
 			var listOfVals = []
 			for (var key in deletingDictionary) {
@@ -262,7 +288,7 @@
 			questionsAnswered = questionsAnswered + 1
 		}
 
-		function check(){
+		function checkUserAnswer(){
 			questionsAnswered = questionsAnswered + 1
 			var thisCounter = parseInt(document.getElementById("counter").innerHTML)
 			var correctAns = window.localStorage.getItem("correctAns")
@@ -296,7 +322,7 @@
 			window.speechSynthesis.speak(msg)
 		}
 		function skip(dictionary, firstTime){
-			start(dictionary, firstTime)
+			getWord(dictionary, firstTime)
 		}
 	    function playSound() {
 	    	var sound = window.localStorage.getItem("sound")
@@ -311,7 +337,7 @@
 			var thisCounter = window.localStorage.getItem("thisCounter")
 			var thisCounter = parseInt(thisCounter) + 1
 			document.getElementById("counter").innerHTML = thisCounter
-			start(dictionary, firstTime)
+			getWord(dictionary, firstTime)
 		}
 	    function end(){
 	    	var thisCounter = window.localStorage.getItem("thisCounter")
@@ -345,6 +371,8 @@
 			document.getElementById("skipButton").style.display = "none"
 			document.getElementById("checkButton").style.display = "none"
 			document.getElementById("giveUpButton").style.display = "none"
+			document.getElementById("scoreWord").style.display = "none"
+			document.getElementById("counter").style.display = "none"
 
 			var msg = new SpeechSynthesisUtterance(document.getElementById("resultsLabel").innerHTML)
 			msg.lang = "en"
