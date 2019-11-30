@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html style="background-color:#95DBE5FF">
+<head>
+	<title>French Sentences</title>
+</head>
+<body>
+	<label style='color:red'><u>To start, press NEW and then NEXT SENTENCE </u></label>
+	
+	<br>
+	<br>
+	
+	<button id='newButton' style='border-radius:25px;background-color:#ffffff' onclick="getSentences()">NEW</button>
+	<button id='nextButton' style='border-radius:25px;background-color:#ffffff'>NEXT SENTENCE</button>
+	
+	<br>
+	<br>
+
+	<div style="color:red;display:inline;"><u>Select the speed: </u></div><input type="range" min="25" max="200" value="75" id="speechSpeed">
+	
+	<br>
+	<br>
+	
+	<label id='labelInformation' style='display:none;color:red;' >Sentences left: </label>
+	<label id='sentenceNumber' style='display:none;color:red;'>5</label>
+	
+	<script type="text/javascript">
+
+		var sentence1 = "Qu'est-ce qu'on achète au supermarché?"
+		var sentence2 = "Qu'est-ce qu'on achète à la boulangerie?"
+		var sentence3 = "Qu'est-ce qu'on achète au tabac?"
+		var sentence4 = "Quel est ton magasin préféré? Pourquoi?"
+		var sentence5 =  "Est-ce que tu aimes manger de la viande?"
+		var sentence6 = "Est-ce que tu aimes manger du fromage?"
+		var sentence7 = "Est-ce que tu aimes manger des champignons?"
+		var sentence8 = "Qu'est-ce que tu aimes boire? Pourquoi?"
+		var sentence9 = "Qu'est-ce que tu prends pour le petit-déjeuner?"
+		var sentence10 = "Qu'est que tu manges et bois au café?"
+		var sentence11 = "Comme glace, quel parfum adores-tu?"
+		var sentence12 = "Comme glace, quel parfum détestes-tu?"
+		var alreadyDoneList = []
+		var x = 1
+		var i = 1
+		var listPosition = 0
+
+		document.getElementById("nextButton").addEventListener("click", function(){
+			document.getElementById("sentenceNumber").innerHTML = JSON.stringify(5-i)
+			document.getElementById("sentenceNumber").style.display = "inline"
+			document.getElementById("labelInformation").style.display = "inline"
+
+			if(document.getElementById("sentenceNumber").innerHTML == "-1"){
+				document.getElementById("labelInformation").innerHTML = "Press 'NEW' to get 5 new sentences."
+				document.getElementById("sentenceNumber").style.display = "none"
+			}else{
+				console.log("alreadyDoneList")
+				console.log(alreadyDoneList)
+				console.log("listPosition")
+				console.log(listPosition)
+				var y = alreadyDoneList[listPosition]
+				var msg = new SpeechSynthesisUtterance(eval("sentence" + y))
+				msg.lang = "fr"			
+				msg.rate = document.getElementById("speechSpeed").value	/ 100	
+				window.speechSynthesis.speak(msg)
+				listPosition += 1
+			}
+
+			i += 1
+		})
+
+		function getSentences(){
+			i = 1
+			listPosition = 0
+			document.getElementById("sentenceNumber").innerHTML = "5"
+			document.getElementById("labelInformation").innerHTML = "Sentences left: "
+			document.getElementById("sentenceNumber").style.display = "inline"
+			document.getElementById("labelInformation").style.display = "inline"			
+			while(x <= 5){
+				var randomNumber = Math.floor((1 + Math.random() * 12))
+				if(alreadyDoneList.includes(randomNumber) == false){
+					alreadyDoneList.push(randomNumber)
+					x += 1
+				}
+			}
+		}	
+	</script>
+</body>
+</html>
