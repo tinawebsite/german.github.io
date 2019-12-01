@@ -91,6 +91,7 @@
 		var deutsche12 = new Lesson(12, "https://api.myjson.com/bins/smua4", "Days of the Week") ; numOfLessons++ 
 		var deutsche13 = new Lesson(13, "https://api.myjson.com/bins/10qsbi", "Food and Drink") ; numOfLessons++ 
 		var deutsche14 = new Lesson(14, "https://api.myjson.com/bins/107hvi", "The verbs 'Essen' and 'Trinken'") ; numOfLessons++ 
+		var deutsche15 = new Lesson(15, "https://api.myjson.com/bins/ocyxq", "Food Adjectives") ; numOfLessons++ 
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 
@@ -173,6 +174,10 @@
    		var deutsche14Dictionary = {}
 
 	   	fetch(deutsche14.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche14Dictionary[key] = myJson[key]})})
+   	
+   		var deutsche15Dictionary = {}
+
+	   	fetch(deutsche15.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche15Dictionary[key] = myJson[key]})})
    	
 	   	var theseFiles = {}
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
