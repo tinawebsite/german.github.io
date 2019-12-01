@@ -40,6 +40,11 @@
 
 	<br>
 
+	<div style="color:black;display:inline;"><u>Select the speed: </u></div><input type="range" min="25" max="200" value="75" id="speechSpeed">
+	
+	<br>
+	<br>
+
 	<button id="goButton" style='border-radius:25px;background-color:#fcce03;outline-color:#fcce03'>GO!</button>
 	
 	<br>
@@ -67,25 +72,26 @@
 	<script>
 		var numOfLessons = 0
 
-		function Lesson(num, teacher, json, title) {
- 			this.num = num
-  			this.teacher = teacher  			
+		function Lesson(num, json, title) {
+ 			this.num = num  			
   			this.json = json
   			this.title = title
 		}
 		
-		var deutsche1 = new Lesson(1, "Frau Sheikh" ,"https://api.myjson.com/bins/houcp", "Numbers 0-19") ; numOfLessons++ 
-		var deutsche2 = new Lesson(2, "Frau King", "https://api.myjson.com/bins/17f894", "Greetings") ; numOfLessons++ 
-		var deutsche3 = new Lesson(3, "Frau King", "https://api.myjson.com/bins/luvl5", "Numbers 20-100") ; numOfLessons++ 
-		var deutsche4 = new Lesson(4, "Frau Sheikh" ,"https://api.myjson.com/bins/avjp4", "Months") ; numOfLessons++ 	
-		var deutsche5 = new Lesson(5, "Frau Sheikh" ,"https://api.myjson.com/bins/18xji0", "The Verb 'Sein'") ; numOfLessons++ 		
-		var deutsche6 = new Lesson(6, "Frau Sheikh" ,"https://api.myjson.com/bins/lz5wp", "Dates") ; numOfLessons++ 	
-		var deutsche7 = new Lesson(7, "Frau King", "https://api.myjson.com/bins/18zons", "The Verb 'Haben'") ; numOfLessons++ 	
-		var deutsche8 = new Lesson(8, "Frau Sheikh" ,"https://api.myjson.com/bins/fvsw8", "Countries") ; numOfLessons++	
-		var deutsche9 = new Lesson(9, "Frau King" ,"https://api.myjson.com/bins/vibcw", "School Subjects") ; numOfLessons++	
-		var deutsche10 = new Lesson(10, "Frau Sheikh" ,"https://api.myjson.com/bins/bypcc", "Opinions") ; numOfLessons++	
-		var deutsche11 = new Lesson(11, "Frau Sheikh" ,"https://api.myjson.com/bins/9im1o", "Adjectives for Opinions") ; numOfLessons++	
-		var deutsche12 = new Lesson(12, "Frau King" ,"https://api.myjson.com/bins/1gibn0", "Weekdays") ; numOfLessons++	
+		var deutsche1 = new Lesson(1 ,"https://api.myjson.com/bins/houcp", "Numbers 0-19") ; numOfLessons++ 
+		var deutsche2 = new Lesson(2, "https://api.myjson.com/bins/17f894", "Greetings") ; numOfLessons++ 
+		var deutsche3 = new Lesson(3, "https://api.myjson.com/bins/luvl5", "Numbers 20-100") ; numOfLessons++ 
+		var deutsche4 = new Lesson(4 ,"https://api.myjson.com/bins/avjp4", "Months") ; numOfLessons++ 	
+		var deutsche5 = new Lesson(5 ,"https://api.myjson.com/bins/18xji0", "The Verb 'Sein'") ; numOfLessons++ 		
+		var deutsche6 = new Lesson(6 ,"https://api.myjson.com/bins/lz5wp", "Dates") ; numOfLessons++ 	
+		var deutsche7 = new Lesson(7, "https://api.myjson.com/bins/18zons", "The Verb 'Haben'") ; numOfLessons++ 	
+		var deutsche8 = new Lesson(8 ,"https://api.myjson.com/bins/fvsw8", "Countries") ; numOfLessons++	
+		var deutsche9 = new Lesson(9 ,"https://api.myjson.com/bins/vibcw", "School Subjects") ; numOfLessons++	
+		var deutsche10 = new Lesson(10 ,"https://api.myjson.com/bins/bypcc", "Opinions") ; numOfLessons++	
+		var deutsche11 = new Lesson(11 ,"https://api.myjson.com/bins/9im1o", "Adjectives for Opinions") ; numOfLessons++	
+		var deutsche12 = new Lesson(12 ,"https://api.myjson.com/bins/1gibn0", "Days of the Week") ; numOfLessons++	
+		var deutsche13 = new Lesson(13 ,"https://api.myjson.com/bins/85za6", "Food and Drink") ; numOfLessons++	
+		var deutsche14 = new Lesson(14 ,"https://api.myjson.com/bins/8tk1q", "Food and Drink") ; numOfLessons++	
 
 		window.localStorage.setItem("numOfLessons",  numOfLessons)
 
@@ -161,6 +167,14 @@
 	   	var deutsche12Dictionary = {}
 
 	   	fetch(deutsche12.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche12Dictionary[key] = myJson[key]})})
+
+	   	var deutsche13Dictionary = {}
+
+	   	fetch(deutsche13.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche13Dictionary[key] = myJson[key]})})
+
+	   	var deutsche14Dictionary = {}
+
+	   	fetch(deutsche14.json).then(function(response){return response.json()}).then(function(myJson){Object.keys(myJson).forEach(function(key){deutsche14Dictionary[key] = myJson[key]})})
 
 	   	var theseFiles = {}
 		var numOfLessons = window.localStorage.getItem("numOfLessons")
@@ -286,6 +300,7 @@
 			document.getElementById("nextButton").style.display = "inline"
 			isWrong = true
 			var msg = new SpeechSynthesisUtterance("The correct answer was " + window.localStorage.getItem("correctAns"))
+			msg.rate = document.getElementById("speechSpeed").value	/ 100	
 			msg.lang = "en"
 			window.speechSynthesis.speak(msg)
 			questionsAnswered = questionsAnswered + 1
@@ -321,6 +336,7 @@
 				isWrong = true
 				var msg = new SpeechSynthesisUtterance("Try Again!")
 			}
+			msg.rate = document.getElementById("speechSpeed").value	/ 100	
 			msg.lang = "en"
 			window.speechSynthesis.speak(msg)
 		}
@@ -342,6 +358,7 @@
 	    	if(sound = true){
 				var msg = new SpeechSynthesisUtterance(JSON.stringify(readThisWord))
 				msg.lang = "de"
+				msg.rate = document.getElementById("speechSpeed").value	/ 100	
 				window.speechSynthesis.speak(msg)
 	    	}
 	    }
@@ -383,6 +400,7 @@
 
 			var msg = new SpeechSynthesisUtterance(document.getElementById("resultsLabel").innerHTML)
 			msg.lang = "en"
+			msg.rate = document.getElementById("speechSpeed").value	/ 100	
 			window.speechSynthesis.speak(msg)
 	    }
 	</script>

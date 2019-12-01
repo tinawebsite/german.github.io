@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html style="background-color:#95DBE5FF">
+<html style="background-color:#e999ff">
 <head>
-	<title>French Sentences</title>
+	<title>German Sentences</title>
 </head>
 <body>
 	<label style='color:black'><u>To start, press NEW and then NEXT SENTENCE </u></label>
@@ -25,18 +25,17 @@
 	
 	<script type="text/javascript">
 
-		var sentence1 = "Qu'est-ce qu'on achète au supermarché?"
-		var sentence2 = "Qu'est-ce qu'on achète à la boulangerie?"
-		var sentence3 = "Qu'est-ce qu'on achète au tabac?"
-		var sentence4 = "Quel est ton magasin préféré? Pourquoi?"
-		var sentence5 =  "Est-ce que tu aimes manger de la viande?"
-		var sentence6 = "Est-ce que tu aimes manger du fromage?"
-		var sentence7 = "Est-ce que tu aimes manger des champignons?"
-		var sentence8 = "Qu'est-ce que tu aimes boire? Pourquoi?"
-		var sentence9 = "Qu'est-ce que tu prends pour le petit-déjeuner?"
-		var sentence10 = "Qu'est que tu manges et bois au café?"
-		var sentence11 = "Comme glace, quel parfum adores-tu?"
-		var sentence12 = "Comme glace, quel parfum détestes-tu?"
+		var sentence1 = "Wie heißt du?"
+		var sentence2 = "Wie geht's?"
+		var sentence3 = "Wie alt bist du?"
+		var sentence4 = "Wann hast du Geburtstag?"
+		var sentence5 = "Wo wohnst du?"
+		var sentence6 = "Was ist dein Lieblingsfach?"
+		var sentence7 = "Wie findest du Deutsch?"
+		var sentence8 = "Wann hast du Deutsch?"
+		var sentence9 = "Wass isst und trinkst du in der Pause?"
+		var sentence10 = "Was trägst du in der Schule?"
+
 		var alreadyDoneList = []
 		var x = 1
 		var i = 1
@@ -57,7 +56,7 @@
 				console.log(listPosition)
 				var y = alreadyDoneList[listPosition]
 				var msg = new SpeechSynthesisUtterance(eval("sentence" + y))
-				msg.lang = "fr"			
+				msg.lang = "de"			
 				msg.rate = document.getElementById("speechSpeed").value	/ 100	
 				window.speechSynthesis.speak(msg)
 				listPosition += 1
@@ -74,7 +73,7 @@
 			document.getElementById("sentenceNumber").style.display = "inline"
 			document.getElementById("labelInformation").style.display = "inline"			
 			while(x <= 5){
-				var randomNumber = Math.floor((1 + Math.random() * 12))
+				var randomNumber = Math.floor((1 + Math.random() * 10))
 				if(alreadyDoneList.includes(randomNumber) == false){
 					alreadyDoneList.push(randomNumber)
 					x += 1
