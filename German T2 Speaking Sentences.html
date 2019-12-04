@@ -4,6 +4,7 @@
 	<title>German Sentences</title>
 </head>
 <body>
+
 	<header>
 		<button style='border-radius:25px;background-color:white' id="home">Home</button>
 	</header>
@@ -15,14 +16,15 @@
 			window.open("index.html", "_self")
 		})
 	</script>
-	
+
 	<label style='color:black'><u>To start, press NEW and then NEXT SENTENCE </u></label>
 	
 	<br>
 	<br>
 	
-	<button id='newButton' style='border-radius:25px;background-color:#ffffff' onclick="getSentences()">NEW</button>
-	<button id='nextButton' style='border-radius:25px;background-color:#ffffff'>NEXT SENTENCE</button>
+	<button id='newButton' style='border-radius:25px;background-color:#ffffff;display:inline;' onclick="getSentences()">NEW</button>
+	<button id='nextButton' style='border-radius:25px;background-color:#ffffff;display:inline;'>NEXT SENTENCE</button>
+	<button id='readAnswerButton' style='border-radius:25px;background-color:#ffffff;display:none;'>READ ANSWER</button>
 	
 	<br>
 	<br>
@@ -46,7 +48,18 @@
 		var sentence7 = "Wie findest du Deutsch?"
 		var sentence8 = "Wann hast du Deutsch?"
 		var sentence9 = "Wass isst und trinkst du in der Pause?"
-		var sentence10 = "Was trägst du in der Schule?"
+		var sentence10 = "Was trägst du in der Schule?"	
+
+		var answer1 = "Ich heiße Tina."
+		var answer2 = "Mir geht's gut, danke."
+		var answer3 = "Ich bin dreizehn Jahre alt."
+		var answer4 = "Ich habe am zehnten Dezember Geburtstag."
+		var answer5 = "Ich wohne in Dover in England."
+		var answer6 = "Mein Lieblingsfach ist Sport, weil es einfach ist."
+		var answer7 = "Ich finde Deutsch toll und interessant."
+		var answer8 = "Am donnerstag um zehn habe ich Deutsch."
+		var answer9 = "In der Pause esse ich eine Orange und trinke Wasser."
+		var answer10 = "Ich trage eine Bluse. Die Bluse ist wieß. Ich trage auch eine Hose einen Blazer. Die Hose und der blazer sind dunkelblau. Ich finde die Schuluniform schick. "
 
 		var alreadyDoneList = []
 		var x = 1
@@ -61,20 +74,26 @@
 			if(document.getElementById("sentenceNumber").innerHTML == "-1"){
 				document.getElementById("labelInformation").innerHTML = "Press 'NEW' to get 5 new sentences."
 				document.getElementById("sentenceNumber").style.display = "none"
+				document.getElementById("readAnswerButton").style.display = "none"
 			}else{
-				console.log("alreadyDoneList")
-				console.log(alreadyDoneList)
-				console.log("listPosition")
-				console.log(listPosition)
 				var y = alreadyDoneList[listPosition]
 				var msg = new SpeechSynthesisUtterance(eval("sentence" + y))
 				msg.lang = "de"			
 				msg.rate = document.getElementById("speechSpeed").value	/ 100	
 				window.speechSynthesis.speak(msg)
 				listPosition += 1
+				document.getElementById("readAnswerButton").style.display = "inline"
 			}
 
 			i += 1
+		})		
+
+		document.getElementById("readAnswerButton").addEventListener("click", function(){
+			var y = alreadyDoneList[listPosition-1]
+			var msg = new SpeechSynthesisUtterance(eval("answer" + y))
+			msg.lang = "de"			
+			msg.rate = document.getElementById("speechSpeed").value	/ 100	
+			window.speechSynthesis.speak(msg)
 		})
 
 		function getSentences(){
@@ -85,7 +104,7 @@
 			document.getElementById("sentenceNumber").style.display = "inline"
 			document.getElementById("labelInformation").style.display = "inline"			
 			while(x <= 5){
-				var randomNumber = Math.floor((1 + Math.random() * 10))
+				var randomNumber = Math.floor((1 + Math.random() * 12))
 				if(alreadyDoneList.includes(randomNumber) == false){
 					alreadyDoneList.push(randomNumber)
 					x += 1

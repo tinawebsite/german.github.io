@@ -22,8 +22,9 @@
 	<br>
 	<br>
 	
-	<button id='newButton' style='border-radius:25px;background-color:#ffffff' onclick="getSentences()">NEW</button>
-	<button id='nextButton' style='border-radius:25px;background-color:#ffffff'>NEXT SENTENCE</button>
+	<button id='newButton' style='border-radius:25px;background-color:#ffffff;display:inline;' onclick="getSentences()">NEW</button>
+	<button id='nextButton' style='border-radius:25px;background-color:#ffffff;display:inline;'>NEXT SENTENCE</button>
+	<button id='readAnswerButton' style='border-radius:25px;background-color:#ffffff;display:none;'>READ ANSWER</button>
 	
 	<br>
 	<br>
@@ -49,7 +50,20 @@
 		var sentence9 = "Qu'est-ce que tu prends pour le petit-déjeuner?"
 		var sentence10 = "Qu'est que tu manges et bois au café?"
 		var sentence11 = "Comme glace, quel parfum adores-tu?"
-		var sentence12 = "Comme glace, quel parfum détestes-tu?"
+		var sentence12 = "Comme glace, quel parfum détestes-tu?"		
+
+		var answer1 = "Au supermarché on achète des oeufs et du sucre."
+		var answer2 = "À la boulangerie on achète du pain et des croissants."
+		var answer3 = "Au tabac on achète des bonbons et des timbres."
+		var answer4 = "J'adore la confiserie parce que j'aime beaucoup les bonbons."
+		var answer5 =  "Non, la viande parce est dégoûtant."
+		var answer6 = "Non, le fromage parce est dégoûtant."
+		var answer7 = "Non, les champignons sont dégoûtants."
+		var answer8 = "J'aime boire de l'eau parce que c'est très rafraîchissant."
+		var answer9 = "Pour le petit-déjeuner je prend pain grillé aved de la confiture et je bois jus d'orange."
+		var answer10 = "Au café, je mange un hot-dog et je bois une limonade."
+		var answer11 = "J'adore la glace au citron parce que c'est très rafraîchissant."
+		var answer12 = "Je déteste la glace au café. C'est dégoûtant."
 		var alreadyDoneList = []
 		var x = 1
 		var i = 1
@@ -63,20 +77,26 @@
 			if(document.getElementById("sentenceNumber").innerHTML == "-1"){
 				document.getElementById("labelInformation").innerHTML = "Press 'NEW' to get 5 new sentences."
 				document.getElementById("sentenceNumber").style.display = "none"
+				document.getElementById("readAnswerButton").style.display = "none"
 			}else{
-				console.log("alreadyDoneList")
-				console.log(alreadyDoneList)
-				console.log("listPosition")
-				console.log(listPosition)
 				var y = alreadyDoneList[listPosition]
 				var msg = new SpeechSynthesisUtterance(eval("sentence" + y))
 				msg.lang = "fr"			
 				msg.rate = document.getElementById("speechSpeed").value	/ 100	
 				window.speechSynthesis.speak(msg)
 				listPosition += 1
+				document.getElementById("readAnswerButton").style.display = "inline"
 			}
 
 			i += 1
+		})		
+
+		document.getElementById("readAnswerButton").addEventListener("click", function(){
+			var y = alreadyDoneList[listPosition-1]
+			var msg = new SpeechSynthesisUtterance(eval("answer" + y))
+			msg.lang = "fr"			
+			msg.rate = document.getElementById("speechSpeed").value	/ 100	
+			window.speechSynthesis.speak(msg)
 		})
 
 		function getSentences(){
