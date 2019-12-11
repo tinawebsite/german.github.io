@@ -35,7 +35,7 @@
 	<br>
 	
 	<label id='labelInformation' style='display:none;color:black;' >Sentences left: </label>
-	<label id='sentenceNumber' style='display:none;color:black;'>5</label>
+	<label id='sentenceNumber' style='display:none;color:black;'>12</label>
 	
 	<script type="text/javascript">
 
@@ -55,13 +55,13 @@
 		var answer1 = "Au supermarché on achète des oeufs et du sucre."
 		var answer2 = "À la boulangerie on achète du pain et des croissants."
 		var answer3 = "Au tabac on achète des bonbons et des timbres."
-		var answer4 = "J'adore la confiserie parce que j'aime beaucoup les bonbons."
-		var answer5 =  "Non, la viande parce est dégoûtant."
-		var answer6 = "Non, le fromage parce est dégoûtant."
+		var answer4 = "Mon magasin préféré c'est la boulangerie parce que j'aime le pain et les croissants."
+		var answer5 =  "Non, la viande est dégoûtant."
+		var answer6 = "Non, le fromage est dégoûtant."
 		var answer7 = "Non, les champignons sont dégoûtants."
-		var answer8 = "J'aime boire de l'eau parce que c'est très rafraîchissant."
+		var answer8 = "J'aime beaucoup boire de l'eau parce que c'est très rafraîchissant."
 		var answer9 = "Pour le petit-déjeuner je prend pain grillé aved de la confiture et je bois jus d'orange."
-		var answer10 = "Au café, je mange un hot-dog et je bois une limonade."
+		var answer10 = "Au café, je mange un hot-dog et je bois de l'eau minerale."
 		var answer11 = "J'adore la glace au citron parce que c'est très rafraîchissant."
 		var answer12 = "Je déteste la glace au café. C'est dégoûtant."
 		var alreadyDoneList = []
@@ -70,12 +70,12 @@
 		var listPosition = 0
 
 		document.getElementById("nextButton").addEventListener("click", function(){
-			document.getElementById("sentenceNumber").innerHTML = JSON.stringify(5-i)
+			document.getElementById("sentenceNumber").innerHTML = JSON.stringify(12-i)
 			document.getElementById("sentenceNumber").style.display = "inline"
 			document.getElementById("labelInformation").style.display = "inline"
 
 			if(document.getElementById("sentenceNumber").innerHTML == "-1"){
-				document.getElementById("labelInformation").innerHTML = "Press 'NEW' to get 5 new sentences."
+				document.getElementById("labelInformation").innerHTML = "Press 'NEW' to get 12 new sentences."
 				document.getElementById("sentenceNumber").style.display = "none"
 				document.getElementById("readAnswerButton").style.display = "none"
 			}else{
@@ -89,7 +89,7 @@
 			}
 
 			i += 1
-		})		
+		})	
 
 		document.getElementById("readAnswerButton").addEventListener("click", function(){
 			var y = alreadyDoneList[listPosition-1]
@@ -100,13 +100,14 @@
 		})
 
 		function getSentences(){
+			alreadyDoneList = []
 			i = 1
 			listPosition = 0
-			document.getElementById("sentenceNumber").innerHTML = "5"
+			document.getElementById("sentenceNumber").innerHTML = "12"
 			document.getElementById("labelInformation").innerHTML = "Sentences left: "
 			document.getElementById("sentenceNumber").style.display = "inline"
 			document.getElementById("labelInformation").style.display = "inline"			
-			while(x <= 5){
+			while(x <= 12){
 				var randomNumber = Math.floor((1 + Math.random() * 12))
 				if(alreadyDoneList.includes(randomNumber) == false){
 					alreadyDoneList.push(randomNumber)
