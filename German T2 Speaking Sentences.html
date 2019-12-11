@@ -35,7 +35,7 @@
 	<br>
 	
 	<label id='labelInformation' style='display:none;color:black;' >Sentences left: </label>
-	<label id='sentenceNumber' style='display:none;color:black;'>5</label>
+	<label id='sentenceNumber' style='display:none;color:black;'>10</label>
 	
 	<script type="text/javascript">
 
@@ -57,9 +57,9 @@
 		var answer5 = "Ich wohne in Dover in England."
 		var answer6 = "Mein Lieblingsfach ist Sport, weil es einfach ist."
 		var answer7 = "Ich finde Deutsch toll und interessant."
-		var answer8 = "Am donnerstag um zehn habe ich Deutsch."
-		var answer9 = "In der Pause esse ich eine Orange und trinke Wasser."
-		var answer10 = "Ich trage eine Bluse. Die Bluse ist wieß. Ich trage auch eine Hose einen Blazer. Die Hose und der blazer sind dunkelblau. Ich finde die Schuluniform schick. "
+		var answer8 = "Am donnerstag um zehn Uhr habe ich Deutsch."
+		var answer9 = "In der Pause esse ich eine Orange und ich trinke Wasser."
+		var answer10 = "In der Schule trage ich eine Bluse, eine Hose und einen Blazer. Die Schuluniform ist weiß und dunkelblau. Ich finde es schlau und komfortabel"
 
 		var alreadyDoneList = []
 		var x = 1
@@ -67,12 +67,12 @@
 		var listPosition = 0
 
 		document.getElementById("nextButton").addEventListener("click", function(){
-			document.getElementById("sentenceNumber").innerHTML = JSON.stringify(5-i)
+			document.getElementById("sentenceNumber").innerHTML = JSON.stringify(10-i)
 			document.getElementById("sentenceNumber").style.display = "inline"
 			document.getElementById("labelInformation").style.display = "inline"
 
 			if(document.getElementById("sentenceNumber").innerHTML == "-1"){
-				document.getElementById("labelInformation").innerHTML = "Press 'NEW' to get 5 new sentences."
+				document.getElementById("labelInformation").innerHTML = "Press 'NEW' to get 10 new sentences."
 				document.getElementById("sentenceNumber").style.display = "none"
 				document.getElementById("readAnswerButton").style.display = "none"
 			}else{
@@ -99,12 +99,12 @@
 		function getSentences(){
 			i = 1
 			listPosition = 0
-			document.getElementById("sentenceNumber").innerHTML = "5"
+			document.getElementById("sentenceNumber").innerHTML = "10"
 			document.getElementById("labelInformation").innerHTML = "Sentences left: "
 			document.getElementById("sentenceNumber").style.display = "inline"
 			document.getElementById("labelInformation").style.display = "inline"			
-			while(x <= 5){
-				var randomNumber = Math.floor((1 + Math.random() * 12))
+			while(x <= 10){
+				var randomNumber = Math.floor((1 + Math.random() * 10))
 				if(alreadyDoneList.includes(randomNumber) == false){
 					alreadyDoneList.push(randomNumber)
 					x += 1
