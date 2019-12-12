@@ -11,7 +11,6 @@
 	<br>
 	<br>
 	<script>
-		//Setting Home button
 		document.getElementById("home").addEventListener("click", function(){
 			window.open("index.html", "_self")
 		})
@@ -56,10 +55,10 @@
 		var answer4 = "Ich habe am zehnten Dezember Geburtstag."
 		var answer5 = "Ich wohne in Dover in England."
 		var answer6 = "Mein Lieblingsfach ist Sport, weil ich es einfach finde."
-		var answer7 = "Ich finde Deutsch toll und interessant."
-		var answer8 = "Am donnerstag um zehn Uhr habe ich Deutsch."
+		var answer7 = "Ich lerne gern Deutsch."
+		var answer8 = "Ich habe am donnerstag um zehn Uhr Deutsch."
 		var answer9 = "In der Pause esse ich eine Orange und ich trinke Wasser."
-		var answer10 = "In der Schule trage ich eine Bluse, eine Hose und einen Blazer. Die Schuluniform ist weiß und dunkelblau. Ich finde es schlau und komfortabel."
+		var answer10 = "In der Schule trage ich eine Bluse, eine Hose und einen Blazer. Die Schuluniform ist weiß und dunkelblau. Ich finde es praktisch."
 
 		var alreadyDoneList = []
 		var x = 1
@@ -67,6 +66,7 @@
 		var listPosition = 0
 
 		document.getElementById("nextButton").addEventListener("click", function(){
+
 			document.getElementById("sentenceNumber").innerHTML = JSON.stringify(10-i)
 			document.getElementById("sentenceNumber").style.display = "inline"
 			document.getElementById("labelInformation").style.display = "inline"
@@ -78,7 +78,7 @@
 			}else{
 				var y = alreadyDoneList[listPosition]
 				var msg = new SpeechSynthesisUtterance(eval("sentence" + y))
-				msg.lang = "de"			
+				msg.lang = "de"	 		
 				msg.rate = document.getElementById("speechSpeed").value	/ 100	
 				window.speechSynthesis.speak(msg)
 				listPosition += 1
