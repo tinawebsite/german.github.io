@@ -58,7 +58,7 @@
 		var answer7 = "Ich lerne gern Deutsch."
 		var answer8 = "Ich habe am donnerstag um zehn Uhr Deutsch."
 		var answer9 = "In der Pause esse ich eine Orange und ich trinke Wasser."
-		var answer10 = "In der Schule trage ich eine Bluse, eine Hose und einen Blazer. Die Schuluniform ist weiß und dunkelblau. Ich finde es praktisch."
+		var answer10 = "In der Schule trage ich eine Bluse, eine Hose und einen Blazer. Die Schuluniform ist weiß und dunkelblau. Ich finde es toll."
 
 		var alreadyDoneList = []
 		var x = 1
@@ -77,10 +77,8 @@
 				document.getElementById("readAnswerButton").style.display = "none"
 			}else{
 				var y = alreadyDoneList[listPosition]
-				var msg = new SpeechSynthesisUtterance(eval("sentence" + y))
-				msg.lang = "de"	 		
-				msg.rate = document.getElementById("speechSpeed").value	/ 100	
-				window.speechSynthesis.speak(msg)
+				var msg = JSON.stringify(eval("sentence" + y))
+				responsiveVoice.speak(msg, "Deutsch Male", {rate: document.getElementById("speechSpeed").value/100})	
 				listPosition += 1
 				document.getElementById("readAnswerButton").style.display = "inline"
 			}
@@ -90,10 +88,9 @@
 
 		document.getElementById("readAnswerButton").addEventListener("click", function(){
 			var y = alreadyDoneList[listPosition-1]
-			var msg = new SpeechSynthesisUtterance(eval("answer" + y))
-			msg.lang = "de"			
-			msg.rate = document.getElementById("speechSpeed").value	/ 100	
-			window.speechSynthesis.speak(msg)
+			var msg = JSON.stringify(eval("answer" + y))
+			responsiveVoice.speak(msg, "Deutsch Male", {rate: document.getElementById("speechSpeed").value/100})	
+			listPosition += 1
 		})
 
 		function getSentences(){
@@ -112,5 +109,7 @@
 			}
 		}	
 	</script>
+
+	<script src="https://code.responsivevoice.org/responsivevoice.js?key=f6sGpoRa"></script>
 </body>
 </html>
