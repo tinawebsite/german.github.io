@@ -1,9 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html style="background-color:#a8ffbd ">
 <head>
 	<title>Feliz Cumpleaños!</title>
 </head>
 <body>
 	<h1 style="text-align:center;"><u><b>Feliz Cumpleaños Papa!</b></u></h1>
+
+	<audio controls>
+	 	<source src="happybday.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
+
+	<br>
+	<br>
+	<br>
+
+	<button id="imageButton" style='border-radius:50px;background-color:#73ff95'>Click me!</button>
+
+	<br>
+	<br>
+	<br>
+	
+	<img src="happyBday.jpg" id="imgBday" style="display:none">
+
+	<script type="text/javascript">
+		var x = true
+		document.getElementById("imageButton").addEventListener("click", function(){
+			if (x == true){
+				document.getElementById("imgBday").style.display = "inline"	
+				x = false
+			} else {
+				document.getElementById("imgBday").style.display = "none"	
+				x = true
+			}
+		 })	
+
+	</script>
 </body>
 </html>
